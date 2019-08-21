@@ -5,7 +5,7 @@ import User from '../models/user';
 export default async (req, res, next) => {
   const { authorization } = req.headers;
 
-  if (!(authorization && authorization.splt(' ').length === 2)) {
+  if (!(authorization && authorization.split(' ').length === 2)) {
     return res.status(401).json({
       message: 'authentication credetials were not provided.',
     });

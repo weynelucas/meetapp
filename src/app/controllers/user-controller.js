@@ -50,6 +50,7 @@ class UserController {
 
   async update(req, res) {
     const schema = yup.object().shape({
+      name: yup.string(),
       email: yup
         .string()
         .email()
@@ -57,7 +58,7 @@ class UserController {
           'is-unique',
           'a user is already registered with this e-mail address.',
           async email => {
-            if (email !== req.user.email) {
+            if (email && email !== req.user.email) {
               const user = await User.findOne({ where: { email } });
               return user === null;
             }
@@ -68,19 +69,27 @@ class UserController {
       confirmPassword: yup
         .string()
         .when('password', (password, field) =>
-          password ? field.required() : field
+          password
+            ? field
+                .required()
+                .oneOf(
+                  [yup.ref('password')],
+                  "the two password fields didn't match."
+                )
+            : field
         ),
       oldPassword: yup
         .string()
         .when('password', (password, field) =>
-          password ? field.required() : field.test()
-        )
-        .test(
-          'is-invalid',
-          'Your old password was entered incorrectly',
-          async value => {
-            req.user.checkPassword(value);
-          }
+          password
+            ? field
+                .required()
+                .test(
+                  'is-invalid',
+                  'your old password was entered incorrectly',
+                  value => req.user.checkPassword(value)
+                )
+            : field
         ),
     });
 
@@ -90,7 +99,7 @@ class UserController {
       return res.status(400).json({ errors: err.errors });
     }
 
-    const { id, name, email } = req.user.update(req.body);
+    const { id, name, email } = await req.user.update(req.body);
 
     return res.json({
       id,

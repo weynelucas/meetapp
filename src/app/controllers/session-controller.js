@@ -18,10 +18,7 @@ class SessionControler {
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({
-      attributes: ['id', 'email', 'password'],
-      where: { email },
-    });
+    const user = await User.findOne({ email });
 
     if (!(user && user.checkPassword(password))) {
       return res.status(401).json({
@@ -36,7 +33,11 @@ class SessionControler {
     const { id, name } = user;
 
     return res.json({
-      user: { id, name, email },
+      user: {
+        id,
+        name,
+        email,
+      },
       token,
     });
   }
