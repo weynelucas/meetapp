@@ -1,3 +1,45 @@
-class UserController {}
+import * as yup from 'yup';
+import User from '../models/user';
+
+class UserController {
+  async store(req, res) {
+    const schema = yup.object().shape({
+      name: yup.string().required(),
+      email: yup
+        .string()
+        .required()
+        .test(
+          'is-unique',
+          'a user is already registered with this e-mail address.',
+          async email => {
+            const user = await User.findOne({ email });
+            return user === null;
+          }
+        ),
+      password: yup
+        .string()
+        .min(6)
+        .required(),
+      confirmPassword: yup
+        .string()
+        .required()
+        .when('password', (password, field) =>
+          password
+            ? field.oneOf(
+                [yup.ref('password')],
+                "The two password fields didn't match."
+              )
+            : field
+        ),
+    });
+
+    const { id, email, name } = await User.create(req.body);
+    return res.status(201).json({
+      id,
+      name,
+      email,
+    });
+  }
+}
 
 export default new UserController();

@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import SessionController from './app/controllers/session-controller';
+import userController from './app/controllers/user-controller';
+import sessionController from './app/controllers/session-controller';
 
 const router = Router();
 
-router.post('/login', SessionController.store);
+router.post('/users', userController.store);
+router.post('/login', sessionController.store);
 
 export default router;
