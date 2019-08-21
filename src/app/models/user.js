@@ -12,6 +12,7 @@ export default class User extends Model {
       },
       {
         sequelize,
+        tableName: 'user',
         hooks: {
           beforeSave: user => {
             if (user.password && user.changed('password')) {
