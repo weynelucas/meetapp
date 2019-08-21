@@ -33,8 +33,10 @@ class SessionControler {
       expiresIn: config.expiresIn,
     });
 
+    const { id, name } = user;
+
     return res.json({
-      user,
+      user: { id, name, email },
       token,
     });
   }
