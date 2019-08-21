@@ -12,7 +12,7 @@ class UserController {
           'is-unique',
           'a user is already registered with this e-mail address.',
           async email => {
-            const user = await User.findOne({ email });
+            const user = await User.findOne({ where: { email } });
             return user === null;
           }
         ),
@@ -32,6 +32,12 @@ class UserController {
             : field
         ),
     });
+
+    try {
+      await schema.validate(req.body);
+    } catch (err) {
+      return res.status(400).json({ errors: err.errors });
+    }
 
     const { id, email, name } = await User.create(req.body);
     return res.status(201).json({
