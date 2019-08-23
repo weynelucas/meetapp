@@ -13,7 +13,7 @@ class SessionControler {
     try {
       await schema.validate(req.body);
     } catch (err) {
-      return res.status(400).json({ errors: err.errors });
+      return res.status(400).json({ errors: err.errors[0] });
     }
 
     const { email, password } = req.body;
@@ -22,7 +22,7 @@ class SessionControler {
 
     if (!(user && user.checkPassword(password))) {
       return res.status(401).json({
-        message: 'unable to login with provided credentials.',
+        error: 'unable to login with provided credentials.',
       });
     }
 

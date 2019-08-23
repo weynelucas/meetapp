@@ -7,7 +7,7 @@ export default async (req, res, next) => {
 
   if (!(authorization && authorization.split(' ').length === 2)) {
     return res.status(401).json({
-      message: 'authentication credetials were not provided.',
+      error: 'authentication credetials were not provided.',
     });
   }
 
@@ -18,12 +18,12 @@ export default async (req, res, next) => {
     const user = await User.findByPk(id);
 
     if (!user) {
-      return res.status(401).json({ message: 'user not found.' });
+      return res.status(401).json({ error: 'user not found.' });
     }
 
     req.user = user;
     return next();
   } catch (err) {
-    return res.status(401).json({ message: err.message });
+    return res.status(401).json({ error: err.message });
   }
 };

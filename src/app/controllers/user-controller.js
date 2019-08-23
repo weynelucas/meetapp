@@ -37,7 +37,7 @@ class UserController {
     try {
       await schema.validate(req.body);
     } catch (err) {
-      return res.status(400).json({ errors: err.errors });
+      return res.status(400).json({ errors: err.errors[0] });
     }
 
     const { id, email, name } = await User.create(req.body);
@@ -96,7 +96,7 @@ class UserController {
     try {
       await schema.validate(req.body);
     } catch (err) {
-      return res.status(400).json({ errors: err.errors });
+      return res.status(400).json({ errors: err.errors[0] });
     }
 
     const { id, name, email } = await req.user.update(req.body);
