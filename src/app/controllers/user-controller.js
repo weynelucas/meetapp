@@ -13,8 +13,10 @@ class UserController {
           'is-unique',
           'a user is already registered with this e-mail address.',
           async email => {
-            const user = await User.findOne({ where: { email } });
-            return user === null;
+            if (email) {
+              return !(await User.findOne({ where: { email } }));
+            }
+            return true;
           }
         ),
       password: yup
@@ -35,9 +37,14 @@ class UserController {
     });
 
     try {
-      await schema.validate(req.body);
-    } catch (err) {
-      return res.status(400).json({ errors: err.errors[0] });
+      await schema.validate(req.body, { abortEarly: false });
+    } catch (errors) {
+      const fields = errors.inner.reduce((obj, err) => {
+        obj[err.path] = err.errors;
+        return obj;
+      }, {});
+
+      return res.status(400).json(fields);
     }
 
     const { id, email, name } = await User.create(req.body);
