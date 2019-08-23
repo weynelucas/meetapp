@@ -1,18 +1,9 @@
 import * as yup from 'yup';
 import User from '../models/user';
 
-class UserController {
-  async store(req, res) {
-    const { id, email, name } = await User.create(req.data);
-    return res.status(201).json({
-      id,
-      name,
-      email,
-    });
-  }
-
-  async update(req, res) {
-    const schema = yup.object().shape({
+export default class UpdateUser {
+  static getRules(req) {
+    return yup.object().shape({
       name: yup.string(),
       email: yup
         .string()
@@ -22,8 +13,7 @@ class UserController {
           'a user is already registered with this e-mail address.',
           async email => {
             if (email && email !== req.user.email) {
-              const user = await User.findOne({ where: { email } });
-              return user === null;
+              return !(await User.findOne({ where: { email } }));
             }
             return true;
           }
@@ -55,21 +45,5 @@ class UserController {
             : field
         ),
     });
-
-    try {
-      await schema.validate(req.body);
-    } catch (err) {
-      return res.status(400).json({ errors: err.errors[0] });
-    }
-
-    const { id, name, email } = await req.user.update(req.body);
-
-    return res.json({
-      id,
-      name,
-      email,
-    });
   }
 }
-
-export default new UserController();
