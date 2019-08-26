@@ -17,10 +17,15 @@ export default class Meetup extends Model {
     return this;
   }
 
-  static associate({ User }) {
+  static associate({ User, File }) {
     this.belongsTo(User, {
       as: 'user',
       foreignKey: { name: 'userId', field: 'user_id' },
+    });
+
+    this.belongsTo(File, {
+      as: 'banner',
+      foreignKey: { name: 'bannerId', field: 'banner_id' },
     });
   }
 }
