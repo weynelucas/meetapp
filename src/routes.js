@@ -18,6 +18,7 @@ router.use(Auth);
 
 router.put('/users', Validate(UpdateUser), UserController.update);
 
+router.get('/meetups', MeetupControler.index);
 router.post('/meetups', Validate(StoreMeetup), MeetupControler.store);
 
 export default router;
