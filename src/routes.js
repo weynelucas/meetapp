@@ -31,8 +31,12 @@ router.use(
   Meetup.isOwner,
   Meetup.isPastDate
 );
-router.put('/meetups/:id', upload.single('banner'), MeetupControler.update);
-router.put('/meetups/:id', Validate(UpdateMeetup), MeetupControler.update);
+router.put(
+  '/meetups/:id',
+  upload.single('banner'),
+  Validate(UpdateMeetup),
+  MeetupControler.update
+);
 router.delete('/meetups/:id', MeetupControler.delete);
 
 export default router;
