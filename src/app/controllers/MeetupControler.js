@@ -1,4 +1,5 @@
 import Meetup from '../models/Meetup';
+import File from '../models/File';
 
 class MeetupController {
   async index(req, res) {
@@ -8,6 +9,13 @@ class MeetupController {
     const meetups = await Meetup.findAll({
       where: { userId: req.user.id },
       attributes: ['id', 'title', 'description', 'date'],
+      include: [
+        {
+          model: File,
+          as: 'banner',
+          attributes: ['name', 'filename'],
+        },
+      ],
       limit,
       offset: (page - 1) * limit,
     });
@@ -29,11 +37,23 @@ class MeetupController {
   }
 
   async update(req, res) {
-    const { filename: banner } = req.file;
-    const { id, title, description, date } = await req.meetup.update({
-      ...req.data,
-      banner,
-    });
+    let payload = {};
+
+    if (req.data) {
+      payload = { ...req.data };
+    }
+
+    /**
+     * Client uploads a file (multipart form)
+     */
+    if (req.file) {
+      const { filename, originalname: name } = req.file;
+      const file = await File.create({ name, filename });
+      payload.bannerId = file.id;
+    }
+
+    const { id, title, description, date } = await req.meetup.update(payload);
+
     return res.json({
       id,
       title,

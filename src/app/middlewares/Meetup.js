@@ -1,5 +1,6 @@
 import { isBefore } from 'date-fns';
 import Meetup from '../models/Meetup';
+import File from '../models/File';
 
 class MeetupMiddleware {
   /**
@@ -8,7 +9,15 @@ class MeetupMiddleware {
    * found model
    */
   async checkObject(req, res, next) {
-    const meetup = await Meetup.findByPk(req.params.id);
+    const meetup = await Meetup.findByPk(req.params.id, {
+      include: [
+        {
+          model: File,
+          as: 'banner',
+          attributes: ['name', 'filename'],
+        },
+      ],
+    });
 
     if (!meetup) {
       return res.status(404).json({
