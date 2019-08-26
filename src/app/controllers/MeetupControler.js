@@ -1,4 +1,3 @@
-import { isBefore } from 'date-fns';
 import Meetup from '../models/Meetup';
 
 class MeetupController {
@@ -30,34 +29,7 @@ class MeetupController {
   }
 
   async update(req, res) {
-    const meetup = await Meetup.findByPk(req.params.id);
-
-    /**
-     * Check if meetup exists
-     */
-    if (!meetup) {
-      return res.status(404).json({ error: 'Meetup not found.' });
-    }
-
-    /**
-     * Check if logged user is owner
-     */
-    if (meetup.userId !== req.user.id) {
-      return res
-        .status(403)
-        .json({ error: "You don't have permission to update this meetup." });
-    }
-
-    /**
-     * Check if meetup already happened
-     */
-    if (isBefore(meetup.date, new Date())) {
-      return res
-        .status(403)
-        .json({ error: 'You cannot change meetups that already happened.' });
-    }
-
-    const { id, title, description, date } = await meetup.update(req.data);
+    const { id, title, description, date } = await req.meetup.update(req.data);
     return res.json({
       id,
       title,
@@ -67,34 +39,7 @@ class MeetupController {
   }
 
   async delete(req, res) {
-    const meetup = await Meetup.findByPk(req.params.id);
-
-    /**
-     * Check if meetup exists
-     */
-    if (!meetup) {
-      return res.status(404).json({ error: 'Meetup not found.' });
-    }
-
-    /**
-     * Check if logged user is owner
-     */
-    if (meetup.userId !== req.user.id) {
-      return res
-        .status(403)
-        .json({ error: "You don't have permission to update this meetup." });
-    }
-
-    /**
-     * Check if meetup already happened
-     */
-    if (isBefore(meetup.date, new Date())) {
-      return res
-        .status(403)
-        .json({ error: 'You cannot change meetups that already happened.' });
-    }
-
-    await meetup.destroy();
+    await req.meetup.destroy();
 
     return res.status(204).json();
   }

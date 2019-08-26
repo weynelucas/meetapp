@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import Auth from './app/middlewares/Auth';
 import Validate from './app/middlewares/Validate';
+import Meetup from './app/middlewares/Meetup';
 import StoreSession from './app/validators/StoreSession';
 import StoreUser from './app/validators/StoreUser';
 import UpdateUser from './app/validators/UpdateUser';
@@ -21,6 +22,12 @@ router.put('/users', Validate(UpdateUser), UserController.update);
 
 router.get('/meetups', MeetupControler.index);
 router.post('/meetups', Validate(StoreMeetup), MeetupControler.store);
+router.use(
+  '/meetups/:id',
+  Meetup.checkObject,
+  Meetup.isOwner,
+  Meetup.isPastDate
+);
 router.put('/meetups/:id', Validate(UpdateMeetup), MeetupControler.update);
 router.delete('/meetups/:id', MeetupControler.delete);
 
