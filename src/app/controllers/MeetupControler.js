@@ -13,7 +13,7 @@ class MeetupController {
         {
           model: File,
           as: 'banner',
-          attributes: ['name', 'filename'],
+          attributes: ['name', 'path'],
         },
       ],
       limit,
@@ -28,6 +28,7 @@ class MeetupController {
       ...req.data,
       userId: req.user.id,
     });
+
     return res.status(201).json({
       id,
       title,

@@ -14,7 +14,7 @@ class MeetupMiddleware {
         {
           model: File,
           as: 'banner',
-          attributes: ['name', 'filename'],
+          attributes: ['name', 'path'],
         },
       ],
     });

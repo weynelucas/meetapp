@@ -15,9 +15,7 @@ export default class StoreMeetup {
         .required(),
       bannerId: Yup.number()
         .integer()
-        .test('exists', 'file not found.', async value => {
-          return (await File.findByPk(value)) !== null;
-        })
+        .test('exists', 'file not found.', async value => File.findByPk(value))
         .required(),
     });
   }

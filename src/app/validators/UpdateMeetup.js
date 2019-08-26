@@ -13,7 +13,7 @@ export default class UpdateMeetup {
       bannerId: Yup.number()
         .integer()
         .test('exists', 'file not found.', async value => {
-          return (await File.findByPk(value)) !== null;
+          return value ? File.findByPk(value) : true;
         }),
     });
   }
