@@ -24,30 +24,37 @@ class MeetupController {
   }
 
   async store(req, res) {
-    const { id, title, description, date } = await Meetup.create({
+    const meetup = await Meetup.create({
       ...req.data,
       userId: req.user.id,
     });
+
+    const { id, title, description, date, bannerId } = meetup;
+    const { name, path } = await meetup.getBanner();
 
     return res.status(201).json({
       id,
       title,
       description,
       date,
+      bannerId,
+      banner: { name, path },
     });
   }
 
   async update(req, res) {
-    const { id, title, description, date, banner } = await req.meetup.update(
-      req.data
-    );
+    const meetup = await req.meetup.update(req.data);
+
+    const { id, title, description, date, bannerId } = meetup;
+    const { name, path } = await meetup.getBanner();
 
     return res.json({
       id,
       title,
       description,
       date,
-      banner,
+      bannerId,
+      banner: { name, path },
     });
   }
 
