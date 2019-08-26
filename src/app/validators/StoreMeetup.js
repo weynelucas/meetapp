@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { startOfHour } from 'date-fns';
 import File from '../models/File';
 
 export default class StoreMeetup {
@@ -12,7 +13,8 @@ export default class StoreMeetup {
         .max(1000),
       date: Yup.date()
         .min(new Date(), 'you cannot create meetups for past dates')
-        .required(),
+        .required()
+        .transform(value => startOfHour(value)),
       bannerId: Yup.number()
         .integer()
         .test(

@@ -1,4 +1,6 @@
+import { Op } from 'sequelize';
 import Subscription from '../models/Subscription';
+import Meetup from '../models/Meetup';
 
 class SubscriptionController {
   async store(req, res) {
@@ -33,6 +35,26 @@ class SubscriptionController {
     if (checkSubscriptionExists) {
       return res.status(403).json({
         error: 'You cannot subscribe for the same meetup twice.',
+      });
+    }
+
+    /**
+     * Check schedule
+     */
+    const checkSubscriptionSameDate = await Subscription.findOne({
+      where: { userId: req.user.id },
+      include: [
+        {
+          model: Meetup,
+          as: 'meetup',
+          where: { date: req.meetup.date },
+        },
+      ],
+    });
+
+    if (checkSubscriptionSameDate) {
+      return res.status(403).json({
+        error: 'You already subscribed to another meetup at this same time',
       });
     }
 
