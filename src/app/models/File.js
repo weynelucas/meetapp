@@ -5,7 +5,7 @@ export default class File extends Model {
     super.init(
       {
         name: Sequelize.STRING,
-        filename: Sequelize.STRING,
+        path: Sequelize.STRING,
       },
       {
         sequelize,

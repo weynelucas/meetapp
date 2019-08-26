@@ -37,22 +37,7 @@ class MeetupController {
   }
 
   async update(req, res) {
-    let payload = {};
-
-    if (req.data) {
-      payload = { ...req.data };
-    }
-
-    /**
-     * Client uploads a file (multipart form)
-     */
-    if (req.file) {
-      const { filename, originalname: name } = req.file;
-      const file = await File.create({ name, filename });
-      payload.bannerId = file.id;
-    }
-
-    const { id, title, description, date } = await req.meetup.update(payload);
+    const { id, title, description, date } = await req.meetup.update(req.data);
 
     return res.json({
       id,

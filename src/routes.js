@@ -8,10 +8,11 @@ import StoreSession from './app/validators/StoreSession';
 import StoreUser from './app/validators/StoreUser';
 import UpdateUser from './app/validators/UpdateUser';
 import StoreMeetup from './app/validators/StoreMeetup';
+import UpdateMeetup from './app/validators/UpdateMeetup';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import MeetupControler from './app/controllers/MeetupControler';
-import UpdateMeetup from './app/validators/UpdateMeetup';
+import FileController from './app/controllers/FileController';
 
 const router = Router();
 const upload = multer(multerConfig);
@@ -23,6 +24,8 @@ router.use(Auth);
 
 router.put('/users', Validate(UpdateUser), UserController.update);
 
+router.post('/files', upload.single('file'), FileController.store);
+
 router.get('/meetups', MeetupControler.index);
 router.post('/meetups', Validate(StoreMeetup), MeetupControler.store);
 router.use(
@@ -31,12 +34,7 @@ router.use(
   Meetup.isOwner,
   Meetup.isPastDate
 );
-router.put(
-  '/meetups/:id',
-  upload.single('banner'),
-  Validate(UpdateMeetup),
-  MeetupControler.update
-);
+router.put('/meetups/:id', Validate(UpdateMeetup), MeetupControler.update);
 router.delete('/meetups/:id', MeetupControler.delete);
 
 export default router;
