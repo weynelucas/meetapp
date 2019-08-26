@@ -1,14 +1,12 @@
-import * as yup from 'yup';
+import * as Yup from 'yup';
 
 export default class StoreSession {
   static getRules() {
-    return yup.object().shape({
-      email: yup
-        .string()
+    return Yup.object().shape({
+      email: Yup.string()
         .trim()
         .required(),
-      password: yup
-        .string()
+      password: Yup.string()
         .trim()
         .required(),
     });

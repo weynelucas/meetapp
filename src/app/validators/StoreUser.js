@@ -1,12 +1,11 @@
-import * as yup from 'yup';
+import * as Yup from 'yup';
 import User from '../models/User';
 
 export default class StoreUser {
   static getRules() {
-    return yup.object().shape({
-      name: yup.string().required(),
-      email: yup
-        .string()
+    return Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
         .email()
         .required()
         .test(
@@ -19,17 +18,15 @@ export default class StoreUser {
             return true;
           }
         ),
-      password: yup
-        .string()
+      password: Yup.string()
         .min(6)
         .required(),
-      confirmPassword: yup
-        .string()
+      confirmPassword: Yup.string()
         .required()
         .when('password', (password, field) =>
           password
             ? field.oneOf(
-                [yup.ref('password')],
+                [Yup.ref('password')],
                 "the two password fields didn't match"
               )
             : field
