@@ -6,7 +6,7 @@ class SessionControler {
   async store(req, res) {
     const { email, password } = req.data;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: { email } });
 
     if (!(user && user.checkPassword(password))) {
       return res.status(401).json({

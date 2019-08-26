@@ -2,7 +2,7 @@ import User from '../models/User';
 
 class UserController {
   async store(req, res) {
-    const { id, email, name } = await User.create(req.body);
+    const { id, email, name } = await User.create(req.data);
     return res.status(201).json({
       id,
       name,

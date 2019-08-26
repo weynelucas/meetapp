@@ -8,6 +8,7 @@ import StoreMeetup from './app/validators/StoreMeetup';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import MeetupControler from './app/controllers/MeetupControler';
+import UpdateMeetup from './app/validators/UpdateMeetup';
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.put('/users', Validate(UpdateUser), UserController.update);
 
 router.get('/meetups', MeetupControler.index);
 router.post('/meetups', Validate(StoreMeetup), MeetupControler.store);
+router.put('/meetups/:id', Validate(UpdateMeetup), MeetupControler.update);
 
 export default router;
