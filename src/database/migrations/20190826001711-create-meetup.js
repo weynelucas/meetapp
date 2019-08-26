@@ -8,11 +8,11 @@ module.exports = {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(55),
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(1000),
         allowNull: false,
       },
       date: {
