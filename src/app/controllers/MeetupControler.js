@@ -29,7 +29,11 @@ class MeetupController {
   }
 
   async update(req, res) {
-    const { id, title, description, date } = await req.meetup.update(req.data);
+    const { filename: banner } = req.file;
+    const { id, title, description, date } = await req.meetup.update({
+      ...req.data,
+      banner,
+    });
     return res.json({
       id,
       title,
