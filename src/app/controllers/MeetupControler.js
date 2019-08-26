@@ -13,7 +13,7 @@ class MeetupController {
         {
           model: File,
           as: 'banner',
-          attributes: ['name', 'path'],
+          attributes: ['name', 'path', 'url'],
         },
       ],
       limit,
@@ -30,7 +30,7 @@ class MeetupController {
     });
 
     const { id, title, description, date, bannerId } = meetup;
-    const { name, path } = await meetup.getBanner();
+    const { name, path, url } = await meetup.getBanner();
 
     return res.status(201).json({
       id,
@@ -38,7 +38,7 @@ class MeetupController {
       description,
       date,
       bannerId,
-      banner: { name, path },
+      banner: { name, path, url },
     });
   }
 
@@ -46,7 +46,7 @@ class MeetupController {
     const meetup = await req.meetup.update(req.data);
 
     const { id, title, description, date, bannerId } = meetup;
-    const { name, path } = await meetup.getBanner();
+    const { name, path, url } = await meetup.getBanner();
 
     return res.json({
       id,
@@ -54,7 +54,7 @@ class MeetupController {
       description,
       date,
       bannerId,
-      banner: { name, path },
+      banner: { name, path, url },
     });
   }
 
