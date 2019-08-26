@@ -22,5 +22,6 @@ router.put('/users', Validate(UpdateUser), UserController.update);
 router.get('/meetups', MeetupControler.index);
 router.post('/meetups', Validate(StoreMeetup), MeetupControler.store);
 router.put('/meetups/:id', Validate(UpdateMeetup), MeetupControler.update);
+router.delete('/meetups/:id', MeetupControler.delete);
 
 export default router;
