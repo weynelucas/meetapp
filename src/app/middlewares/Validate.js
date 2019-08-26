@@ -1,3 +1,10 @@
+/**
+ * Function that receives a validator (class that implements `getRules()`
+ * method) and return a middleware to handle validation erros.
+ *
+ * If validation suceed, `req.data` will be set with the validated data
+ * object
+ */
 export default (
   validator,
   { location = 'body', requestProperty = 'data' } = {}

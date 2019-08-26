@@ -2,6 +2,11 @@ import jwt from 'jsonwebtoken';
 import config from '../../config/auth';
 import User from '../models/User';
 
+/**
+ * Middleware that authenticates callers using a JWT.
+ * If the token is valid, `req.user` will be set with the JSON object
+ * decoded to be used by later middleware for authorization and access control.
+ */
 export default async (req, res, next) => {
   const { authorization } = req.headers;
 
