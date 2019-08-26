@@ -10,13 +10,14 @@ class SubscriptionController {
       include: [
         {
           model: Meetup,
+          as: 'meetup',
           where: {
             date: { [Op.gte]: new Date() },
           },
           attributes: ['id', 'title', 'description', 'date'],
         },
       ],
-      order: [[Meetup, 'date']],
+      order: [['meetup', 'date']],
     });
 
     return res.json(subscriptions);

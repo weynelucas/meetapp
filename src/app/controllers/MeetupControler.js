@@ -28,6 +28,7 @@ class MeetupController {
       include: [
         {
           model: User,
+          as: 'user',
           attributes: ['name', 'email'],
         },
         {
@@ -38,6 +39,7 @@ class MeetupController {
       ],
       limit,
       offset: (page - 1) * limit,
+      order: ['date'],
     });
 
     return res.json(meetups);
