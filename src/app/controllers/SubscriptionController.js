@@ -3,6 +3,25 @@ import Subscription from '../models/Subscription';
 import Meetup from '../models/Meetup';
 
 class SubscriptionController {
+  async index(req, res) {
+    const subscriptions = await Subscription.findAll({
+      where: { userId: req.user.id },
+      attributes: ['id'],
+      include: [
+        {
+          model: Meetup,
+          as: 'meetup',
+          where: {
+            date: { [Op.gte]: new Date() },
+          },
+          attributes: ['id', 'title', 'description', 'date'],
+        },
+      ],
+    });
+
+    return res.json(subscriptions);
+  }
+
   async store(req, res) {
     /**
      * Check owner subscription

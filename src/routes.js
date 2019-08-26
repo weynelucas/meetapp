@@ -49,6 +49,7 @@ router.delete(
   MeetupControler.delete
 );
 
+router.get('/subscriptions', SubscriptionController.index);
 router.post('/meetups/:id/subscriptions', SubscriptionController.store);
 
 export default router;
