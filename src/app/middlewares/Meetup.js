@@ -1,4 +1,3 @@
-import { isBefore } from 'date-fns';
 import Meetup from '../models/Meetup';
 import File from '../models/File';
 
@@ -46,7 +45,7 @@ class MeetupMiddleware {
    * a past meetup.
    */
   async isPastDate(req, res, next) {
-    if (isBefore(req.meetup.date, new Date())) {
+    if (req.meetup.past) {
       return res
         .status(403)
         .json({ error: 'You cannot change meetups that already happened.' });

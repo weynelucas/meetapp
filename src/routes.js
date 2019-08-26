@@ -14,6 +14,7 @@ import SessionController from './app/controllers/SessionController';
 import MeetupControler from './app/controllers/MeetupControler';
 import FileController from './app/controllers/FileController';
 import OrganizingController from './app/controllers/OrganizingController';
+import SubscriptionController from './app/controllers/SubscriptionController';
 
 const router = Router();
 const upload = multer(multerConfig);
@@ -31,13 +32,23 @@ router.get('/organizing', OrganizingController.index);
 
 router.get('/meetups', MeetupControler.index);
 router.post('/meetups', Validate(StoreMeetup), MeetupControler.store);
-router.use(
+
+router.use('/meetups/:id', Meetup.checkObject);
+
+router.put(
   '/meetups/:id',
-  Meetup.checkObject,
   Meetup.isOwner,
-  Meetup.isPastDate
+  Meetup.isPastDate,
+  Validate(UpdateMeetup),
+  MeetupControler.update
 );
-router.put('/meetups/:id', Validate(UpdateMeetup), MeetupControler.update);
-router.delete('/meetups/:id', MeetupControler.delete);
+router.delete(
+  '/meetups/:id',
+  Meetup.isOwner,
+  Meetup.isPastDate,
+  MeetupControler.delete
+);
+
+router.post('/meetups/:id/subscriptions', SubscriptionController.store);
 
 export default router;
