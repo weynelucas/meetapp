@@ -10,7 +10,7 @@ class SessionControler {
 
     if (!(user && user.checkPassword(password))) {
       return res.status(401).json({
-        error: 'unable to login with provided credentials.',
+        error: 'Unable to login with provided credentials.',
       });
     }
 
