@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import User from '../models/user';
+import User from '../models/User';
 
 export default class StoreUser {
   static getRules() {
@@ -11,7 +11,7 @@ export default class StoreUser {
         .required()
         .test(
           'is-unique',
-          'a user is already registered with this e-mail address.',
+          'a user is already registered with this e-mail address',
           async email => {
             if (email) {
               return !(await User.findOne({ where: { email } }));
@@ -30,7 +30,7 @@ export default class StoreUser {
           password
             ? field.oneOf(
                 [yup.ref('password')],
-                "the two password fields didn't match."
+                "the two password fields didn't match"
               )
             : field
         ),

@@ -1,19 +1,19 @@
 import { Router } from 'express';
-import auth from './app/middlewares/auth-middleware';
-import validate from './app/middlewares/validate-middleware';
-import userController from './app/controllers/user-controller';
-import sessionController from './app/controllers/session-controller';
-import StoreUser from './app/validators/store-user';
-import StoreSession from './app/validators/store-session';
-import UpdateUser from './app/validators/update-user';
+import Auth from './app/middlewares/Auth';
+import Validate from './app/middlewares/Validate';
+import StoreSession from './app/validators/StoreSession';
+import StoreUser from './app/validators/StoreUser';
+import UpdateUser from './app/validators/UpdateUser';
+import UserController from './app/controllers/UserController';
+import SessionController from './app/controllers/SessionController';
 
 const router = Router();
 
-router.post('/login', validate(StoreSession), sessionController.store);
-router.post('/users', validate(StoreUser), userController.store);
+router.post('/login', Validate(StoreSession), SessionController.store);
+router.post('/users', Validate(StoreUser), UserController.store);
 
-router.use(auth);
+router.use(Auth);
 
-router.put('/users', validate(UpdateUser), userController.update);
+router.put('/users', Validate(UpdateUser), UserController.update);
 
 export default router;

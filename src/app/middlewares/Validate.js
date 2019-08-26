@@ -10,13 +10,17 @@ export default (
         abortEarly: false,
       });
       return next();
-    } catch (errors) {
-      const fields = errors.inner.reduce((obj, err) => {
-        obj[err.path] = err.errors;
-        return obj;
-      }, {});
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        const fields = error.inner.reduce((obj, err) => {
+          obj[err.path] = err.errors;
+          return obj;
+        }, {});
 
-      return res.status(400).json(fields);
+        return res.status(400).json(fields);
+      }
+
+      return next(error);
     }
   };
 };
