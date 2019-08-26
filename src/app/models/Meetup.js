@@ -26,7 +26,6 @@ export default class Meetup extends Model {
 
   static associate({ User, File }) {
     this.belongsTo(User, {
-      as: 'user',
       foreignKey: { name: 'userId', field: 'user_id' },
     });
 
