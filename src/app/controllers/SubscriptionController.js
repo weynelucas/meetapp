@@ -17,6 +17,7 @@ class SubscriptionController {
           attributes: ['id', 'title', 'description', 'date'],
         },
       ],
+      order: [[{ model: Meetup, as: 'meetup' }, 'date']],
     });
 
     return res.json(subscriptions);
