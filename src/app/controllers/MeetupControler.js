@@ -1,5 +1,6 @@
 import Meetup from '../models/Meetup';
 import File from '../models/File';
+import User from '../models/User';
 
 class MeetupController {
   async index(req, res) {
@@ -7,9 +8,13 @@ class MeetupController {
     const { page = 1 } = req.query;
 
     const meetups = await Meetup.findAll({
-      where: { userId: req.user.id },
       attributes: ['id', 'title', 'description', 'date'],
       include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name', 'email'],
+        },
         {
           model: File,
           as: 'banner',
