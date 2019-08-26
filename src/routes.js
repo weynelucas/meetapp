@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import multer from 'multer';
+import multerConfig from './config/multer';
 import Auth from './app/middlewares/Auth';
 import Validate from './app/middlewares/Validate';
 import Meetup from './app/middlewares/Meetup';
@@ -12,6 +14,7 @@ import MeetupControler from './app/controllers/MeetupControler';
 import UpdateMeetup from './app/validators/UpdateMeetup';
 
 const router = Router();
+const upload = multer(multerConfig);
 
 router.post('/login', Validate(StoreSession), SessionController.store);
 router.post('/users', Validate(StoreUser), UserController.store);
@@ -28,6 +31,7 @@ router.use(
   Meetup.isOwner,
   Meetup.isPastDate
 );
+router.put('/meetups/:id', upload.single('banner'), MeetupControler.update);
 router.put('/meetups/:id', Validate(UpdateMeetup), MeetupControler.update);
 router.delete('/meetups/:id', MeetupControler.delete);
 
