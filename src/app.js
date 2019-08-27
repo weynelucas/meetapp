@@ -11,11 +11,15 @@ import sentryConfig from './config/sentry';
 
 import './database';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 class App {
   constructor() {
     this.server = express();
 
-    Sentry.init(sentryConfig);
+    if (isProduction) {
+      Sentry.init(sentryConfig);
+    }
 
     this.middlewares();
     this.routes();
@@ -38,7 +42,7 @@ class App {
 
   exceptionHandler() {
     this.server.use(async (err, req, res, next) => {
-      if (process.env.NODE_ENV === 'development') {
+      if (!isProduction) {
         const error = await new Youch(err, req).toHTML();
         return res.status(500).send(error);
       }

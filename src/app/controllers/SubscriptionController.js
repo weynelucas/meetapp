@@ -62,7 +62,7 @@ class SubscriptionController {
      * Check schedule
      */
     const checkSubscriptionSameDate = await Subscription.findOne({
-      where: { userId: req.user.id },
+      where: { userId: req.user.id, meetup: { date: req } },
       include: [
         {
           model: Meetup,
