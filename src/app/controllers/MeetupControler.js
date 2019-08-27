@@ -10,7 +10,7 @@ class MeetupController {
     const limit = 10;
     const { page = 1, date } = req.query;
 
-    if (dat && isValid(new Date(date))) {
+    if (date && isValid(new Date(date))) {
       const parsedDate = parseISO(date);
       filters.where = {
         date: {
