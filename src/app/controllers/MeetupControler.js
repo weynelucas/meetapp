@@ -6,21 +6,19 @@ import User from '../models/User';
 
 class MeetupController {
   async index(req, res) {
-    const filters = {};
+    const where = {};
     const limit = 10;
     const { page = 1, date } = req.query;
 
     if (date && isValid(new Date(date))) {
       const parsedDate = parseISO(date);
-      filters.where = {
-        date: {
-          [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
-        },
+      where.date = {
+        [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
       };
     }
 
     const meetups = await Meetup.findAll({
-      ...filters,
+      where,
       attributes: ['id', 'title', 'description', 'date'],
       include: [
         {
