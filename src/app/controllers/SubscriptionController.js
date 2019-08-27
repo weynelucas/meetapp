@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+import Mailer from '../../lib/nodemailer';
 import Subscription from '../models/Subscription';
 import Meetup from '../models/Meetup';
 
@@ -59,13 +60,14 @@ class SubscriptionController {
     }
 
     /**
-     * Check schedule
+     * Check subscription on two meetups at same
      */
     const checkSubscriptionSameDate = await Subscription.findOne({
-      where: { userId: req.user.id, meetup: { date: req } },
+      where: { userId: req.user.id },
       include: [
         {
           model: Meetup,
+          as: 'meetup',
           where: { date: req.meetup.date },
         },
       ],
@@ -77,17 +79,28 @@ class SubscriptionController {
       });
     }
 
-    const subscription = await Subscription.create({
+    const { id } = await Subscription.create({
       userId: req.user.id,
       meetupId: req.meetup.id,
     });
 
-    const { id } = subscription;
-    const meetup = await subscription.getMeetup();
+    /**
+     * Send subscription email to organizer
+     */
+    Mailer.sendMail({
+      to: `${req.meetup.user.name} <${req.meetup.user.email}>`,
+      subject: 'Você tem uma nova inscrição',
+      template: 'subscription',
+      context: {
+        organizer: req.meetup.user.name,
+        meetup: req.meetup.title,
+        subscriber: req.user.name,
+      },
+    });
 
     return res.json({
       id,
-      meetup,
+      meetup: req.meetup,
     });
   }
 }

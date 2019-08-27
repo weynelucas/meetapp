@@ -1,5 +1,6 @@
 import Meetup from '../models/Meetup';
 import File from '../models/File';
+import User from '../models/User';
 
 class MeetupMiddleware {
   /**
@@ -14,6 +15,11 @@ class MeetupMiddleware {
           model: File,
           as: 'banner',
           attributes: ['name', 'path'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name', 'email'],
         },
       ],
     });
