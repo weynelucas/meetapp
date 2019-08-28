@@ -26,7 +26,7 @@ class SubscriptionController {
 
   async store(req, res) {
     /**
-     * Check owner subscription
+     * Checking organizer subscription
      */
     if (req.meetup.userId === req.user.id) {
       return res.status(403).json({
@@ -35,7 +35,7 @@ class SubscriptionController {
     }
 
     /**
-     * Check past meetup
+     * Checking past meetup
      */
     if (req.meetup.past) {
       return res.status(403).json({
@@ -44,7 +44,7 @@ class SubscriptionController {
     }
 
     /**
-     * Check duplicated subscription
+     * Checking duplicated subscription
      */
     const checkSubscriptionExists = await Subscription.findOne({
       where: {
@@ -60,7 +60,7 @@ class SubscriptionController {
     }
 
     /**
-     * Check subscription on two meetups at same
+     * Checking subscription on two meetups on the same date
      */
     const checkSubscriptionSameDate = await Subscription.findOne({
       where: { userId: req.user.id },
