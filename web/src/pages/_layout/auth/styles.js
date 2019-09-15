@@ -50,6 +50,11 @@ export const Container = styled.div`
   a {
     margin-top: 20px;
     font-weight: bold;
-    color: rgba(255, 255, 255, 0.6);
+    color: #fff;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 `;
