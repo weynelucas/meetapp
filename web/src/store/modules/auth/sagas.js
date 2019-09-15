@@ -1,5 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 
+import { toast } from 'react-toastify';
 import api from '../../../services/api';
 import { signInSuccess, signInFailure } from './actions';
 import history from '../../../services/history';
@@ -12,7 +13,9 @@ function* signIn({ payload }) {
 
     yield put(signInSuccess(token, user));
     history.push('/dashboard');
-  } catch (error) {
+  } catch (err) {
+    const { error } = err.response.data;
+    toast.error(error);
     yield put(signInFailure());
   }
 }

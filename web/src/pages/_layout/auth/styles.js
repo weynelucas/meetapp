@@ -33,6 +33,13 @@ export const Container = styled.div`
       }
     }
 
+    span {
+      color: #f94d6a;
+      opacity: 0.6;
+      margin: 5px 0 10px;
+      font-size: 12px;
+    }
+
     button {
       margin-top: 15px;
       border-radius: 4px;

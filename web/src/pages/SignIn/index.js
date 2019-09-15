@@ -10,10 +10,10 @@ import { signInRequest } from '../../store/modules/auth/actions';
 const schema = Yup.object().shape({
   email: Yup.string()
     .trim()
-    .required(),
+    .required('Este campo é obrigatório.'),
   password: Yup.string()
     .trim()
-    .required(),
+    .required('Este campo é obrigatório.'),
 });
 
 export default function SignIn() {
