@@ -24,4 +24,16 @@ function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+function* signUp({ payload }) {
+  try {
+    yield call(api.post, 'users', payload);
+    history.push('/');
+  } catch (err) {
+    toast.error('Erro ao cadastrar usuário.');
+  }
+}
+
+export default all([
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+]);

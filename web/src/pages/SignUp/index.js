@@ -5,6 +5,7 @@ import { Input, Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 import logo from '../../assets/logo.svg';
+import { signUpRequest } from '../../store/modules/auth/actions';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Este campo é obrigatório.'),
@@ -29,8 +30,10 @@ const schema = Yup.object().shape({
 });
 
 export default function SignUp() {
-  function handleSubmit(data) {
-    console.tron.log(data);
+  const dispatch = useDispatch();
+
+  function handleSubmit({ name, email, password, confirmPassword }) {
+    dispatch(signUpRequest(name, email, password, confirmPassword));
   }
 
   return (
@@ -38,7 +41,7 @@ export default function SignUp() {
       <img src={logo} alt="Meetapp" />
       <Form schema={schema} onSubmit={handleSubmit}>
         <Input name="name" type="text" placeholder="Nome completo" />
-        <Input name="email" type="text" placeholder="Digite seu e-mail" />
+        <Input name="email" type="email" placeholder="Digite seu e-mail" />
         <Input
           name="password"
           type="password"
