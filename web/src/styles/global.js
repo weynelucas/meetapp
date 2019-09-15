@@ -16,10 +16,18 @@ export default createGlobalStyle`
     background: linear-gradient(180deg, #22202C 0%, #402845 100%);
     -webkit-font-smoothing: antialiased !important;
   }
-
+  
   body, input, button {
     color: #fff;
     font-size: 14px;
     font-family: Helvetica, sans-serif;
+  }
+
+  ol, ul {
+    list-style: none;
+  }
+
+  button {
+    cursor: pointer;
   }
 `;
