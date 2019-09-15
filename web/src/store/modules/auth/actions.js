@@ -33,3 +33,10 @@ export function signUpRequest(name, email, password, confirmPassword) {
     },
   };
 }
+
+export function signUpFailure(errors) {
+  return {
+    type: '@auth/SIGN_UP_FAILURE',
+    errors,
+  };
+}

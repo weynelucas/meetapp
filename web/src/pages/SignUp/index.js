@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Input, Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -32,6 +32,8 @@ const schema = Yup.object().shape({
 export default function SignUp() {
   const dispatch = useDispatch();
 
+  const errors = useSelector(state => state.auth.errors);
+
   function handleSubmit({ name, email, password, confirmPassword }) {
     dispatch(signUpRequest(name, email, password, confirmPassword));
   }
@@ -41,17 +43,25 @@ export default function SignUp() {
       <img src={logo} alt="Meetapp" />
       <Form schema={schema} onSubmit={handleSubmit}>
         <Input name="name" type="text" placeholder="Nome completo" />
+        {errors.name && <span>{errors.name[0]}</span>}
+
         <Input name="email" type="email" placeholder="Digite seu e-mail" />
+        {errors.email && <span>{errors.email[0]}</span>}
+
         <Input
           name="password"
           type="password"
           placeholder="Sua senha secreta"
         />
+        {errors.password && <span>{errors.password[0]}</span>}
+
         <Input
           name="confirmPassword"
           type="password"
           placeholder="Confirme sua senha secreta"
         />
+        {errors.confirmPassword && <span>{errors.confirmPassword[0]}</span>}
+
         <button type="submit">Entrar</button>
       </Form>
       <Link to="/">Já tenho login</Link>

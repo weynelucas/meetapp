@@ -2,7 +2,7 @@ import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import { toast } from 'react-toastify';
 import api from '../../../services/api';
-import { signInSuccess, signInFailure } from './actions';
+import { signInSuccess, signInFailure, signUpFailure } from './actions';
 import history from '../../../services/history';
 
 function* signIn({ payload }) {
@@ -29,7 +29,11 @@ function* signUp({ payload }) {
     yield call(api.post, 'users', payload);
     history.push('/');
   } catch (err) {
-    toast.error('Erro ao cadastrar usuário.');
+    const { status, data } = err.response;
+
+    if (status === 400) {
+      yield put(signUpFailure(data));
+    }
   }
 }
 
