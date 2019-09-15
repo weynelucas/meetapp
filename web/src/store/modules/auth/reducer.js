@@ -15,7 +15,7 @@ export default function auth(state = INITIAL_STATE, action) {
       }
 
       case '@auth/SIGN_IN_SUCCESS': {
-        const { token } = action.payload;
+        const { token } = action;
         draft.token = token;
         draft.signed = true;
         draft.loading = false;
