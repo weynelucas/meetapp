@@ -1,10 +1,13 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+
   * {
     margin: 0;
     padding: 0;
     outline: 0;
+    border: 0;
     box-sizing: border-box;
   }
 
@@ -20,7 +23,7 @@ export default createGlobalStyle`
   body, input, button {
     color: #fff;
     font-size: 14px;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Open Sans', Helvetica, sans-serif;
   }
 
   ol, ul {
@@ -29,5 +32,9 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
