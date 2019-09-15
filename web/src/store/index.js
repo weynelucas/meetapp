@@ -1,6 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 
@@ -23,8 +26,17 @@ const composer =
       )
     : compose(applyMiddleware(...middlewares));
 
-const store = createStore(rootReducer, composer);
+const rootPersistConfig = {
+  key: 'meetapp',
+  storage,
+  whitelist: ['auth'],
+};
+
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
+
+const store = createStore(persistedReducer, composer);
+const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
 
-export default store;
+export { store, persistor };

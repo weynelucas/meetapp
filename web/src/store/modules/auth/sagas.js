@@ -14,8 +14,12 @@ function* signIn({ payload }) {
     yield put(signInSuccess(token, user));
     history.push('/dashboard');
   } catch (err) {
-    const { error } = err.response.data;
-    toast.error(error);
+    const { status } = err.response;
+
+    if (status === 401) {
+      toast.error('Impossível fazer o login com as credenciais fornecidas.');
+    }
+
     yield put(signInFailure());
   }
 }

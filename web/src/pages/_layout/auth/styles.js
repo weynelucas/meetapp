@@ -34,7 +34,7 @@ export const Container = styled.div`
     }
 
     span {
-      color: #f94d6a;
+      color: #d44059;
       opacity: 0.6;
       margin: 5px 0 10px;
       font-size: 12px;
