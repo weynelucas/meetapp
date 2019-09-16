@@ -5,7 +5,7 @@ import Header from '../../../components/Header';
 
 import { Container } from './styles';
 
-export default function DefaulLayout({ children }) {
+export default function DefaultLayout({ children }) {
   return (
     <Container>
       <Header />
@@ -14,6 +14,6 @@ export default function DefaulLayout({ children }) {
   );
 }
 
-DefaulLayout.propTypes = {
+DefaultLayout.propTypes = {
   children: PropTypes.element.isRequired,
 };
