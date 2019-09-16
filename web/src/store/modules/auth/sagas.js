@@ -17,7 +17,9 @@ function* signIn({ payload }) {
     const { status } = err.response;
 
     if (status === 401) {
-      toast.error('Impossível fazer o login com as credenciais fornecidas.');
+      toast.error('Impossível fazer o login com as credenciais fornecidas.', {
+        autoClose: 3000,
+      });
     }
 
     yield put(signInFailure());
