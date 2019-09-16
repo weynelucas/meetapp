@@ -11,13 +11,13 @@ export default function RouteWrapper({
   isPrivate,
   ...rest
 }) {
-  const signed = useSelector(state => state.auth.signed);
+  const isSignedIn = useSelector(state => state.auth.isSignedIn);
 
-  if (!signed && isPrivate) {
+  if (!isSignedIn && isPrivate) {
     return <Redirect to="/" />;
   }
 
-  if (signed && !isPrivate) {
+  if (isSignedIn && !isPrivate) {
     return <Redirect to="/dashboard" />;
   }
 

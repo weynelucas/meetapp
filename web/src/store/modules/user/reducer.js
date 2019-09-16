@@ -1,10 +1,12 @@
 import produce from 'immer';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const INITIAL_STATE = {
   profile: null,
 };
 
-export default function auth(state = INITIAL_STATE, action) {
+function UserReducer(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
       case '@auth/SIGN_IN_SUCCESS': {
@@ -22,3 +24,11 @@ export default function auth(state = INITIAL_STATE, action) {
     }
   });
 }
+
+export default persistReducer(
+  {
+    key: 'user',
+    storage,
+  },
+  UserReducer,
+);

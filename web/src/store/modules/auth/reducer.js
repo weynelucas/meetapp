@@ -1,25 +1,17 @@
 import produce from 'immer';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const INITIAL_STATE = {
   token: null,
-  signed: false,
-  loading: false,
+  isSignedIn: false,
+  isLoggingIn: false,
   errors: {},
 };
 
-export default function auth(state = INITIAL_STATE, action) {
+function AuthReducer(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
-      case 'persist/REHYDRATE': {
-        const { payload } = action;
-        draft = Object.assign(draft, {
-          ...(payload ? payload.auth : {}),
-          loading: false,
-          errors: {},
-        });
-        break;
-      }
-
       case '@auth/SIGN_IN_REQUEST': {
         draft.loading = true;
         break;
@@ -28,33 +20,33 @@ export default function auth(state = INITIAL_STATE, action) {
       case '@auth/SIGN_IN_SUCCESS': {
         const { token } = action;
         draft.token = token;
-        draft.signed = true;
-        draft.loading = false;
+        draft.isSignedIn = true;
+        draft.isLoggingIn = false;
         break;
       }
 
       case '@auth/SIGN_IN_FAILURE': {
-        draft.signed = false;
-        draft.loading = false;
+        draft.isSignedIn = false;
+        draft.isLoggingIn = false;
         break;
       }
 
       case '@auth/SIGN_UP_REQUEST': {
-        draft.loading = true;
+        draft.isLoggingIn = true;
         draft.errors = {};
         break;
       }
 
       case '@auth/SIGN_UP_FAILURE': {
         const { errors } = action;
-        draft.loading = true;
+        draft.isLoggingIn = true;
         draft.errors = errors;
         break;
       }
 
       case '@auth/SIGN_OUT': {
         draft.token = null;
-        draft.signed = false;
+        draft.isSignedIn = false;
         break;
       }
 
@@ -62,3 +54,12 @@ export default function auth(state = INITIAL_STATE, action) {
     }
   });
 }
+
+export default persistReducer(
+  {
+    key: 'auth',
+    storage,
+    blacklist: ['isLoggingIn', 'errors'],
+  },
+  AuthReducer,
+);
