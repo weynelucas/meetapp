@@ -2,7 +2,7 @@ import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import { toast } from 'react-toastify';
 import api from '../../../services/api';
-import { signInSuccess, signInFailure } from './actions';
+import { signInSuccess, signInFailure, signUpFailure } from './actions';
 import history from '../../../services/history';
 
 function* signIn({ payload }) {
@@ -24,4 +24,20 @@ function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+function* signUp({ payload }) {
+  try {
+    yield call(api.post, 'users', payload);
+    history.push('/');
+  } catch (err) {
+    const { status, data } = err.response;
+
+    if (status === 400) {
+      yield put(signUpFailure(data));
+    }
+  }
+}
+
+export default all([
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+]);
