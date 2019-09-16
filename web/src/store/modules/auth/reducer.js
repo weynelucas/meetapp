@@ -11,8 +11,12 @@ export default function auth(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
       case 'persist/REHYDRATE': {
-        draft.loading = false;
-        draft.errors = {};
+        const { payload } = action;
+        draft = Object.assign(draft, {
+          ...(payload ? payload.auth : {}),
+          loading: false,
+          errors: {},
+        });
         break;
       }
 

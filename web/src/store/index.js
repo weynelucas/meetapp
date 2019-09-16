@@ -1,11 +1,11 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { persistStore } from 'redux-persist';
 
 import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
+import persistReducers from './persistReducers';
 
 const middlewares = [];
 
@@ -26,15 +26,7 @@ const composer =
       )
     : compose(applyMiddleware(...middlewares));
 
-const rootPersistConfig = {
-  key: 'meetapp',
-  storage,
-  whitelist: ['auth'],
-};
-
-const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
-
-const store = createStore(persistedReducer, composer);
+const store = createStore(persistReducers(rootReducer), composer);
 const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
