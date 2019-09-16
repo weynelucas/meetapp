@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AuthLayout from '../pages/_layout/auth';
-import DefaulLayout from '../pages/_layout/default';
+import DefaultLayout from '../pages/_layout/default';
 
 export default function RouteWrapper({
   component: Component,
@@ -21,7 +21,7 @@ export default function RouteWrapper({
     return <Redirect to="/dashboard" />;
   }
 
-  const Layout = isPrivate ? DefaulLayout : AuthLayout;
+  const Layout = isPrivate ? DefaultLayout : AuthLayout;
 
   return (
     <Route

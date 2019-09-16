@@ -40,3 +40,9 @@ export function signUpFailure(errors) {
     errors,
   };
 }
+
+export function signOut() {
+  return {
+    type: '@auth/SIGN_OUT',
+  };
+}
