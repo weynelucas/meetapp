@@ -30,7 +30,12 @@ export const Profile = styled.div`
       display: block;
       margin-top: 5px;
       font-size: 12px;
-      color: #999;
+      color: #fff;
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 
