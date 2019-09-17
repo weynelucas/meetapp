@@ -14,7 +14,14 @@
       "denied": "Você não tem permissão para executar essa ação."
     },
     "credentials": {
-      "notProvided": "As credenciais de autenticação não foram fornecidas."
+      "notProvided": "As credenciais de autenticação não foram fornecidas.",
+      "invalid": "Impossível fazer login com as credenciais fornecidas."
+    },
+    "subscription": {
+      "ownMeetup": "Você não pode se inscrever nos seus próprios encontros.",
+      "pastMeetup": "Você não pode se inscrever em encontros que já ocorreram.",
+      "duplicated": "Você já está inscrito neste encontro.",
+      "dateMismatch": "Você já está inscrito em um outro encontro no mesmo horário."
     }
   }
 }

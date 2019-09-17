@@ -30,7 +30,7 @@ class SubscriptionController {
      */
     if (req.meetup.userId === req.user.id) {
       return res.status(403).json({
-        error: 'You cannot subscribe to your own meetups',
+        error: req.t('subscription.ownMeetup'),
       });
     }
 
@@ -39,7 +39,7 @@ class SubscriptionController {
      */
     if (req.meetup.past) {
       return res.status(403).json({
-        error: 'You cannot subcribe to past meetups',
+        error: req.t('subscription.pastMeetup'),
       });
     }
 
@@ -55,7 +55,7 @@ class SubscriptionController {
 
     if (checkSubscriptionExists) {
       return res.status(403).json({
-        error: 'You cannot subscribe for the same meetup twice.',
+        error: req.t('subscription.duplicated'),
       });
     }
 
@@ -75,7 +75,7 @@ class SubscriptionController {
 
     if (checkSubscriptionSameDate) {
       return res.status(403).json({
-        error: 'You already subscribed to another meetup at this same time',
+        error: req.t('subscription.dateMismatch'),
       });
     }
 

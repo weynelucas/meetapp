@@ -14,7 +14,14 @@
       "denied": "You do not have permission to perform this action."
     },
     "credentials": {
-      "notProvided": "Authentication credentials were not provided."
+      "notProvided": "Authentication credentials were not provided.",
+      "invalid": "Unable to login with provided credentials."
     }
+  },
+  "subscription": {
+    "ownMeetup": "You cannot subscribe to your own meetups.",
+    "pastMeetup": "You cannot subcribe to past meetups.",
+    "duplicated": "You are already subscribed for this meetup.",
+    "dateMismatch": "You are already subscribed to another meetup at this same time."
   }
 }

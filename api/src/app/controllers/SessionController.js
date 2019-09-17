@@ -10,7 +10,7 @@ class SessionControler {
 
     if (!(user && user.checkPassword(password))) {
       return res.status(401).json({
-        error: 'Unable to login with provided credentials.',
+        error: req.t('auth.credential.invalid'),
       });
     }
 
