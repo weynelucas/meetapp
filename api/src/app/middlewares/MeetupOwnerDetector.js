@@ -1,5 +1,5 @@
 /**
- * Detects if the logged user is the meetup owner.
+ * Detects when logged user is not the meetup owner.
  */
 export default (req, res, next) => {
   if (req.user.id !== req.meetup.userId) {

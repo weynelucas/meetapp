@@ -7,6 +7,9 @@ import Validate from './app/middlewares/Validate';
 import MeetupPreloader from './app/middlewares/MeetupPreloader';
 import MeetupOwnerDetector from './app/middlewares/MeetupOwnerDetector';
 import MeetupPastDateDetector from './app/middlewares/MeetupPastDateDetector';
+import SubscriptionOwnerDetector from './app/middlewares/SubscriptionOwnerDetector';
+import SubscriptionDuplicatedDetector from './app/middlewares/SubscriptionDuplicatedDetector';
+import SubscriptionDateConflictDetector from './app/middlewares/SubscriptionDateConflictDetector';
 
 import StoreSession from './app/validators/StoreSession';
 import StoreUser from './app/validators/StoreUser';
@@ -59,6 +62,9 @@ router.get('/subscriptions', SubscriptionController.index);
 router.post(
   '/meetups/:meetupId/subscriptions',
   MeetupPastDateDetector,
+  SubscriptionOwnerDetector,
+  SubscriptionDuplicatedDetector,
+  SubscriptionDateConflictDetector,
   SubscriptionController.store
 );
 

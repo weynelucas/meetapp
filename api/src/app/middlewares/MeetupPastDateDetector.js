@@ -1,5 +1,5 @@
 /**
- * Detects if the meetup is from a past date.
+ * Detects when meetup is from a past date.
  */
 export default (req, res, next) => {
   if (req.meetup.past) {
