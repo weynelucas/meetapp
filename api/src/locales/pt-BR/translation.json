@@ -1,3 +1,11 @@
 {
-  "required": "Este campo é obrigatório."
+  "required": "Este campo é obrigatório.",
+  "password": {
+    "mismatch": "Os dois campos de senha não correspondem.",
+    "toShort": "Esta senha é muito curta. Ela precisa conter pelo menos ${min} caracteres."
+  },
+  "email": {
+    "notEmail": "Insira um endereço de e-mail váilido.",
+    "alreadyRegistered": "Já existe um usuário cadastrado com este endereço de e-mail."
+  }
 }

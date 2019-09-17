@@ -2,15 +2,15 @@ import * as Yup from 'yup';
 import User from '../models/User';
 
 export default class StoreUser {
-  static getRules() {
+  static getRules({ t }) {
     return Yup.object().shape({
-      name: Yup.string().required(),
+      name: Yup.string().required(t('required')),
       email: Yup.string()
-        .email()
-        .required()
+        .email(t('email.notEmail'))
+        .required(t('required'))
         .test(
-          'is-unique',
-          'a user is already registered with this e-mail address',
+          'already-registered',
+          t('email.alreadyRegistered'),
           async email => {
             if (email) {
               return !(await User.findOne({ where: { email } }));
@@ -19,16 +19,13 @@ export default class StoreUser {
           }
         ),
       password: Yup.string()
-        .min(6)
-        .required(),
+        .min(6, t('password.toShort'))
+        .required(t('required')),
       confirmPassword: Yup.string()
-        .required()
+        .required(t('required'))
         .when('password', (password, field) =>
           password
-            ? field.oneOf(
-                [Yup.ref('password')],
-                "the two password fields didn't match"
-              )
+            ? field.oneOf([Yup.ref('password')], t('password.mismatch'))
             : field
         ),
     });
