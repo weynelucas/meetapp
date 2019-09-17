@@ -24,32 +24,42 @@ import SubscriptionController from './app/controllers/SubscriptionController';
 const router = Router();
 const upload = multer(multerConfig);
 
+// Auth
 router.post('/login', Validate(StoreSession), SessionController.store);
 router.post('/users', Validate(StoreUser), UserController.store);
-
 router.use(Auth);
-
 router.put('/users', Validate(UpdateUser), UserController.update);
 
+// Files
 router.post('/files', upload.single('file'), FileController.store);
 
+// Organizing
 router.get('/organizing', OrganizingController.index);
 
-router.use('/meetups/:meetupId', [
-  MeetupPreloader,
-  MeetupOwnerDetector,
-  MeetupPastDateDetector,
-]);
+// Meetups
+router.use('/meetups/:meetupId', MeetupPreloader);
 router.get('/meetups', MeetupControler.index);
 router.post('/meetups', Validate(StoreMeetup), MeetupControler.store);
 router.put(
   '/meetups/:meetupId',
+  MeetupOwnerDetector,
+  MeetupPastDateDetector,
   Validate(UpdateMeetup),
   MeetupControler.update
 );
-router.delete('/meetups/:meetupId', MeetupControler.delete);
+router.delete(
+  '/meetups/:meetupId',
+  MeetupPastDateDetector,
+  MeetupOwnerDetector,
+  MeetupControler.delete
+);
 
+// Subscriptions
 router.get('/subscriptions', SubscriptionController.index);
-router.post('/meetups/:meetupId/subscriptions', SubscriptionController.store);
+router.post(
+  '/meetups/:meetupId/subscriptions',
+  MeetupPastDateDetector,
+  SubscriptionController.store
+);
 
 export default router;
