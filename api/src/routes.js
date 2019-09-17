@@ -49,8 +49,8 @@ router.put(
 );
 router.delete(
   '/meetups/:meetupId',
-  MeetupPastDateDetector,
   MeetupOwnerDetector,
+  MeetupPastDateDetector,
   MeetupControler.delete
 );
 
