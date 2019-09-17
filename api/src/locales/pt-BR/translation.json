@@ -6,7 +6,15 @@
     "incorrectOldPassword": "A senha antiga foi digitada incorretamente."
   },
   "email": {
-    "notEmail": "Insira um endereço de e-mail váilido.",
+    "notEmail": "Insira um endereço de e-mail válido.",
     "alreadyRegistered": "Já existe um usuário cadastrado com este endereço de e-mail."
+  },
+  "auth": {
+    "permissions": {
+      "denied": "Você não tem permissão para executar essa ação."
+    },
+    "credentials": {
+      "notProvided": "As credenciais de autenticação não foram fornecidas."
+    }
   }
 }

@@ -12,7 +12,7 @@ export default async (req, res, next) => {
 
   if (!(authorization && authorization.split(' ').length === 2)) {
     return res.status(401).json({
-      error: 'Authentication credetials were not provided.',
+      error: req.t('auth.credentials.notProvided'),
     });
   }
 
