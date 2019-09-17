@@ -2,15 +2,15 @@ import * as Yup from 'yup';
 import User from '../models/User';
 
 export default class StoreUser {
-  static getRules({ t }) {
+  static getRules(req) {
     return Yup.object().shape({
-      name: Yup.string().required(t('required')),
+      name: Yup.string().required(req.t('required')),
       email: Yup.string()
-        .email(t('email.notEmail'))
-        .required(t('required'))
+        .email(req.t('email.notEmail'))
+        .required(req.t('required'))
         .test(
-          'already-registered',
-          t('email.alreadyRegistered'),
+          'email-already-registered',
+          req.t('email.alreadyRegistered'),
           async email => {
             if (email) {
               return !(await User.findOne({ where: { email } }));
@@ -19,13 +19,13 @@ export default class StoreUser {
           }
         ),
       password: Yup.string()
-        .min(6, t('password.toShort'))
-        .required(t('required')),
+        .min(6, req.t('password.toShort'))
+        .required(req.t('required')),
       confirmPassword: Yup.string()
-        .required(t('required'))
+        .required(req.t('required'))
         .when('password', (password, field) =>
           password
-            ? field.oneOf([Yup.ref('password')], t('password.mismatch'))
+            ? field.oneOf([Yup.ref('password')], req.t('password.mismatch'))
             : field
         ),
     });

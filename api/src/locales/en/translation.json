@@ -2,7 +2,8 @@
   "required": "This field is required.",
   "password": {
     "mismatch": "The two password fields didn't match.",
-    "toShort": "This password is too short. It must contain at least ${min} characters."
+    "toShort": "This password is too short. It must contain at least ${min} characters.",
+    "incorrectOldPassword": "Your old password was entered incorrectly."
   },
   "email": {
     "notEmail": "Enter a valid e-mail address.",
