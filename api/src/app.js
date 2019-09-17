@@ -11,6 +11,7 @@ import routes from './routes';
 import sentryConfig from './config/sentry';
 
 import './database';
+import I18n from './lib/i18next';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -35,6 +36,7 @@ class App {
       '/files',
       express.static(resolve(__dirname, '..', 'public', 'uploads'))
     );
+    this.server.use(I18n.handle());
   }
 
   routes() {
