@@ -35,15 +35,6 @@ class SubscriptionController {
     }
 
     /**
-     * Checking past meetup
-     */
-    if (req.meetup.past) {
-      return res.status(403).json({
-        error: req.t('subscription.pastMeetup'),
-      });
-    }
-
-    /**
      * Checking duplicated subscription
      */
     const checkSubscriptionExists = await Subscription.findOne({
