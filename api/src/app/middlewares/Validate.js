@@ -1,6 +1,6 @@
 /**
  * Function that receives a validator (class that implements `getRules()`
- * method) and return a middleware to handle validation erros.
+ * method) and return a middleware to handle validation errors.
  *
  * If validation suceed, `req.data` will be set with the validated data
  * object
