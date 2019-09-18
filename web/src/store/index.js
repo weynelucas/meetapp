@@ -6,6 +6,7 @@ import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 
 import createStore from './createStore';
+import persistReducers from './persistReducers';
 
 const middlewares = [];
 
@@ -18,7 +19,7 @@ const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 
 middlewares.push(sagaMiddleware);
 
-const store = createStore(rootReducer, middlewares);
+const store = createStore(persistReducers(rootReducer), middlewares);
 const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);

@@ -1,23 +1,31 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
-
 import { toast } from 'react-toastify';
+
 import api from '../../../services/api';
-import { signInSuccess, signInFailure, signUpFailure } from './actions';
 import history from '../../../services/history';
+import { signInSuccess, signInFailure, signUpFailure } from './actions';
+
+function setToken({ payload }) {
+  if (payload && payload.token) {
+    api.defaults.headers.authorization = `Bearer ${payload.token}`;
+  }
+}
 
 function* signIn({ payload }) {
   try {
     const response = yield call(api.post, 'login', payload);
-
     const { token, user } = response.data;
 
     yield put(signInSuccess(token, user));
+
+    setToken({ payload: { token } });
+
     history.push('/dashboard');
   } catch (err) {
-    const { status } = err.response;
+    const { status, data } = err.response;
 
     if (status === 401) {
-      toast.error('Impossível fazer o login com as credenciais fornecidas.', {
+      toast.error(data.error, {
         autoClose: 3000,
       });
     }
@@ -42,4 +50,5 @@ function* signUp({ payload }) {
 export default all([
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('persist/REHYDRATE', setToken),
 ]);

@@ -59,7 +59,7 @@ export default persistReducer(
   {
     key: 'auth',
     storage,
-    blacklist: ['isLoggingIn', 'errors'],
+    whitelist: ['token', 'isSignedIn'],
   },
   AuthReducer,
 );
