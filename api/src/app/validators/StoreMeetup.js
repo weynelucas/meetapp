@@ -12,14 +12,14 @@ export default class StoreMeetup {
         .required()
         .max(1000),
       date: Yup.date()
-        .min(new Date(), 'you cannot create meetups for past dates')
+        .min(new Date(), 'Não é possível registrar eventos que já aconteceram.')
         .required()
         .transform(value => startOfHour(value)),
       bannerId: Yup.number()
         .integer()
         .test(
-          'exists',
-          'file not found',
+          'file-not-found',
+          'Arquivo não encontrado.',
           async value => (await File.findByPk(value)) !== null
         )
         .required(),

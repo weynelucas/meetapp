@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import * as Yup from 'yup';
 import User from '../models/User';
 
@@ -9,8 +10,8 @@ export default class StoreUser {
         .email()
         .required()
         .test(
-          'is-unique',
-          'a user is already registered with this e-mail address',
+          'email-already-registered',
+          'Já existe um usuário cadastrado com este endereço de e-mail.',
           async email => {
             if (email) {
               return !(await User.findOne({ where: { email } }));
@@ -19,7 +20,10 @@ export default class StoreUser {
           }
         ),
       password: Yup.string()
-        .min(6)
+        .min(
+          6,
+          'Esta senha é muito curta. Ela precisa conter pelo menos ${min} caracteres.'
+        )
         .required(),
       confirmPassword: Yup.string()
         .required()
@@ -27,7 +31,7 @@ export default class StoreUser {
           password
             ? field.oneOf(
                 [Yup.ref('password')],
-                "the two password fields didn't match"
+                'Os dois campos de senha não combinam.'
               )
             : field
         ),

@@ -1,22 +1,25 @@
 import 'dotenv/config';
-
 import express from 'express';
 import cors from 'cors';
 import { resolve } from 'path';
 import * as Sentry from '@sentry/node';
 import Youch from 'youch';
+import { setLocale } from 'yup';
 import 'express-async-errors';
 
 import routes from './routes';
 import sentryConfig from './config/sentry';
 
 import './database';
+import locale from './config/locale';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 class App {
   constructor() {
     this.server = express();
+
+    setLocale(locale);
 
     if (isProduction) {
       Sentry.init(sentryConfig);

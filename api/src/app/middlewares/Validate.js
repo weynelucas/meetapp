@@ -1,6 +1,6 @@
 /**
  * Function that receives a validator (class that implements `getRules()`
- * method) and return a middleware to handle validation erros.
+ * method) and return a middleware to handle validation errors.
  *
  * If validation suceed, `req.data` will be set with the validated data
  * object
@@ -11,7 +11,6 @@ export default (
 ) => {
   return async (req, res, next) => {
     const schema = validator.getRules(req);
-
     try {
       req[requestProperty] = await schema.validate(req[location], {
         abortEarly: false,
