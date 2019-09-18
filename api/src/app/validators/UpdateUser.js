@@ -39,7 +39,7 @@ export default class UpdateUser {
               .test(
                 'incorrect-old-password',
                 'A senha antiga foi digitada incorretamente.',
-                value => req.user.checkPassword(value)
+                value => (value ? req.user.checkPassword(value) : true)
               )
           : field
       ),
