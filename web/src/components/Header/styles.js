@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  padding: 10px 30px;
   background-color: rgba(0, 0, 0, 0.3);
   margin-bottom: 50px;
 `;
