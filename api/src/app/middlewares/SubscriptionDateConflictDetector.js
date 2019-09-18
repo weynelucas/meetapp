@@ -18,7 +18,7 @@ export default async (req, res, next) => {
 
   if (checkSubscriptionDateConflict) {
     return res.status(403).json({
-      error: req.t('subscription.dateMismatch'),
+      error: 'Você já está inscrito em um evento que ocorre no mesmo horário.',
     });
   }
 

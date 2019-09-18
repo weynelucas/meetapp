@@ -11,7 +11,7 @@ export default class StoreUser {
         .required()
         .test(
           'email-already-registered',
-          'A user is already registered with this e-mail address.',
+          'Já existe um usuário cadastrado com este endereço de e-mail.',
           async email => {
             if (email) {
               return !(await User.findOne({ where: { email } }));
@@ -22,7 +22,7 @@ export default class StoreUser {
       password: Yup.string()
         .min(
           6,
-          'This password is too short. It must contain at least ${min} characters.'
+          'Esta senha é muito curta. Ela precisa conter pelo menos ${min} caracteres.'
         )
         .required(),
       confirmPassword: Yup.string()
@@ -31,7 +31,7 @@ export default class StoreUser {
           password
             ? field.oneOf(
                 [Yup.ref('password')],
-                "The two password fields didn't match."
+                'Os dois campos de senha não combinam.'
               )
             : field
         ),

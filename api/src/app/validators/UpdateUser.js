@@ -10,7 +10,7 @@ export default class UpdateUser {
         .email()
         .test(
           'email-already-registered',
-          'A user is already registered with this e-mail address.',
+          'Já existe um usuário cadastrado com este endereço de e-mail.',
           async email => {
             if (email && email !== req.user.email) {
               return !(await User.findOne({ where: { email } }));
@@ -20,7 +20,7 @@ export default class UpdateUser {
         ),
       password: Yup.string().min(
         6,
-        'This password is too short. It must contain at least ${min} characters.'
+        'Esta senha é muito curta. Ela precisa conter pelo menos ${min} caracteres.'
       ),
       confirmPassword: Yup.string().when('password', (password, field) =>
         password
@@ -28,7 +28,7 @@ export default class UpdateUser {
               .required()
               .oneOf(
                 [Yup.ref('password')],
-                "The two password fields didn't match."
+                'Os dois campos de senha não combinam.'
               )
           : field
       ),
@@ -38,7 +38,7 @@ export default class UpdateUser {
               .required()
               .test(
                 'incorrect-old-password',
-                req.t('password.incorrectOldPassword'),
+                'A senha antiga foi digitada incorretamente.',
                 value => req.user.checkPassword(value)
               )
           : field

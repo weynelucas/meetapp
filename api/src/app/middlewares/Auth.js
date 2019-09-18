@@ -12,7 +12,7 @@ export default async (req, res, next) => {
 
   if (!(authorization && authorization.split(' ').length === 2)) {
     return res.status(401).json({
-      error: req.t('auth.credentials.notProvided'),
+      error: 'As credenciais de autenticação não foram fornecidas.',
     });
   }
 
@@ -23,7 +23,7 @@ export default async (req, res, next) => {
     const user = await User.findByPk(id);
 
     if (!user) {
-      return res.status(401).json({ error: 'User not found.' });
+      return res.status(401).json({ error: 'Usuário não encontrado.' });
     }
 
     req.user = user;

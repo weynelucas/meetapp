@@ -11,7 +11,6 @@ export default (
 ) => {
   return async (req, res, next) => {
     const schema = validator.getRules(req);
-
     try {
       req[requestProperty] = await schema.validate(req[location], {
         abortEarly: false,
@@ -20,7 +19,7 @@ export default (
     } catch (error) {
       if (error.name === 'ValidationError') {
         const fields = error.inner.reduce((obj, err) => {
-          obj[err.path] = err.errors.map(msg => req.t(msg));
+          obj[err.path] = err.errors;
           return obj;
         }, {});
 
