@@ -1,27 +1,18 @@
 {
-  "required": "Este campo é obrigatório.",
-  "password": {
-    "mismatch": "Os dois campos de senha não correspondem.",
-    "toShort": "Esta senha é muito curta. Ela precisa conter pelo menos ${min} caracteres.",
-    "incorrectOldPassword": "A senha antiga foi digitada incorretamente."
-  },
-  "email": {
-    "notEmail": "Insira um endereço de e-mail válido.",
-    "alreadyRegistered": "Já existe um usuário cadastrado com este endereço de e-mail."
-  },
-  "auth": {
-    "permissions": {
-      "denied": "Você não tem permissão para executar essa ação."
-    },
-    "credentials": {
-      "notProvided": "As credenciais de autenticação não foram fornecidas.",
-      "invalid": "Impossível fazer login com as credenciais fornecidas."
-    },
-    "subscription": {
-      "ownMeetup": "Você não pode se inscrever nos seus próprios encontros.",
-      "pastMeetup": "Você não pode se inscrever em encontros que já ocorreram.",
-      "duplicated": "Você já está inscrito neste encontro.",
-      "dateMismatch": "Você já está inscrito em um outro encontro no mesmo horário."
-    }
-  }
+  "This field is required.": "Este campo é obrigatório.",
+  "This field is invalid.": "Este campo não é válido.",
+  "Ensure this field has at least ${min} characters.": "Certifique-se que o valor tenha pelo menos ${min} caracteres.",
+  "Ensure this field has no more than ${max} characters.": "Certifique-se que o valor tenha no máximo ${max} caracteres.",
+  "The two password fields didn't match.": "Os dois campos de senha não correspondem.",
+  "This password is too short. It must contain at least ${min} characters.": "Esta senha é muito curta. Ela precisa conter pelo menos ${min} caracteres.",
+  "Your old password was entered incorrectly.": "A senha antiga foi digitada incorretamente.",
+  "Enter a valid e-mail address.": "Insira um endereço de e-mail válido.",
+  "A user is already registered with this e-mail address.": "Já existe um usuário cadastrado com este endereço de e-mail.",
+  "You do not have permission to perform this action.": "Você não tem permissão para executar essa ação.",
+  "Authentication credentials were not provided.": "As credenciais de autenticação não foram fornecidas.",
+  "Unable to login with provided credentials.": "Impossível fazer login com as credenciais fornecidas.",
+  "You cannot subscribe to your own meetups.": "Você não pode se inscrever nos seus próprios encontros.",
+  "You cannot subcribe to past meetups.": "Você não pode se inscrever em encontros que já ocorreram.",
+  "You are already subscribed for this meetup.": "Você já está inscrito neste encontro.",
+  "You are already subscribed to another meetup at this same time.": "Você já está inscrito em um outro encontro no mesmo horário."
 }

@@ -1,27 +1,18 @@
 {
-  "required": "This field is required.",
-  "password": {
-    "mismatch": "The two password fields didn't match.",
-    "toShort": "This password is too short. It must contain at least ${min} characters.",
-    "incorrectOldPassword": "Your old password was entered incorrectly."
-  },
-  "email": {
-    "notEmail": "Enter a valid e-mail address.",
-    "alreadyRegistered": "A user is already registered with this e-mail address."
-  },
-  "auth": {
-    "permissions": {
-      "denied": "You do not have permission to perform this action."
-    },
-    "credentials": {
-      "notProvided": "Authentication credentials were not provided.",
-      "invalid": "Unable to login with provided credentials."
-    }
-  },
-  "subscription": {
-    "ownMeetup": "You cannot subscribe to your own meetups.",
-    "pastMeetup": "You cannot subcribe to past meetups.",
-    "duplicated": "You are already subscribed for this meetup.",
-    "dateMismatch": "You are already subscribed to another meetup at this same time."
-  }
+  "This field is required.": "This field is required.",
+  "This field is invalid.": "This field is invalid.",
+  "Ensure this field has at least ${min} characters.": "Ensure this field has at least ${min} characters.",
+  "Ensure this field has no more than ${max} characters.": "Ensure this field has no more than ${max} characters.",
+  "The two password fields didn't match.": "The two password fields didn't match.",
+  "This password is too short. It must contain at least ${min} characters.": "This password is too short. It must contain at least ${min} characters.",
+  "Your old password was entered incorrectly.": "Your old password was entered incorrectly.",
+  "Enter a valid e-mail address.": "Enter a valid e-mail address.",
+  "A user is already registered with this e-mail address.": "A user is already registered with this e-mail address.",
+  "You do not have permission to perform this action.": "You do not have permission to perform this action.",
+  "Authentication credentials were not provided.": "Authentication credentials were not provided.",
+  "Unable to login with provided credentials.": "Unable to login with provided credentials.",
+  "You cannot subscribe to your own meetups.": "You cannot subscribe to your own meetups.",
+  "You cannot subcribe to past meetups.": "You cannot subcribe to past meetups.",
+  "You are already subscribed for this meetup.": "You are already subscribed for this meetup.",
+  "You are already subscribed to another meetup at this same time.": "You are already subscribed to another meetup at this same time."
 }

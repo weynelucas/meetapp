@@ -9,7 +9,7 @@ export default class UpdateUser {
         .email(req.t('email.notEmail'))
         .test(
           'email-already-registered',
-          req.t('email.alreadyRegistered'),
+          'A user is already registered with this e-mail address.',
           async email => {
             if (email && email !== req.user.email) {
               return !(await User.findOne({ where: { email } }));
@@ -17,18 +17,24 @@ export default class UpdateUser {
             return true;
           }
         ),
-      password: Yup.string().min(6, req.t('password.toShort')),
+      password: Yup.string().min(
+        6,
+        'This password is too short. It must contain at least ${min} characters.'
+      ),
       confirmPassword: Yup.string().when('password', (password, field) =>
         password
           ? field
-              .required(req.t('required'))
-              .oneOf([Yup.ref('password')], req.t('password.mismatch'))
+              .required()
+              .oneOf(
+                [Yup.ref('password')],
+                "The two password fields didn't match."
+              )
           : field
       ),
       oldPassword: Yup.string().when('password', (password, field) =>
         password
           ? field
-              .required(req.t('required'))
+              .required()
               .test(
                 'incorrect-old-password',
                 req.t('password.incorrectOldPassword'),

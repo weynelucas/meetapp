@@ -20,7 +20,7 @@ export default (
     } catch (error) {
       if (error.name === 'ValidationError') {
         const fields = error.inner.reduce((obj, err) => {
-          obj[err.path] = err.errors;
+          obj[err.path] = err.errors.map(msg => req.t(msg));
           return obj;
         }, {});
 
