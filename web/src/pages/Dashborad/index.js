@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MdKeyboardArrowRight, MdAddCircleOutline } from 'react-icons/md';
 
 import api from '../../services/api';
@@ -41,7 +42,9 @@ export default function Dashborad() {
             <strong>{meetup.title}</strong>
             <div>
               <span>{meetup.formattedDate}</span>
-              <MdKeyboardArrowRight />
+              <Link to="/meetup">
+                <MdKeyboardArrowRight size={26} />
+              </Link>
             </div>
           </li>
         ))}
