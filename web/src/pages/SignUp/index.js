@@ -36,8 +36,8 @@ export default function SignUp() {
 
   const errors = useSelector(state => state.auth.errors);
 
-  function handleSubmit({ name, email, password, confirmPassword }) {
-    dispatch(signUpRequest(name, email, password, confirmPassword));
+  function handleSubmit(data) {
+    dispatch(signUpRequest(data));
   }
 
   return (
