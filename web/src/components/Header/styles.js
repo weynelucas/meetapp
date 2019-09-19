@@ -13,6 +13,10 @@ export const Content = styled.div`
   justify-content: space-between;
   max-width: 900px;
   margin: 0 auto;
+
+  @media (max-width: 960px) {
+    padding: 0 20px;
+  }
 `;
 
 export const Profile = styled.div`
