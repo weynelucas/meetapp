@@ -24,13 +24,6 @@ export const Container = styled.div`
       }
     }
 
-    span {
-      color: #d44059;
-      opacity: 0.6;
-      margin: 5px 0 10px;
-      font-size: 12px;
-    }
-
     button {
       margin-top: 15px;
     }

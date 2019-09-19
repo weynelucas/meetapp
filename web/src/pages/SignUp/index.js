@@ -64,7 +64,7 @@ export default function SignUp() {
         />
         {errors.confirmPassword && <span>{errors.confirmPassword[0]}</span>}
 
-        <Button type="submit">Entrar</Button>
+        <Button type="submit">Criar conta</Button>
       </Form>
       <Link to="/">Já tenho login</Link>
     </>
