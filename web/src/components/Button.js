@@ -6,6 +6,7 @@ import colors from '../styles/colors';
 
 const Button = styled.button`
   display: flex;
+  align-items: center;
   justify-content: center;
   padding: 12px 20px;
   border-radius: 4px;
