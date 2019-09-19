@@ -15,7 +15,7 @@ function* updateProfile({ payload }) {
 
     yield put(updateProfileSuccess(response.data));
 
-    toast.success('Perfil editado com sucesso.', {
+    toast.success('Perfil editado com sucesso!', {
       autoClose: 3000,
     });
   } catch (err) {

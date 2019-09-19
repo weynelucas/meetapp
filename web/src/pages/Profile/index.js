@@ -13,20 +13,8 @@ export default function Profile() {
   const profile = useSelector(state => state.user.profile);
   const errors = useSelector(state => state.user.errors || {});
 
-  function handleSubmit({
-    name,
-    email,
-    oldPassword,
-    password,
-    confirmPassword,
-  }) {
-    dispatch(
-      updateProfileRequest({
-        name,
-        email,
-        ...(oldPassword ? { oldPassword, password, confirmPassword } : {}),
-      }),
-    );
+  function handleSubmit(data) {
+    dispatch(updateProfileRequest(data));
   }
 
   return (

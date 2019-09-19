@@ -22,15 +22,10 @@ export function signInFailure() {
   };
 }
 
-export function signUpRequest(name, email, password, confirmPassword) {
+export function signUpRequest(payload) {
   return {
     type: '@auth/SIGN_UP_REQUEST',
-    payload: {
-      name,
-      email,
-      password,
-      confirmPassword,
-    },
+    payload,
   };
 }
 

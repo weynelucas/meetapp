@@ -3,9 +3,9 @@ export function updateProfileRequest(payload) {
 }
 
 export function updateProfileSuccess(profile) {
-  return { type: '@user/UPDATE_PROFILE_SUCCESS', payload: { profile } };
+  return { type: '@user/UPDATE_PROFILE_SUCCESS', profile };
 }
 
-export function updateProfileFailure(error) {
-  return { type: '@user/UPDATE_PROFILE_FAILURE', payload: { error } };
+export function updateProfileFailure(errors) {
+  return { type: '@user/UPDATE_PROFILE_FAILURE', errors };
 }
