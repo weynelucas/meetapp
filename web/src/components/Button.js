@@ -6,7 +6,7 @@ import colors from '../styles/colors';
 
 const Button = styled.button`
   display: flex;
-  justify-content: center;
+  align-items: center;
   padding: 12px 20px;
   border-radius: 4px;
   background-color: ${props => colors[props.theme]};
