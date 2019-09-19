@@ -8,23 +8,14 @@ import Button from '../../components/Button';
 import { Header, MeetupList } from './styles';
 
 export default function Dashborad() {
-  const [meetups, setMeetups] = useState([
-    {
-      title: 'Meetup de React Native',
-      formattedDate: '24 de Junho, às 20h',
-    },
-    {
-      title: 'NodeJS Meetup',
-      formattedDate: '17 de Junho, às 13h',
-    },
-  ]);
+  const [meetups, setMeetups] = useState([]);
 
-  // useEffect(() => {
-  //   (async function loadSubscriptions() {
-  //     const response = await api.get('/organizing');
-  //     setMeetups(response.data);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async function loadSubscriptions() {
+      const response = await api.get('/organizing');
+      setMeetups(response.data);
+    })();
+  }, []);
 
   return (
     <>
