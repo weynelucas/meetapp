@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { parseISO, format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import { Link } from 'react-router-dom';
 import { MdKeyboardArrowRight, MdAddCircleOutline } from 'react-icons/md';
 
@@ -13,7 +15,16 @@ export default function Dashborad() {
   useEffect(() => {
     (async function loadSubscriptions() {
       const response = await api.get('/organizing');
-      setMeetups(response.data);
+      setMeetups(
+        response.data.map(meetup => ({
+          ...meetup,
+          formattedDate: format(
+            parseISO(meetup.date),
+            "dd 'de' MMMM', às' HH'h'",
+            { locale: ptBR },
+          ),
+        })),
+      );
     })();
   }, []);
 
