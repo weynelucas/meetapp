@@ -1,10 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Input, Form } from '@rocketseat/unform';
+import { Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 import logo from '../../assets/logo.svg';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 import { signUpRequest } from '../../store/modules/auth/actions';
 
 const schema = Yup.object().shape({
@@ -62,7 +64,7 @@ export default function SignUp() {
         />
         {errors.confirmPassword && <span>{errors.confirmPassword[0]}</span>}
 
-        <button type="submit">Entrar</button>
+        <Button type="submit">Entrar</Button>
       </Form>
       <Link to="/">Já tenho login</Link>
     </>
