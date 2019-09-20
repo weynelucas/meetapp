@@ -35,9 +35,13 @@ export default function MeetupsReducer(state = INITIAL_STATE, action) {
         break;
       }
 
-      case '@meetups/DELETE_CURRENT_SUCCESS': {
-        draft.items = draft.items.filter(m => m.id !== draft.current.id);
-        draft.current = null;
+      case '@meetups/DELETE_SUCCESS': {
+        const { meetupId } = action;
+        draft.items = draft.items.filter(m => m.id !== meetupId);
+
+        if (draft.current.id === meetupId) {
+          draft.current = null;
+        }
         break;
       }
 

@@ -5,7 +5,7 @@ import { MdEdit, MdDeleteForever, MdEventNote, MdPlace } from 'react-icons/md';
 
 import Button from '../../../components/Button';
 import { Container, MeetupHeader, MeetupBody, MeetupFooter } from './styles';
-import { deleteCurrentMeetupRequest } from '../../../store/modules/meetups/actions';
+import { deleteMeetupRequest } from '../../../store/modules/meetups/actions';
 
 export default function MeetupDetails() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function MeetupDetails() {
   const meetup = useSelector(state => state.meetups.current);
 
   function handleDelete() {
-    dispatch(deleteCurrentMeetupRequest());
+    dispatch(deleteMeetupRequest(meetup.id));
   }
 
   return meetup ? (

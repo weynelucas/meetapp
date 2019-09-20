@@ -32,14 +32,16 @@ export function setCurrentMeetupSuccess(meetup) {
   };
 }
 
-export function deleteCurrentMeetupRequest() {
+export function deleteMeetupRequest(meetupId) {
   return {
-    type: '@meetups/DELETE_CURRENT_REQUEST',
+    type: '@meetups/DELETE_REQUEST',
+    meetupId,
   };
 }
 
-export function deleteCurrentMeetupSuccess() {
+export function deleteMeetupSuccess(meetupId) {
   return {
-    type: '@meetups/DELETE_CURRENT_SUCCESS',
+    type: '@meetups/DELETE_SUCCESS',
+    meetupId,
   };
 }

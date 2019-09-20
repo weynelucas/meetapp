@@ -9,7 +9,7 @@ import {
   loadMeetupsFailure,
   loadMeetupsSuccess,
   setCurrentMeetupSuccess,
-  deleteCurrentMeetupSuccess,
+  deleteMeetupSuccess,
 } from './actions';
 
 function* loadMeetups() {
@@ -46,13 +46,13 @@ function* setCurrentMeetup({ meetupId }) {
   }
 }
 
-function* deleteCurrentMeetup() {
+function* deleteMeetup({ meetupId }) {
   try {
-    const meetup = yield select(state => state.meetups.current);
+    yield call(api.delete, `/meetups/${meetupId}`);
+    yield put(deleteMeetupSuccess(meetupId));
 
-    yield call(api.delete, `/meetups/${meetup.id}`);
-    yield put(deleteCurrentMeetupSuccess());
-    toast.success(`${meetup.title} cancelado com sucesso`);
+    toast.success(`Meetup cancelado com sucesso`);
+    history.push('/');
   } catch (err) {
     if (err.response) {
       toast.error(err.response.data.error);
@@ -63,5 +63,5 @@ function* deleteCurrentMeetup() {
 export default all([
   takeLatest('@meetups/LOAD_REQUEST', loadMeetups),
   takeLatest('@meetups/SET_CURRENT_REQUEST', setCurrentMeetup),
-  takeLatest('@meetups/DELETE_CURRENT_REQUEST', deleteCurrentMeetup),
+  takeLatest('@meetups/DELETE_REQUEST', deleteMeetup),
 ]);
