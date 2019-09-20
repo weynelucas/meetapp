@@ -1,13 +1,20 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { MdEdit, MdDeleteForever, MdEventNote, MdPlace } from 'react-icons/md';
 
 import Button from '../../components/Button';
 import { Container, MeetupHeader, MeetupBody, MeetupFooter } from './styles';
+import { deleteCurrentMeetupRequest } from '../../store/modules/meetups/actions';
 
 export default function Meetup() {
+  const dispatch = useDispatch();
+
   const meetup = useSelector(state => state.meetups.current);
+
+  function handleDelete() {
+    dispatch(deleteCurrentMeetupRequest());
+  }
 
   return meetup ? (
     <Container>
@@ -19,7 +26,7 @@ export default function Meetup() {
             Editar
           </Button>
 
-          <Button>
+          <Button onClick={handleDelete}>
             <MdDeleteForever size={20} />
             Cancelar
           </Button>

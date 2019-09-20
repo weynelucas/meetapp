@@ -25,9 +25,7 @@ function* signIn({ payload }) {
     const { status, data } = err.response;
 
     if (status === 401) {
-      toast.error(data.error, {
-        autoClose: 3000,
-      });
+      toast.error(data.error);
     }
 
     yield put(signInFailure());

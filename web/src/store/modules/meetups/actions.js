@@ -31,3 +31,15 @@ export function setCurrentMeetupSuccess(meetup) {
     meetup,
   };
 }
+
+export function deleteCurrentMeetupRequest() {
+  return {
+    type: '@meetups/DELETE_CURRENT_REQUEST',
+  };
+}
+
+export function deleteCurrentMeetupSuccess() {
+  return {
+    type: '@meetups/DELETE_CURRENT_SUCCESS',
+  };
+}

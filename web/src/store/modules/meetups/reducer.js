@@ -14,7 +14,7 @@ export default function MeetupsReducer(state = INITIAL_STATE, action) {
         draft.isLoadingMeetups = true;
         break;
       }
-        
+
       case '@meetups/LOAD_SUCCESS': {
         const { meetups } = action;
         draft.items = meetups;
@@ -32,6 +32,12 @@ export default function MeetupsReducer(state = INITIAL_STATE, action) {
       case '@meetups/SET_CURRENT_SUCCESS': {
         const { meetup } = action;
         draft.current = meetup;
+        break;
+      }
+
+      case '@meetups/DELETE_CURRENT_SUCCESS': {
+        draft.items = draft.items.filter(m => m.id !== draft.current.id);
+        draft.current = null;
         break;
       }
 
