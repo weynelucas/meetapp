@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { MdKeyboardArrowRight, MdAddCircleOutline } from 'react-icons/md';
 
 import Button from '../../components/Button';
