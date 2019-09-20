@@ -13,7 +13,7 @@ export default function Dashborad() {
   const [meetups, setMeetups] = useState([]);
 
   useEffect(() => {
-    (async function loadSubscriptions() {
+    async function loadSubscriptions() {
       const response = await api.get('/organizing');
       setMeetups(
         response.data.map(meetup => ({
@@ -25,7 +25,9 @@ export default function Dashborad() {
           ),
         })),
       );
-    })();
+    }
+
+    loadSubscriptions();
   }, []);
 
   return (
@@ -40,7 +42,7 @@ export default function Dashborad() {
 
       <MeetupList>
         {meetups.map(meetup => (
-          <li>
+          <li key={meetup.id}>
             <strong>{meetup.title}</strong>
             <div>
               <span>{meetup.formattedDate}</span>
