@@ -3,11 +3,11 @@ import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdEdit, MdDeleteForever, MdEventNote, MdPlace } from 'react-icons/md';
 
-import Button from '../../components/Button';
+import Button from '../../../components/Button';
 import { Container, MeetupHeader, MeetupBody, MeetupFooter } from './styles';
-import { deleteCurrentMeetupRequest } from '../../store/modules/meetups/actions';
+import { deleteCurrentMeetupRequest } from '../../../store/modules/meetups/actions';
 
-export default function Meetup() {
+export default function MeetupDetails() {
   const dispatch = useDispatch();
 
   const meetup = useSelector(state => state.meetups.current);
