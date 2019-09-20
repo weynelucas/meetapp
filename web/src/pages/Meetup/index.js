@@ -1,14 +1,18 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { MdEdit, MdDeleteForever, MdEventNote, MdPlace } from 'react-icons/md';
 
 import Button from '../../components/Button';
 import { Container, MeetupHeader, MeetupBody, MeetupFooter } from './styles';
 
 export default function Meetup() {
-  return (
+  const meetup = useSelector(state => state.meetups.current);
+
+  return meetup ? (
     <Container>
       <MeetupHeader>
-        Meetup de React Native
+        {meetup.title}
         <div>
           <Button theme="info">
             <MdEdit size={20} />
@@ -23,29 +27,22 @@ export default function Meetup() {
       </MeetupHeader>
 
       <MeetupBody>
-        <img
-          src="http://localhost:3333/files/ba7fd1ff0311644705d6a2519b32f0ef.png"
-          alt="Meetup de React Native"
-        />
-        <p>
-          O Meetup de React Native é um evento que reúne a comunidade de
-          desenvolvimento mobile utilizando React a fim de compartilhar
-          conhecimento. Todos são convidados. Caso queira participar como
-          palestrante do meetup envie um e-mail para
-          organizacao@meetuprn.com.br.
-        </p>
+        <img src={meetup.banner.url} alt={meetup.title} />
+        <p>{meetup.description}</p>
       </MeetupBody>
 
       <MeetupFooter>
         <span>
-          <MdEventNote color="rgba(255,255,255,0.6)" size={20} />
-          24 de Junho, às 20h
+          <MdEventNote size={20} />
+          {meetup.formattedDate}
         </span>
         <span>
-          <MdPlace color="rgba(255,255,255,0.6)" size={20} />
+          <MdPlace size={20} />
           Rua Guilherme Gembala, 260
         </span>
       </MeetupFooter>
     </Container>
+  ) : (
+    <Redirect to="/" />
   );
 }

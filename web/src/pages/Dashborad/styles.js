@@ -37,8 +37,8 @@ export const MeetupList = styled.ul`
         color: rgba(255, 255, 255, 0.6);
       }
 
-      a {
-        text-decoration: none;
+      button {
+        background: none;
         color: #fff;
         margin-left: 45px;
       }
