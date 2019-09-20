@@ -52,7 +52,7 @@ function* deleteCurrentMeetup() {
 
     yield call(api.delete, `/meetups/${meetup.id}`);
     yield put(deleteCurrentMeetupSuccess());
-    toast.success(`${meetup.title} cancelado com sucesso.`);
+    toast.success(`${meetup.title} cancelado com sucesso`);
   } catch (err) {
     if (err.response) {
       toast.error(err.response.data.error);
