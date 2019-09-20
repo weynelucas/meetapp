@@ -11,7 +11,7 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 900px;
+  max-width: 940px;
   margin: 0 auto;
 
   @media (max-width: 960px) {

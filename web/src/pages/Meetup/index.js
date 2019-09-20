@@ -28,10 +28,11 @@ export default function Meetup() {
           alt="Meetup de React Native"
         />
         <p>
-          A maior conferência do ecossistema React da América Latina. Como nas
-          conferências dos Estados Unidos e Europa, reunimos desenvolvedores,
-          empresas e estudantes de tecnologia para compartilhar experiências no
-          desenvolvimento de aplicações reativas.,
+          O Meetup de React Native é um evento que reúne a comunidade de
+          desenvolvimento mobile utilizando React a fim de compartilhar
+          conhecimento. Todos são convidados. Caso queira participar como
+          palestrante do meetup envie um e-mail para
+          organizacao@meetuprn.com.br.
         </p>
       </MeetupBody>
 
