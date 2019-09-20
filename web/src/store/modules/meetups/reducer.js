@@ -11,7 +11,7 @@ export default function MeetupsReducer(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
       case '@meetups/LOAD_REQUEST': {
-        draft.isLoadingMeetups = false;
+        draft.isLoadingMeetups = true;
         break;
       }
       case '@meetups/LOAD_SUCCESS': {
