@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { parseISO, format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdKeyboardArrowRight, MdAddCircleOutline } from 'react-icons/md';
-
-import api from '../../services/api';
 
 import Button from '../../components/Button';
 import { Header, MeetupList } from './styles';
+import {
+  loadMeetupsRequest,
+  setCurrentMeetupRequest,
+} from '../../store/modules/meetups/actions';
 
 export default function Dashborad() {
-  const [meetups, setMeetups] = useState([]);
+  const dispatch = useDispatch();
+
+  const meetups = useSelector(state => state.meetups.items);
 
   useEffect(() => {
-    (async function loadSubscriptions() {
-      const response = await api.get('/organizing');
-      setMeetups(
-        response.data.map(meetup => ({
-          ...meetup,
-          formattedDate: format(
-            parseISO(meetup.date),
-            "dd 'de' MMMM', às' HH'h'",
-            { locale: ptBR },
-          ),
-        })),
-      );
-    })();
-  }, []);
+    dispatch(loadMeetupsRequest());
+  }, [dispatch]);
 
   return (
     <>
@@ -40,13 +30,15 @@ export default function Dashborad() {
 
       <MeetupList>
         {meetups.map(meetup => (
-          <li>
+          <li key={meetup.id}>
             <strong>{meetup.title}</strong>
             <div>
               <span>{meetup.formattedDate}</span>
-              <Link to="/meetup">
+              <button
+                type="button"
+                onClick={() => dispatch(setCurrentMeetupRequest(meetup.id))}>
                 <MdKeyboardArrowRight size={26} />
-              </Link>
+              </button>
             </div>
           </li>
         ))}

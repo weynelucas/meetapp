@@ -9,8 +9,6 @@ import Profile from '../pages/Profile';
 import Dashborad from '../pages/Dashborad';
 import Meetup from '../pages/Meetup';
 
-// import { Container } from './styles';
-
 export default function Routes() {
   return (
     <Switch>
