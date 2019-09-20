@@ -39,7 +39,7 @@ export default function MeetupsReducer(state = INITIAL_STATE, action) {
         const { meetupId } = action;
         draft.items = draft.items.filter(m => m.id !== meetupId);
 
-        if (draft.current.id === meetupId) {
+        if (draft.current && draft.current.id === meetupId) {
           draft.current = null;
         }
         break;
