@@ -14,6 +14,7 @@ export default function MeetupsReducer(state = INITIAL_STATE, action) {
         draft.isLoadingMeetups = true;
         break;
       }
+        
       case '@meetups/LOAD_SUCCESS': {
         const { meetups } = action;
         draft.items = meetups;
