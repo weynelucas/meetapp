@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import colors from '../../styles/colors';
 
 export const Container = styled.div`
+  margin-bottom: 15px;
+
   label {
     display: flex;
     align-items: center;
@@ -8,7 +11,9 @@ export const Container = styled.div`
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.4);
     height: 300px;
+    margin-bottom: 5px;
     cursor: pointer;
+    transition: opacity 0.2s;
 
     &:hover {
       opacity: 0.7;
@@ -37,5 +42,11 @@ export const Container = styled.div`
         margin-top: 10px;
       }
     }
+  }
+
+  span {
+    color: ${colors.danger};
+    opacity: 0.6;
+    font-size: 12px;
   }
 `;
