@@ -32,6 +32,27 @@ export function setCurrentMeetupSuccess(meetup) {
   };
 }
 
+export function addMeetupRequest(payload) {
+  return {
+    type: '@meetups/ADD_REQUEST',
+    payload,
+  };
+}
+
+export function addMeetupSuccess(meetup) {
+  return {
+    type: '@meetups/ADD_SUCCESS',
+    meetup,
+  };
+}
+
+export function addMeetupFailure(errors) {
+  return {
+    type: '@meetups/ADD_REQUEST',
+    errors,
+  };
+}
+
 export function deleteMeetupRequest(meetupId) {
   return {
     type: '@meetups/DELETE_REQUEST',
