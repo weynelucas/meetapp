@@ -10,15 +10,15 @@ export const Container = styled.div`
     height: 300px;
     cursor: pointer;
 
+    &:hover {
+      opacity: 0.7;
+    }
+
     img {
       width: 100%;
       height: 100%;
       border-radius: 4px;
       object-fit: cover;
-    }
-
-    &:hover {
-      opacity: 0.7;
     }
 
     input {

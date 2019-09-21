@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colors from '../../../styles/colors';
 
 export const Container = styled.div`
   form {
@@ -13,11 +14,13 @@ export const Container = styled.div`
       & + select {
         margin-top: 10px;
       }
-    }
 
-    hr {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin: 30px 0 20px 0;
+      & + span {
+        color: ${colors.danger};
+        opacity: 0.6;
+        margin: 5px 0 10px;
+        font-size: 12px;
+      }
     }
 
     button {
