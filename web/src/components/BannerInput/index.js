@@ -8,7 +8,7 @@ import api from '../../services/api';
 import { Container } from './styles';
 
 export default function BannerInput({ name }) {
-  const { fieldName, defaultValue, registerField } = useField(name);
+  const { fieldName, defaultValue, registerField, error } = useField(name);
 
   const ref = useRef();
 
@@ -55,6 +55,7 @@ export default function BannerInput({ name }) {
           data-file={file}
         />
       </label>
+      {error && <span>{error}</span>}
     </Container>
   );
 }
