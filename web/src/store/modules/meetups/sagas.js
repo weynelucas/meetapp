@@ -10,6 +10,8 @@ import {
   loadMeetupsSuccess,
   setCurrentMeetupSuccess,
   deleteMeetupSuccess,
+  addMeetupFailure,
+  addMeetupSuccess,
 } from './actions';
 
 function* loadMeetups() {
@@ -60,8 +62,24 @@ function* deleteMeetup({ meetupId }) {
   }
 }
 
+function* addMeetup({ payload }) {
+  try {
+    const response = yield call(api.post, '/meetups', payload);
+
+    yield put(addMeetupSuccess(response.data));
+
+    toast.success('Meetup criado com sucesso');
+    history.push('/');
+  } catch (err) {
+    if (err.response) {
+      yield put(addMeetupFailure(err.response.data));
+    }
+  }
+}
+
 export default all([
   takeLatest('@meetups/LOAD_REQUEST', loadMeetups),
   takeLatest('@meetups/SET_CURRENT_REQUEST', setCurrentMeetup),
+  takeLatest('@meetups/ADD_REQUEST', addMeetup),
   takeLatest('@meetups/DELETE_REQUEST', deleteMeetup),
 ]);

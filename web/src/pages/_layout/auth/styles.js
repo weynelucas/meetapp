@@ -14,18 +14,11 @@ export const Container = styled.div`
   }
 
   form {
-    display: flex;
-    flex-direction: column;
     width: 100%;
-
-    input {
-      & + input {
-        margin-top: 10px;
-      }
-    }
 
     button {
       margin-top: 15px;
+      align-self: stretch;
     }
   }
 

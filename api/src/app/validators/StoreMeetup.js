@@ -15,6 +15,9 @@ export default class StoreMeetup {
         .min(new Date(), 'Não é possível registrar eventos que já aconteceram.')
         .required()
         .transform(value => startOfHour(value)),
+      location: Yup.string()
+        .required()
+        .max(255),
       bannerId: Yup.number()
         .integer()
         .test(

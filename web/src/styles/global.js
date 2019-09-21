@@ -22,7 +22,7 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased !important;
   }
   
-  body, input, button, .Toastify__toast-body {
+  body, input, textarea, button, .Toastify__toast-body {
     color: #fff;
     font-size: 14px;
     font-family: 'Open Sans', Helvetica, sans-serif;

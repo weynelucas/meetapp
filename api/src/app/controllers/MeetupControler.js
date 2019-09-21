@@ -46,7 +46,7 @@ class MeetupController {
       userId: req.user.id,
     });
 
-    const { id, title, description, date, bannerId } = meetup;
+    const { id, title, description, date, location, bannerId } = meetup;
     const { name, path, url } = await meetup.getBanner();
 
     return res.status(201).json({
@@ -54,6 +54,7 @@ class MeetupController {
       title,
       description,
       date,
+      location,
       bannerId,
       banner: { name, path, url },
     });
@@ -62,7 +63,7 @@ class MeetupController {
   async update(req, res) {
     const meetup = await req.meetup.update(req.data);
 
-    const { id, title, description, date, bannerId } = meetup;
+    const { id, title, description, date, location, bannerId } = meetup;
     const { name, path, url } = await meetup.getBanner();
 
     return res.json({
@@ -71,6 +72,7 @@ class MeetupController {
       description,
       date,
       bannerId,
+      location,
       banner: { name, path, url },
     });
   }

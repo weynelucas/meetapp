@@ -8,6 +8,7 @@ import {
   loadMeetupsRequest,
   setCurrentMeetupRequest,
 } from '../../store/modules/meetups/actions';
+import history from '../../services/history';
 
 export default function Dashborad() {
   const dispatch = useDispatch();
@@ -18,11 +19,19 @@ export default function Dashborad() {
     dispatch(loadMeetupsRequest());
   }, [dispatch]);
 
+  function handleDetailsNavigate(meetupId) {
+    dispatch(setCurrentMeetupRequest(meetupId));
+  }
+
+  function handleCreateNavigate() {
+    history.push('/meetup/create');
+  }
+
   return (
     <>
       <Header>
         <h1>Meus meetups</h1>
-        <Button>
+        <Button onClick={handleCreateNavigate}>
           <MdAddCircleOutline size={20} />
           Novo meetup
         </Button>
@@ -36,7 +45,7 @@ export default function Dashborad() {
               <span>{meetup.formattedDate}</span>
               <button
                 type="button"
-                onClick={() => dispatch(setCurrentMeetupRequest(meetup.id))}>
+                onClick={() => handleDetailsNavigate(meetup.id)}>
                 <MdKeyboardArrowRight size={26} />
               </button>
             </div>

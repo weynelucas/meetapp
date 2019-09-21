@@ -8,6 +8,7 @@ export default class Meetup extends Model {
         title: Sequelize.STRING,
         description: Sequelize.STRING,
         date: Sequelize.DATE,
+        location: Sequelize.STRING,
         past: {
           type: Sequelize.VIRTUAL,
           get() {
