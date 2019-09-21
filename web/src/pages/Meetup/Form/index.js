@@ -25,6 +25,7 @@ const schema = Yup.object().shape({
     .typeError('Formato inválido para data.')
     .required('Este campo é obrigatório.')
     .min(new Date(), 'Não é possível registrar eventos que já aconteceram.'),
+  location: Yup.string().required('Este campo é obrigatório.'),
 });
 
 export default function MeetupForm({ meetup, onSubmit }) {

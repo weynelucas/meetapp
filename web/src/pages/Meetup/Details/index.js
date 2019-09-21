@@ -52,7 +52,7 @@ export default function MeetupDetails() {
         </span>
         <span>
           <MdPlace size={20} />
-          Rua Guilherme Gembala, 260
+          {meetup.location}
         </span>
       </MeetupFooter>
     </Container>
