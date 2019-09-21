@@ -10,6 +10,7 @@ export default class UpdateMeetup {
       date: Yup.date()
         .min(new Date(), 'Não é possível registrar eventos que já aconteceram.')
         .transform(value => startOfHour(value)),
+      location: Yup.string().max(255),
       bannerId: Yup.number()
         .integer()
         .test('file-not-found', 'Arquivo não encontrado.', async value => {

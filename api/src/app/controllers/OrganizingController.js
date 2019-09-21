@@ -8,7 +8,7 @@ class OrganizingController {
 
     const meetups = await Meetup.findAll({
       where: { userId: req.user.id },
-      attributes: ['id', 'title', 'description', 'date'],
+      attributes: ['id', 'title', 'description', 'date', 'location'],
       include: [
         {
           model: File,
