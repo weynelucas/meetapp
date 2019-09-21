@@ -35,7 +35,7 @@ export default function MeetupsReducer(state = INITIAL_STATE, action) {
       }
 
       case '@meetup/ADD_REQUEST': {
-        draft.isAddingMeetup = true;
+        draft.isSubmittingMeetup = true;
         break;
       }
 
