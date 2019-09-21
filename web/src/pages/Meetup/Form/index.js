@@ -11,7 +11,7 @@ import Button from '../../../components/Button';
 import { Container } from './styles';
 
 const schema = Yup.object().shape({
-  bannerId: Yup.number()
+  banner: Yup.number()
     .integer()
     .min(0)
     .required('Este campo é obrigatório.'),
@@ -28,10 +28,14 @@ const schema = Yup.object().shape({
 });
 
 export default function MeetupForm({ meetup, onSubmit }) {
+  function handleSubmit({ banner: bannerId, ...rest }) {
+    onSubmit({ bannerId, ...rest });
+  }
+
   return (
     <Container>
-      <Form initialData={meetup} schema={schema} onSubmit={onSubmit}>
-        <BannerInput name="bannerId" />
+      <Form initialData={meetup} schema={schema} onSubmit={handleSubmit}>
+        <BannerInput name="banner" />
         <Input name="title" placeholder="Título do meetup" />
         <Input
           name="description"

@@ -16,12 +16,14 @@ export default function BannerInput({ name }) {
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
   useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: ref.current,
-      path: 'dataset.file',
-    });
-  }, [ref.current, fieldName]); // eslint-disable-line
+    if (ref.current) {
+      registerField({
+        name: fieldName,
+        ref: ref.current,
+        path: 'dataset.file',
+      });
+    }
+  }, [ref, fieldName]); // eslint-disable-line
 
   async function handleChange(e) {
     const data = new FormData();

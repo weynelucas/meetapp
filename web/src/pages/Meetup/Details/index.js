@@ -3,14 +3,21 @@ import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdEdit, MdDeleteForever, MdEventNote, MdPlace } from 'react-icons/md';
 
-import Button from '../../../components/Button';
-import { Container, MeetupHeader, MeetupBody, MeetupFooter } from './styles';
+import history from '../../../services/history';
 import { deleteMeetupRequest } from '../../../store/modules/meetups/actions';
+
+import Button from '../../../components/Button';
+
+import { Container, MeetupHeader, MeetupBody, MeetupFooter } from './styles';
 
 export default function MeetupDetails() {
   const dispatch = useDispatch();
 
   const meetup = useSelector(state => state.meetups.current);
+
+  function handleEdit() {
+    history.push('/meetup/edit');
+  }
 
   function handleDelete() {
     dispatch(deleteMeetupRequest(meetup.id));
@@ -21,7 +28,7 @@ export default function MeetupDetails() {
       <MeetupHeader>
         {meetup.title}
         <div>
-          <Button theme="info">
+          <Button theme="info" onClick={handleEdit}>
             <MdEdit size={20} />
             Editar
           </Button>
