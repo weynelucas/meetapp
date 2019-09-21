@@ -12,6 +12,7 @@ import {
   deleteMeetupSuccess,
   addMeetupFailure,
   addMeetupSuccess,
+  updateMeetupFailure,
 } from './actions';
 
 function* loadMeetups() {
@@ -48,6 +49,36 @@ function* setCurrentMeetup({ meetupId }) {
   }
 }
 
+function* addMeetup({ payload }) {
+  try {
+    const response = yield call(api.post, '/meetups', payload);
+
+    yield put(addMeetupSuccess(response.data));
+    yield put(setCurrentMeetupSuccess(null));
+
+    toast.success('Meetup criado com sucesso');
+  } catch (err) {
+    if (err.response) {
+      yield put(addMeetupFailure(err.response.data));
+    }
+  }
+}
+
+function* updateMeetup({ meetupId, payload }) {
+  try {
+    const response = yield call(api.put, `/meetups/${meetupId}`, payload);
+
+    yield put(addMeetupSuccess(response.data));
+    yield put(setCurrentMeetupSuccess(null));
+
+    toast.success('Meetup atualizado com sucesso');
+  } catch (err) {
+    if (err.response) {
+      yield put(updateMeetupFailure(err.response.data));
+    }
+  }
+}
+
 function* deleteMeetup({ meetupId }) {
   try {
     yield call(api.delete, `/meetups/${meetupId}`);
@@ -62,24 +93,10 @@ function* deleteMeetup({ meetupId }) {
   }
 }
 
-function* addMeetup({ payload }) {
-  try {
-    const response = yield call(api.post, '/meetups', payload);
-
-    yield put(addMeetupSuccess(response.data));
-
-    toast.success('Meetup criado com sucesso');
-    history.push('/');
-  } catch (err) {
-    if (err.response) {
-      yield put(addMeetupFailure(err.response.data));
-    }
-  }
-}
-
 export default all([
   takeLatest('@meetups/LOAD_REQUEST', loadMeetups),
   takeLatest('@meetups/SET_CURRENT_REQUEST', setCurrentMeetup),
   takeLatest('@meetups/ADD_REQUEST', addMeetup),
+  takeLatest('@meetups/UPDATE_REQUEST', updateMeetup),
   takeLatest('@meetups/DELETE_REQUEST', deleteMeetup),
 ]);

@@ -53,6 +53,28 @@ export function addMeetupFailure(errors) {
   };
 }
 
+export function updateMeetupRequest(meetupId, payload) {
+  return {
+    type: '@meetups/UPDATE_REQUEST',
+    meetupId,
+    payload,
+  };
+}
+
+export function updateMeetupSuccess(meetup) {
+  return {
+    type: '@meetups/UPDATE_SUCCESS',
+    meetup,
+  };
+}
+
+export function updateMeetupFailure(errors) {
+  return {
+    type: '@meetups/UPDATE_FAILURE',
+    errors,
+  };
+}
+
 export function deleteMeetupRequest(meetupId) {
   return {
     type: '@meetups/DELETE_REQUEST',
