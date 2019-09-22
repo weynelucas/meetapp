@@ -15,13 +15,13 @@ export default styled(Form)`
     & + select {
       margin-top: 10px;
     }
+  }
 
-    & + span {
-      color: ${colors.danger};
-      opacity: 0.6;
-      margin: 5px 0 10px;
-      font-size: 12px;
-    }
+  span {
+    color: ${colors.danger};
+    opacity: 0.6;
+    margin: 5px 0 10px;
+    font-size: 12px;
   }
 
   button {

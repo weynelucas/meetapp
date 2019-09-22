@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import colors from '../../styles/colors';
 
 export const Container = styled.div`
   margin-bottom: 15px;
@@ -42,11 +41,5 @@ export const Container = styled.div`
         margin-top: 10px;
       }
     }
-  }
-
-  span {
-    color: ${colors.danger};
-    opacity: 0.6;
-    font-size: 12px;
   }
 `;
