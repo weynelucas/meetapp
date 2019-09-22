@@ -54,9 +54,9 @@ function* addMeetup({ payload }) {
     const response = yield call(api.post, '/meetups', payload);
 
     yield put(addMeetupSuccess(response.data));
-    yield put(setCurrentMeetupSuccess(null));
 
     toast.success('Meetup criado com sucesso');
+    history.push('/');
   } catch (err) {
     if (err.response) {
       yield put(addMeetupFailure(err.response.data));

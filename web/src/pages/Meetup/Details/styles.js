@@ -23,11 +23,14 @@ export const MeetupBody = styled.div`
     width: 100%;
     height: 300px;
     object-fit: cover;
+    border-radius: 4px;
   }
 
-  p {
+  pre {
     margin: 25px 0 30px;
     font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    white-space: pre-wrap;
   }
 `;
 

@@ -3,9 +3,9 @@ import { MdAddCircleOutline } from 'react-icons/md';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 
-import BannerInput from '../../../components/BannerInput';
 import Form from '../../../components/Form';
 import Input from '../../../components/Input';
+import BannerInput from '../../../components/BannerInput';
 import Button from '../../../components/Button';
 
 import { Container } from './styles';
@@ -37,12 +37,13 @@ export default function MeetupForm({ meetup, onSubmit }) {
     <Container>
       <Form initialData={meetup} schema={schema} onSubmit={handleSubmit}>
         <BannerInput name="banner" />
-        <Input name="title" placeholder="Título do meetup" />
+        <Input name="title" placeholder="Título do meetup" maxLength={60} />
         <Input
           name="description"
           placeholder="Descrição completa"
           multiline
           rows={5}
+          maxLength={625}
         />
         <Input name="date" placeholder="Data do meetup" />
         <Input name="location" placeholder="Localização" />

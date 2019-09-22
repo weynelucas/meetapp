@@ -42,7 +42,7 @@ export default function MeetupDetails() {
 
       <MeetupBody>
         <img src={meetup.banner.url} alt={meetup.title} />
-        <p>{meetup.description}</p>
+        <pre>{meetup.description}</pre>
       </MeetupBody>
 
       <MeetupFooter>
