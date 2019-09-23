@@ -43,10 +43,11 @@ export default function DatePickerInput({ name, placeholder, dateFormat }) {
       <DatePicker
         name={name}
         selected={selected}
+        onChange={date => setSelected(date)}
         minDate={startDate}
         minTime={minTime}
         maxTime={maxTime}
-        onChange={date => setSelected(date)}
+        timeIntervals={60}
         placeholderText={placeholder}
         dateFormat={dateFormat}
         showTimeSelect
