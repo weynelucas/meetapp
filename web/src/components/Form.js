@@ -10,7 +10,7 @@ export default styled(Form)`
   input,
   textarea,
   select,
-  div {
+  > div {
     & + input,
     & + textarea,
     & + select,
