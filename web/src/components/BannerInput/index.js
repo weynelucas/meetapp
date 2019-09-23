@@ -8,12 +8,22 @@ import api from '../../services/api';
 import { Container } from './styles';
 
 export default function BannerInput({ name }) {
-  const { fieldName, defaultValue, registerField, error } = useField(name);
+  const {
+    fieldName,
+    error: fieldError,
+    defaultValue,
+    registerField,
+  } = useField(name);
 
   const ref = useRef();
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
+  const [error, setError] = useState(fieldError);
+
+  useEffect(() => {
+    setError(fieldError);
+  }, [fieldError]);
 
   useEffect(() => {
     if (ref.current) {
@@ -29,12 +39,15 @@ export default function BannerInput({ name }) {
     const data = new FormData();
     data.append('file', e.target.files[0]);
 
-    const response = await api.post('/files', data);
+    try {
+      const response = await api.post('/files', data);
+      const { id, url } = response.data;
 
-    const { id, url } = response.data;
-
-    setFile(id);
-    setPreview(url);
+      setFile(id);
+      setPreview(url);
+    } catch (err) {
+      setError('Não foi possível realizar o upload da imagem.');
+    }
   }
 
   return (
