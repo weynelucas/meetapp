@@ -5,6 +5,7 @@ import { useField } from '@rocketseat/unform';
 
 import { isSameDay } from 'date-fns';
 import { startOfMinute, startOfDay, endOfDay } from 'date-fns/esm';
+
 import { DatePicker } from './styles';
 
 export default function DatePickerInput({ name, placeholder, dateFormat }) {

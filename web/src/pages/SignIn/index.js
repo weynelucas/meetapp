@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { signInRequest } from '../../store/modules/auth/actions';
+import { signInRequest } from '~/store/modules/auth/actions';
 
-import logo from '../../assets/logo.svg';
-import Form from '../../components/Form';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import logo from '~/assets/logo.svg';
+import Form from '~/components/Form';
+import Input from '~/components/Input';
+import Button from '~/components/Button';
 
 const schema = Yup.object().shape({
   email: Yup.string()

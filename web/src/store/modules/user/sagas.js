@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-import api from '../../../services/api';
+import api from '~/services/api';
 import { updateProfileSuccess, updateProfileFailure } from './actions';
 
 function* updateProfile({ payload }) {

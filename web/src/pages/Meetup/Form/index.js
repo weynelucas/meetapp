@@ -3,11 +3,11 @@ import { MdAddCircleOutline } from 'react-icons/md';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 
-import Form from '../../../components/Form';
-import Input from '../../../components/Input';
-import BannerInput from '../../../components/BannerInput';
-import DatePickerInput from '../../../components/DatePickerInput';
-import Button from '../../../components/Button';
+import Form from '~/components/Form';
+import Input from '~/components/Input';
+import BannerInput from '~/components/BannerInput';
+import DatePickerInput from '~/components/DatePickerInput';
+import Button from '~/components/Button';
 
 import { Container } from './styles';
 

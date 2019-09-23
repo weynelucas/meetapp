@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useField } from '@rocketseat/unform';
 import { MdCameraAlt } from 'react-icons/md';
 
-import api from '../../services/api';
+import api from '~/services/api';
 
 import { Container } from './styles';
 

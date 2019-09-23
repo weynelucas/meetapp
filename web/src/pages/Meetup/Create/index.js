@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addMeetupRequest } from '../../../store/modules/meetups/actions';
+import { addMeetupRequest } from '~/store/modules/meetups/actions';
 
 import MeetupForm from '../Form';
 

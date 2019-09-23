@@ -3,8 +3,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import AuthLayout from '../pages/_layout/auth';
-import DefaultLayout from '../pages/_layout/default';
+import AuthLayout from '~/pages/_layout/auth';
+import DefaultLayout from '~/pages/_layout/default';
 
 export default function RouteWrapper({
   component: Component,

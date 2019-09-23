@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdKeyboardArrowRight, MdAddCircleOutline } from 'react-icons/md';
 
-import Button from '../../components/Button';
+import Button from '~/components/Button';
 import { Header, MeetupList } from './styles';
 import {
   loadMeetupsRequest,
   setCurrentMeetupRequest,
-} from '../../store/modules/meetups/actions';
-import history from '../../services/history';
+} from '~/store/modules/meetups/actions';
+import history from '~/services/history';
 
 export default function Dashborad() {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { darken } from 'polished';
 
-import colors from '../styles/colors';
+import colors from '~/styles/colors';
 
 const Button = styled.button`
   display: flex;

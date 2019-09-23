@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Form } from '@rocketseat/unform';
 
-import colors from '../styles/colors';
+import colors from '~/styles/colors';
 
 export default styled(Form)`
   display: flex;

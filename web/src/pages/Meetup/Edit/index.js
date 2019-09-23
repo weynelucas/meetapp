@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MeetupForm from '../Form';
-import { updateMeetupRequest } from '../../../store/modules/meetups/actions';
+import { updateMeetupRequest } from '~/store/modules/meetups/actions';
 
 export default function EditMeetup() {
   const dispatch = useDispatch();

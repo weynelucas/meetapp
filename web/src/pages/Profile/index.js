@@ -2,11 +2,11 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdAddCircleOutline } from 'react-icons/md';
 
-import { updateProfileRequest } from '../../store/modules/user/actions';
+import { updateProfileRequest } from '~/store/modules/user/actions';
 
-import Form from '../../components/Form';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Form from '~/components/Form';
+import Input from '~/components/Input';
+import Button from '~/components/Button';
 
 import { Container } from './styles';
 

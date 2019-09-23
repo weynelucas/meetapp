@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { signUpRequest } from '../../store/modules/auth/actions';
+import { signUpRequest } from '~/store/modules/auth/actions';
 
-import logo from '../../assets/logo.svg';
-import Form from '../../components/Form';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import logo from '~/assets/logo.svg';
+import Form from '~/components/Form';
+import Input from '~/components/Input';
+import Button from '~/components/Button';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Este campo é obrigatório.'),

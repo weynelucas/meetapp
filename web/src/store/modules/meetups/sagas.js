@@ -3,8 +3,8 @@ import { parseISO, format } from 'date-fns';
 import locale from 'date-fns/locale/pt-BR';
 
 import { toast } from 'react-toastify';
-import api from '../../../services/api';
-import history from '../../../services/history';
+import api from '~/services/api';
+import history from '~/services/history';
 import {
   loadMeetupsFailure,
   loadMeetupsSuccess,

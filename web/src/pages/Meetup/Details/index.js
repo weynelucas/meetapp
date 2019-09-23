@@ -3,10 +3,10 @@ import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdEdit, MdDeleteForever, MdEventNote, MdPlace } from 'react-icons/md';
 
-import history from '../../../services/history';
-import { deleteMeetupRequest } from '../../../store/modules/meetups/actions';
+import history from '~/services/history';
+import { deleteMeetupRequest } from '~/store/modules/meetups/actions';
 
-import Button from '../../../components/Button';
+import Button from '~/components/Button';
 
 import { Container, MeetupHeader, MeetupBody, MeetupFooter } from './styles';
 
