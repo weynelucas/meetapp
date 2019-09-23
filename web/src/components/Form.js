@@ -9,10 +9,12 @@ export default styled(Form)`
 
   input,
   textarea,
-  select {
+  select,
+  > div {
     & + input,
     & + textarea,
-    & + select {
+    & + select,
+    & + div {
       margin-top: 10px;
     }
   }

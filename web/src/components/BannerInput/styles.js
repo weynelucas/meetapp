@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 
   label {
     display: flex;
@@ -10,7 +10,6 @@ export const Container = styled.div`
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.4);
     height: 300px;
-    margin-bottom: 5px;
     cursor: pointer;
     transition: opacity 0.2s;
 
