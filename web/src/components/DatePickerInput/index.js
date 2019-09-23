@@ -24,7 +24,7 @@ export default function DatePickerInput({ name, placeholder, dateFormat }) {
         clearValue: pickerRef => pickerRef.clear(),
       });
     }
-  }, [ref]); // eslint-disable-line
+  }, [ref, fieldName]); // eslint-disable-line
 
   const startDate = new Date();
 
@@ -52,6 +52,7 @@ export default function DatePickerInput({ name, placeholder, dateFormat }) {
         showTimeSelect
         locale={ptBR}
         autoComplete="off"
+        ref={ref}
       />
       {error && <span>{error}</span>}
     </>
