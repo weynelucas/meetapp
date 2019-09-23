@@ -17,9 +17,9 @@ export default function BannerInput({ name }) {
 
   const ref = useRef();
 
+  const [error, setError] = useState(fieldError);
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
-  const [error, setError] = useState(fieldError);
 
   useEffect(() => {
     setError(fieldError);
