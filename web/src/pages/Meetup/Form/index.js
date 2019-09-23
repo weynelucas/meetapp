@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Form from '../../../components/Form';
 import Input from '../../../components/Input';
 import BannerInput from '../../../components/BannerInput';
+import DatePickerInput from '../../../components/DatePickerInput';
 import Button from '../../../components/Button';
 
 import { Container } from './styles';
@@ -45,7 +46,7 @@ export default function MeetupForm({ meetup, onSubmit }) {
           rows={5}
           maxLength={625}
         />
-        <Input name="date" placeholder="Data do meetup" />
+        <DatePickerInput name="date" placeholder="Data do meetup" />
         <Input name="location" placeholder="Localização" />
 
         <Button type="submit">
