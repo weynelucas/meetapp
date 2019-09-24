@@ -60,14 +60,14 @@ export default function MeetupsReducer(state = INITIAL_STATE, action) {
 
       case '@meetup/UPDATE_SUCCESS': {
         const { meetup } = action;
-        draft.isSubmittingMeetup = false;
+        draft.isSavingMeetup = false;
         draft.items = draft.items.map(m => (m.id === meetup.id ? meetup : m));
         break;
       }
 
       case '@meetup/UPDATE_FAILURE': {
         const { errors } = action;
-        draft.isSubmittingMeetup = false;
+        draft.isSavingMeetup = false;
         draft.errors = errors;
         break;
       }
