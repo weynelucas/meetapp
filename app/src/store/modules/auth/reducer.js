@@ -5,7 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 const INITIAL_STATE = {
   token: null,
   isSignedIn: false,
-  isLoggingIn: false,
+  isSigningIn: false,
+  isSigningUp: false,
   errors: {},
 };
 
@@ -13,7 +14,7 @@ function AuthReducer(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
       case '@auth/SIGN_IN_REQUEST': {
-        draft.loading = true;
+        draft.isSigningIn = true;
         break;
       }
 
@@ -21,26 +22,31 @@ function AuthReducer(state = INITIAL_STATE, action) {
         const { token } = action;
         draft.token = token;
         draft.isSignedIn = true;
-        draft.isLoggingIn = false;
+        draft.isSigningIn = false;
         break;
       }
 
       case '@auth/SIGN_IN_FAILURE': {
         draft.isSignedIn = false;
-        draft.isLoggingIn = false;
+        draft.isSigningIn = false;
         break;
       }
 
       case '@auth/SIGN_UP_REQUEST': {
-        draft.isLoggingIn = true;
+        draft.isSigningUp = true;
         draft.errors = {};
         break;
       }
 
       case '@auth/SIGN_UP_FAILURE': {
         const { errors } = action;
-        draft.isLoggingIn = true;
+        draft.isSigningUp = false;
         draft.errors = errors;
+        break;
+      }
+
+      case '@auth/SIGN_UP_SUCCESS': {
+        draft.isSigningUp = false;
         break;
       }
 

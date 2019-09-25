@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Image } from 'react-native';
 import PropTypes from 'prop-types';
 import Background from '~/components/Background';
@@ -19,6 +19,7 @@ import {
 
 export default function SignUp({ navigation }) {
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.isSigningUp);
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -82,7 +83,9 @@ export default function SignUp({ navigation }) {
             onChangeText={text => setConfirmPassword(text)}
           />
 
-          <SubmitButton onPress={handleSubmit}>Criar conta</SubmitButton>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
+            Criar conta
+          </SubmitButton>
         </Form>
 
         <SignLink onPress={() => navigation.navigate('SignIn')}>
