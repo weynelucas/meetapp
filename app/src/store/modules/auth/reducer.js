@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const INITIAL_STATE = {
   token: null,
@@ -58,7 +58,7 @@ function AuthReducer(state = INITIAL_STATE, action) {
 export default persistReducer(
   {
     key: 'auth',
-    storage,
+    storage: AsyncStorage,
     whitelist: ['token', 'isSignedIn'],
   },
   AuthReducer,

@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const INITIAL_STATE = {
   profile: null,
@@ -51,7 +51,7 @@ function UserReducer(state = INITIAL_STATE, action) {
 export default persistReducer(
   {
     key: 'user',
-    storage,
+    storage: AsyncStorage,
     whitelist: ['profile'],
   },
   UserReducer,
