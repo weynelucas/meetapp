@@ -5,6 +5,7 @@ export default styled.TextInput.attrs({
 })`
   font-size: 18px;
   color: #fff;
+  padding: 14px 20px 11px 20px;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 `;
