@@ -19,10 +19,8 @@ function* signIn({ payload }) {
 
     setToken({ payload: { token } });
   } catch (err) {
-    const { status, data } = err.response;
-
-    if (status === 401) {
-      Alert.alert('Falha no login', data.error);
+    if (err.response && err.response.status === 401) {
+      Alert.alert('Falha no login', err.response.data.error);
     }
 
     yield put(signInFailure());
@@ -33,10 +31,12 @@ function* signUp({ payload }) {
   try {
     yield call(api.post, 'users', payload);
   } catch (err) {
-    const { status, data } = err.response;
-
-    if (status === 400) {
-      yield put(signUpFailure(data));
+    if (err.response && err.response.status === 400) {
+      yield put(signUpFailure(err.response.data));
+      Alert.alert(
+        'Falha no cadastro',
+        'Não foi possível realizar o cadastro, favor verificar seus dados',
+      );
     }
   }
 }
