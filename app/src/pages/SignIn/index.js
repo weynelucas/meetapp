@@ -31,6 +31,7 @@ export default function SignIn({ navigation }) {
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
           />
+
           <FormInput
             placeholder="Sua senha secreta"
             secureTextEntry
@@ -38,6 +39,7 @@ export default function SignIn({ navigation }) {
             autoCapitalize="none"
             ref={passwordRef}
           />
+
           <SubmitButton>Entrar</SubmitButton>
         </Form>
 

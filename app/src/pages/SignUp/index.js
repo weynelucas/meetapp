@@ -48,6 +48,7 @@ export default function SignUp({ navigation }) {
             autoCapitalize="none"
             ref={passwordRef}
           />
+
           <SubmitButton>Criar conta</SubmitButton>
         </Form>
 
