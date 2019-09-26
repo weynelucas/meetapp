@@ -16,9 +16,10 @@ export function signInSuccess(token, user) {
   };
 }
 
-export function signInFailure() {
+export function signInFailure(errors) {
   return {
     type: '@auth/SIGN_IN_FAILURE',
+    errors,
   };
 }
 
@@ -33,6 +34,13 @@ export function signUpFailure(errors) {
   return {
     type: '@auth/SIGN_UP_FAILURE',
     errors,
+  };
+}
+
+export function signUpSuccess(user) {
+  return {
+    type: '@auth/SIGN_UP_SUCCESS',
+    user,
   };
 }
 

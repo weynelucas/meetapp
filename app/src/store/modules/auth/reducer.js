@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   isSignedIn: false,
   isSigningIn: false,
   isSigningUp: false,
-  errors: {},
+  signInErrors: {},
+  signUpErrors: {},
 };
 
 function AuthReducer(state = INITIAL_STATE, action) {
@@ -15,11 +16,13 @@ function AuthReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
       case '@auth/SIGN_IN_REQUEST': {
         draft.isSigningIn = true;
+        draft.signInErrors = {};
         break;
       }
 
       case '@auth/SIGN_IN_SUCCESS': {
         const { token } = action;
+
         draft.token = token;
         draft.isSignedIn = true;
         draft.isSigningIn = false;
@@ -27,21 +30,25 @@ function AuthReducer(state = INITIAL_STATE, action) {
       }
 
       case '@auth/SIGN_IN_FAILURE': {
+        const { errors } = action;
+
         draft.isSignedIn = false;
         draft.isSigningIn = false;
+        draft.signInErrors = errors || {};
         break;
       }
 
       case '@auth/SIGN_UP_REQUEST': {
         draft.isSigningUp = true;
-        draft.errors = {};
+        draft.signUpErrors = {};
         break;
       }
 
       case '@auth/SIGN_UP_FAILURE': {
         const { errors } = action;
+
         draft.isSigningUp = false;
-        draft.errors = errors;
+        draft.signUpErrors = errors;
         break;
       }
 

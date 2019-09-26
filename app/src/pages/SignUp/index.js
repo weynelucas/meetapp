@@ -8,6 +8,8 @@ import { signUpRequest } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/logo.png';
 
+import Feedback from '~/components/Feedback';
+
 import {
   Container,
   Form,
@@ -20,6 +22,7 @@ import {
 export default function SignUp({ navigation }) {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.isSigningUp);
+  const errors = useSelector(state => state.auth.signUpErrors);
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -48,6 +51,7 @@ export default function SignUp({ navigation }) {
             value={name}
             onChangeText={text => setName(text)}
           />
+          {errors.name && <Feedback>{errors.name}</Feedback>}
 
           <FormInput
             placeholder="Digite seu e-mail"
@@ -60,6 +64,7 @@ export default function SignUp({ navigation }) {
             value={email}
             onChangeText={text => setEmail(text)}
           />
+          {errors.email && <Feedback>{errors.email}</Feedback>}
 
           <FormInput
             placeholder="Sua senha secreta"
@@ -71,6 +76,7 @@ export default function SignUp({ navigation }) {
             value={password}
             onChangeText={text => setPassword(text)}
           />
+          {errors.password && <Feedback>{errors.password}</Feedback>}
 
           <FormInput
             placeholder="Confirmação de senha"
@@ -82,6 +88,9 @@ export default function SignUp({ navigation }) {
             value={confirmPassword}
             onChangeText={text => setConfirmPassword(text)}
           />
+          {errors.confirmPassword && (
+            <Feedback>{errors.confirmPassword}</Feedback>
+          )}
 
           <SubmitButton loading={loading} onPress={handleSubmit}>
             Criar conta
