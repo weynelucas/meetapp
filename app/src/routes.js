@@ -35,6 +35,7 @@ export default isSignedIn =>
                 paddingHorizontal: 50,
                 paddingTop: 13,
                 paddingBottom: 12,
+                borderTopWidth: 0,
                 height: 64,
               },
             },
