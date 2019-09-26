@@ -10,6 +10,7 @@ export default function Subscriptions() {
 
 Subscriptions.navigationOptions = {
   tabBarLabel: 'Inscrições',
+  // eslint-disable-next-line react/prop-types
   tabBarIcon: ({ tintColor }) => (
     <Icon name="tag" color={tintColor} size={20} />
   ),

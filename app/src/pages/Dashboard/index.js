@@ -10,6 +10,7 @@ export default function Dashboard() {
 
 Dashboard.navigationOptions = {
   tabBarLabel: 'Meetups',
+  // eslint-disable-next-line react/prop-types
   tabBarIcon: ({ tintColor }) => (
     <Icon name="format-list-bulleted" color={tintColor} size={20} />
   ),

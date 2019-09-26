@@ -10,6 +10,7 @@ export default function Profile() {
 
 Profile.navigationOptions = {
   tabBarLabel: 'Meu perfil',
+  // eslint-disable-next-line react/prop-types
   tabBarIcon: ({ tintColor }) => (
     <Icon name="person" color={tintColor} size={20} />
   ),
