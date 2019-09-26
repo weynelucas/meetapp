@@ -34,7 +34,7 @@ function AuthReducer(state = INITIAL_STATE, action) {
 
         draft.isSignedIn = false;
         draft.isSigningIn = false;
-        draft.signInErrors = errors || {};
+        draft.signInErrors = errors;
         break;
       }
 
