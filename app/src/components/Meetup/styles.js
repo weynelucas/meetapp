@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-
+import { StyleSheet } from 'react-native';
 import Button from '../Button';
 
 export const MeetupCard = styled.View`
@@ -8,15 +8,16 @@ export const MeetupCard = styled.View`
   margin-bottom: 10px;
 `;
 
-export const MeetupBanner = styled.Image.attrs({
-  resizeMode: 'cover',
-})`
+export const MeetupBannerContainer = styled.View`
   align-self: stretch;
-  width: 450px;
   height: 150px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
 `;
+
+export const MeetupBannerImage = styled.Image.attrs({
+  ...StyleSheet.absoluteFillObject,
+  borderTopLeftRadius: 4,
+  borderTopRightRadius: 4,
+})``;
 
 export const MeetupContent = styled.View`
   padding: 20px;

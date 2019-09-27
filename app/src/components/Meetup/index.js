@@ -1,10 +1,12 @@
 import React from 'react';
+import { StyleSheet, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   MeetupCard,
-  MeetupBanner,
+  MeetupBannerContainer,
+  MeetupBannerImage,
   MeetupContent,
   MeetupTitle,
   MeetupInfo,
@@ -15,7 +17,10 @@ import {
 export default function Meetup({ meetup }) {
   return (
     <MeetupCard>
-      <MeetupBanner source={{ uri: meetup.banner.url }} />
+      <MeetupBannerContainer>
+        <MeetupBannerImage source={{ uri: meetup.banner.url }} />
+      </MeetupBannerContainer>
+
       <MeetupContent>
         <MeetupTitle>{meetup.title}</MeetupTitle>
 
