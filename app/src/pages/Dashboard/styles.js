@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import { FlatList, BorderlessButton } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
@@ -13,9 +14,7 @@ export const Header = styled.View`
   align-items: center;
 `;
 
-export const HeaderAction = styled(BorderlessButton).attrs({
-  rippleColor: 'red',
-})`
+export const HeaderAction = styled(TouchableOpacity).attrs({})`
   padding: 5px;
 `;
 
