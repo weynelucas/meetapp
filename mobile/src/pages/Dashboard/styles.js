@@ -4,12 +4,11 @@ import { FlatList } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
-  margin: 62px 20px 0 20px;
 `;
 
 export const Header = styled.View`
   flex-direction: row;
-  margin: 30px 0;
+  margin: 10px 0;
   justify-content: center;
   align-items: center;
 `;
