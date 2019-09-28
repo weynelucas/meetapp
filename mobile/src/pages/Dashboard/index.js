@@ -7,9 +7,10 @@ import locale from 'date-fns/locale/pt-BR';
 import api from '~/services/api';
 
 import Meetup from '~/components/Meetup';
+import ContentWrapper from '~/components/ContentWrapper';
 import Background from '~/components/Background';
 
-import { Container, Header, HeaderAction, HeaderTitle, List } from './styles';
+import { Header, HeaderAction, HeaderTitle, List } from './styles';
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
@@ -41,7 +42,7 @@ export default function Dashboard() {
 
   return (
     <Background>
-      <Container>
+      <ContentWrapper>
         <Header>
           <HeaderAction onPress={() => setDate(addDays(date, -1))}>
             <Icon name="keyboard-arrow-left" size={30} color="#fff" />
@@ -59,7 +60,7 @@ export default function Dashboard() {
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => <Meetup meetup={item} />}
         />
-      </Container>
+      </ContentWrapper>
     </Background>
   );
 }
