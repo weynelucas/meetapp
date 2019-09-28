@@ -14,8 +14,10 @@ export const Header = styled.View`
   align-items: center;
 `;
 
-export const HeaderAction = styled(TouchableOpacity).attrs({})`
+export const HeaderAction = styled(TouchableOpacity)`
   padding: 5px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const HeaderTitle = styled.Text`

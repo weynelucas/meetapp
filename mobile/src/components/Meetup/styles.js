@@ -43,7 +43,8 @@ export const MeetupInfoText = styled.Text`
   margin-left: 5px;
 `;
 
-export const MeetupActionButton = styled(Button)`
+export const MeetupActionButton = styled(Button).attrs({
+  size: 'small',
+})`
   margin-top: 13px;
-  padding: 11px 0 7px 0;
 `;
