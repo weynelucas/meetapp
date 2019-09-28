@@ -14,10 +14,12 @@ import {
   LogoutButton,
 } from './styles';
 import { signOut } from '~/store/modules/auth/actions';
+import { updateProfileRequest } from '~/store/modules/user/actions';
 
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
+  const errors = useSelector(state => state.user.errors);
 
   const emailRef = useRef();
   const oldPasswordRef = useRef();
@@ -26,14 +28,9 @@ export default function Profile() {
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [oldpassword, setOldPassword] = useState();
+  const [oldPassword, setOldPassword] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-
-  useEffect(() => {
-    setName(profile.name);
-    setEmail(profile.email);
-  }, [profile]);
 
   function cleanPasswordFields() {
     setOldPassword('');
@@ -42,12 +39,26 @@ export default function Profile() {
   }
 
   function handleSubmit() {
+    dispatch(
+      updateProfileRequest({
+        name,
+        email,
+        ...(oldPassword ? { oldPassword, password, confirmPassword } : {}),
+      }),
+    );
     cleanPasswordFields();
   }
 
   function handleLogout() {
     dispatch(signOut());
   }
+
+  useEffect(() => {
+    setName(profile.name);
+    setEmail(profile.email);
+
+    cleanPasswordFields();
+  }, [profile]);
 
   return (
     <Background>
@@ -62,6 +73,7 @@ export default function Profile() {
             onChangeText={text => setName(text)}
             onSubmitEditing={() => emailRef.current.focus()}
           />
+          {errors.name && <Feedback>{errors.name[0]}</Feedback>}
 
           <FormInput
             name="email"
@@ -73,6 +85,7 @@ export default function Profile() {
             onChangeText={text => setEmail(text)}
             onSubmitEditing={handleSubmit}
           />
+          {errors.email && <Feedback>{errors.email[0]}</Feedback>}
 
           <Separator />
 
@@ -81,11 +94,12 @@ export default function Profile() {
             placeholder="Senha atual"
             returnKeyType="next"
             secureTextEntry
-            value={oldpassword}
+            value={oldPassword}
             ref={oldPasswordRef}
             onChangeText={text => setOldPassword(text)}
-            onSubmitEditing={() => oldPasswordRef.current.focus()}
+            onSubmitEditing={() => passwordRef.current.focus()}
           />
+          {errors.oldPassword && <Feedback>{errors.oldPassword[0]}</Feedback>}
 
           <FormInput
             name="password"
@@ -97,6 +111,7 @@ export default function Profile() {
             onChangeText={text => setPassword(text)}
             onSubmitEditing={() => confirmPasswordRef.current.focus()}
           />
+          {errors.password && <Feedback>{errors.password[0]}</Feedback>}
 
           <FormInput
             name="confirmPassword"
@@ -108,6 +123,9 @@ export default function Profile() {
             onChangeText={text => setConfirmPassword(text)}
             onSubmitEditing={handleSubmit}
           />
+          {errors.confirmPassword && (
+            <Feedback>{errors.confirmPassword[0]}</Feedback>
+          )}
 
           <SubmitButton onPress={handleSubmit}>Salvar perfil</SubmitButton>
           <LogoutButton onPress={handleLogout}>Sair do Meetapp</LogoutButton>
