@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { format, parseISO, isAfter } from 'date-fns';
+import PropTypes from 'prop-types';
 import locale from 'date-fns/locale/pt-BR';
+import { format, parseISO, isAfter } from 'date-fns';
 
 import api from '~/services/api';
 
@@ -11,7 +13,7 @@ import Meetup from '~/components/Meetup';
 
 import { Container, List, UnsubscribeButton } from './styles';
 
-export default function Subscriptions() {
+function Subscriptions({ isFocused }) {
   const [subscriptions, setSubscriptions] = useState([]);
   const [isUnsubscribing, setIsUnsubscribing] = useState(false);
 
@@ -51,8 +53,10 @@ export default function Subscriptions() {
   }
 
   useEffect(() => {
-    loadSubscriptions();
-  }, []);
+    if (isFocused) {
+      loadSubscriptions();
+    }
+  }, [isFocused]);
 
   return (
     <Background>
@@ -86,3 +90,9 @@ Subscriptions.navigationOptions = {
     <Icon name="tag" color={tintColor} size={20} />
   ),
 };
+
+Subscriptions.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
+
+export default withNavigationFocus(Subscriptions);
