@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const INITIAL_STATE = {
   profile: null,
   isUpdatingProfile: false,
-  errors: {},
+  updateProfileErrors: {},
 };
 
 function UserReducer(state = INITIAL_STATE, action) {
@@ -23,7 +23,7 @@ function UserReducer(state = INITIAL_STATE, action) {
       }
 
       case '@user/UPDATE_PROFILE_REQUEST': {
-        draft.errors = {};
+        draft.updateProfileErrors = {};
         draft.isUpdatingProfile = true;
         break;
       }
@@ -31,14 +31,14 @@ function UserReducer(state = INITIAL_STATE, action) {
       case '@user/UPDATE_PROFILE_SUCCESS': {
         const { profile } = action;
         draft.profile = profile;
-        draft.errors = {};
+        draft.updateProfileErrors = {};
         draft.isUpdatingProfile = false;
         break;
       }
 
       case '@user/UPDATE_PROFILE_FAILURE': {
         const { errors } = action;
-        draft.errors = errors;
+        draft.updateProfileErrors = errors;
         draft.isUpdatingProfile = false;
         break;
       }
