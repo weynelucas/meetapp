@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, isAfter } from 'date-fns';
 import locale from 'date-fns/locale/pt-BR';
 
 import api from '~/services/api';
@@ -55,11 +55,13 @@ export default function Dashboard() {
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
             <Meetup meetup={item}>
-              <SubscribeButton
-                loading={isSubscribing}
-                onPress={() => handleSubscription(item.id)}>
-                Realizar inscrição
-              </SubscribeButton>
+              {isAfter(parseISO(item.date), new Date()) && (
+                <SubscribeButton
+                  loading={isSubscribing}
+                  onPress={() => handleSubscription(item.id)}>
+                  Realizar inscrição
+                </SubscribeButton>
+              )}
             </Meetup>
           )}
         />
