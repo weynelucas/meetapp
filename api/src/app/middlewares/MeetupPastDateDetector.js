@@ -4,7 +4,7 @@
 export default (req, res, next) => {
   if (req.meetup.past) {
     return res.status(403).json({
-      error: 'Não é possível criar ou alterar eventos que já aconteceram.',
+      error: 'Não é possível criar ou alterar meetups que já aconteceram.',
     });
   }
 

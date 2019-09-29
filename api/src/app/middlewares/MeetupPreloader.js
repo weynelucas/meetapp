@@ -23,7 +23,7 @@ export default async (req, res, next) => {
 
   if (!meetup) {
     return res.status(404).json({
-      error: 'Evento não encontrado.',
+      error: 'Meetup não encontrado.',
     });
   }
   req.meetup = meetup;

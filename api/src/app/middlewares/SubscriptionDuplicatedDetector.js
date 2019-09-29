@@ -13,7 +13,7 @@ export default async (req, res, next) => {
 
   if (checkSubscriptionDuplicated) {
     return res.status(403).json({
-      error: 'Você já está inscrito neste evento.',
+      error: 'Você já está inscrito neste meetup.',
     });
   }
 

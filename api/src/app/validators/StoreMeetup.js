@@ -12,7 +12,7 @@ export default class StoreMeetup {
         .required()
         .max(1000),
       date: Yup.date()
-        .min(new Date(), 'Não é possível registrar eventos que já aconteceram.')
+        .min(new Date(), 'Não é possível registrar meetups que já aconteceram.')
         .required()
         .transform(value => startOfHour(value)),
       location: Yup.string()
