@@ -1,6 +1,8 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import Button from '~/components/Button';
 
 export const Container = styled.View`
@@ -19,6 +21,17 @@ export const HeaderAction = styled(TouchableOpacity)`
   padding: 5px;
   align-items: center;
   justify-content: center;
+`;
+
+export const HeaderActionIcon = styled(Icon).attrs({
+  size: 30,
+  color: `#fff`,
+})`
+  ${props =>
+    props.disabled &&
+    css`
+      opacity: 0.3;
+    `}
 `;
 
 export const HeaderTitle = styled.Text`

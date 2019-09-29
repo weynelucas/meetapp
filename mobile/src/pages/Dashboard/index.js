@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { format, addDays, parseISO } from 'date-fns';
+import { format, addDays, parseISO, isBefore, startOfDay } from 'date-fns';
 import locale from 'date-fns/locale/pt-BR';
 
 import api from '~/services/api';
@@ -14,13 +14,16 @@ import {
   Container,
   Header,
   HeaderAction,
+  HeaderActionIcon,
   HeaderTitle,
   List,
   SubscribeButton,
 } from './styles';
 
 export default function Dashboard() {
-  const [date, setDate] = useState(new Date());
+  const today = new Date();
+
+  const [date, setDate] = useState(today);
   const [meetups, setMeetups] = useState([]);
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -62,18 +65,27 @@ export default function Dashboard() {
     [date],
   );
 
+  const hasPreviousDate = useMemo(() => {
+    return isBefore(startOfDay(addDays(date, -1)), startOfDay(today));
+  }, [date]); // eslint-disable-line
+
   return (
     <Background>
       <Container>
         <Header>
-          <HeaderAction onPress={() => setDate(addDays(date, -1))}>
-            <Icon name="keyboard-arrow-left" size={30} color="#fff" />
+          <HeaderAction
+            onPress={() => setDate(addDays(date, -1))}
+            disabled={hasPreviousDate}>
+            <HeaderActionIcon
+              disabled={hasPreviousDate}
+              name="keyboard-arrow-left"
+            />
           </HeaderAction>
 
           <HeaderTitle>{dateFormatted}</HeaderTitle>
 
           <HeaderAction onPress={() => setDate(addDays(date, 1))}>
-            <Icon name="keyboard-arrow-right" size={30} color="#fff" />
+            <HeaderActionIcon name="keyboard-arrow-right" />
           </HeaderAction>
         </Header>
 
