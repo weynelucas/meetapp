@@ -1,12 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Background from '~/components/Background';
-import ContentWrapper from '~/components/ContentWrapper';
 import Feedback from '~/components/Feedback';
 
 import {
+  Container,
   Separator,
   Form,
   FormInput,
@@ -20,11 +20,6 @@ export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
   const errors = useSelector(state => state.user.errors);
-
-  const emailRef = useRef();
-  const oldPasswordRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -46,7 +41,6 @@ export default function Profile() {
         ...(oldPassword ? { oldPassword, password, confirmPassword } : {}),
       }),
     );
-    cleanPasswordFields();
   }
 
   function handleLogout() {
@@ -62,16 +56,14 @@ export default function Profile() {
 
   return (
     <Background>
-      <ContentWrapper>
+      <Container>
         <Form>
           <FormInput
             name="name"
             placeholder="Nome completo"
             autoCapitalize="words"
-            returnKeyType="next"
             value={name}
             onChangeText={text => setName(text)}
-            onSubmitEditing={() => emailRef.current.focus()}
           />
           {errors.name && <Feedback>{errors.name[0]}</Feedback>}
 
@@ -79,11 +71,8 @@ export default function Profile() {
             name="email"
             placeholder="E-mail"
             keyboardType="email-address"
-            returnKeyType="send"
             value={email}
-            ref={emailRef}
             onChangeText={text => setEmail(text)}
-            onSubmitEditing={handleSubmit}
           />
           {errors.email && <Feedback>{errors.email[0]}</Feedback>}
 
@@ -92,34 +81,26 @@ export default function Profile() {
           <FormInput
             name="oldPassword"
             placeholder="Senha atual"
-            returnKeyType="next"
             secureTextEntry
             value={oldPassword}
-            ref={oldPasswordRef}
             onChangeText={text => setOldPassword(text)}
-            onSubmitEditing={() => passwordRef.current.focus()}
           />
           {errors.oldPassword && <Feedback>{errors.oldPassword[0]}</Feedback>}
 
           <FormInput
             name="password"
             placeholder="Nova senha"
-            returnKeyType="next"
             secureTextEntry
             value={password}
-            ref={passwordRef}
             onChangeText={text => setPassword(text)}
-            onSubmitEditing={() => confirmPasswordRef.current.focus()}
           />
           {errors.password && <Feedback>{errors.password[0]}</Feedback>}
 
           <FormInput
             name="confirmPassword"
             placeholder="Confirmação de senha"
-            returnKeyType="send"
             secureTextEntry
             value={confirmPassword}
-            ref={confirmPasswordRef}
             onChangeText={text => setConfirmPassword(text)}
             onSubmitEditing={handleSubmit}
           />
@@ -130,7 +111,7 @@ export default function Profile() {
           <SubmitButton onPress={handleSubmit}>Salvar perfil</SubmitButton>
           <LogoutButton onPress={handleLogout}>Sair do Meetapp</LogoutButton>
         </Form>
-      </ContentWrapper>
+      </Container>
     </Background>
   );
 }
