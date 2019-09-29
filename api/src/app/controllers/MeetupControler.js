@@ -24,12 +24,12 @@ class MeetupController {
         {
           model: User,
           as: 'user',
-          attributes: ['name', 'email'],
+          attributes: ['id', 'name', 'email'],
         },
         {
           model: File,
           as: 'banner',
-          attributes: ['name', 'path', 'url'],
+          attributes: ['id', 'name', 'path', 'url'],
         },
       ],
       limit,

@@ -2,6 +2,7 @@ import { Op } from 'sequelize';
 import Mailer from '../../lib/nodemailer';
 import Subscription from '../models/Subscription';
 import Meetup from '../models/Meetup';
+import User from '../models/User';
 
 class SubscriptionController {
   async index(req, res) {
@@ -16,6 +17,11 @@ class SubscriptionController {
             date: { [Op.gte]: new Date() },
           },
           attributes: ['id', 'title', 'description', 'date'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
         },
       ],
       order: [['meetup', 'date']],
