@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { format, parseISO, isAfter } from 'date-fns';
+import { format, parseISO, isBefore } from 'date-fns';
 import locale from 'date-fns/locale/pt-BR';
 
 import api from '~/services/api';
@@ -13,6 +14,8 @@ import Background from '~/components/Background';
 import { Container, Header, List, SubscribeButton } from './styles';
 
 export default function Dashboard() {
+  const profile = useSelector(state => state.user.profile);
+
   const [meetups, setMeetups] = useState([]);
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -45,6 +48,13 @@ export default function Dashboard() {
     );
   }
 
+  function canSubscribe(meetup) {
+    const isOwner = meetup.user.id === profile.id;
+    const isPast = isBefore(parseISO(meetup.date), new Date());
+
+    return !(isOwner || isPast);
+  }
+
   return (
     <Background>
       <Container>
@@ -55,12 +65,14 @@ export default function Dashboard() {
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
             <Meetup meetup={item}>
-              {isAfter(parseISO(item.date), new Date()) && (
+              {canSubscribe(item) ? (
                 <SubscribeButton
                   loading={isSubscribing}
                   onPress={() => handleSubscription(item.id)}>
                   Realizar inscrição
                 </SubscribeButton>
+              ) : (
+                <></>
               )}
             </Meetup>
           )}
