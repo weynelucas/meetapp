@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { format, addDays, parseISO, isBefore, startOfDay } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import locale from 'date-fns/locale/pt-BR';
 
 import api from '~/services/api';
@@ -10,20 +10,9 @@ import api from '~/services/api';
 import Meetup from '~/components/Meetup';
 import Background from '~/components/Background';
 
-import {
-  Container,
-  Header,
-  HeaderAction,
-  HeaderActionIcon,
-  HeaderTitle,
-  List,
-  SubscribeButton,
-} from './styles';
+import { Container, Header, List, SubscribeButton } from './styles';
 
 export default function Dashboard() {
-  const today = new Date();
-
-  const [date, setDate] = useState(today);
   const [meetups, setMeetups] = useState([]);
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -41,53 +30,25 @@ export default function Dashboard() {
     }
   }
 
-  useEffect(() => {
-    async function loadMeetups() {
-      const response = await api.get('/meetups', { params: { date } });
+  async function loadMeetups(date) {
+    const response = await api.get('/meetups', { params: { date } });
 
-      setMeetups(
-        response.data.map(meetup => ({
-          ...meetup,
-          dateFormatted: format(
-            parseISO(meetup.date),
-            "dd 'de' MMMM', às' HH'h'",
-            { locale },
-          ),
-        })),
-      );
-    }
-
-    loadMeetups();
-  }, [date]);
-
-  const dateFormatted = useMemo(
-    () => format(date, "dd  'de' MMMM", { locale }),
-    [date],
-  );
-
-  const hasPreviousDate = useMemo(() => {
-    return isBefore(startOfDay(addDays(date, -1)), startOfDay(today));
-  }, [date]); // eslint-disable-line
+    setMeetups(
+      response.data.map(meetup => ({
+        ...meetup,
+        dateFormatted: format(
+          parseISO(meetup.date),
+          "dd 'de' MMMM', às' HH'h'",
+          { locale },
+        ),
+      })),
+    );
+  }
 
   return (
     <Background>
       <Container>
-        <Header>
-          <HeaderAction
-            onPress={() => setDate(addDays(date, -1))}
-            disabled={hasPreviousDate}>
-            <HeaderActionIcon
-              disabled={hasPreviousDate}
-              name="keyboard-arrow-left"
-            />
-          </HeaderAction>
-
-          <HeaderTitle>{dateFormatted}</HeaderTitle>
-
-          <HeaderAction onPress={() => setDate(addDays(date, 1))}>
-            <HeaderActionIcon name="keyboard-arrow-right" />
-          </HeaderAction>
-        </Header>
+        <Header onChangeDate={date => loadMeetups(date)} />
 
         <List
           data={meetups}

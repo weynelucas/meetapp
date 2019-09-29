@@ -1,37 +1,17 @@
-import styled, { css } from 'styled-components/native';
-import { TouchableOpacity } from 'react-native';
+import styled from 'styled-components/native';
 import { FlatList } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Button from '~/components/Button';
+import DatePicker from '~/components/DatePicker';
 
 export const Container = styled.View`
   flex: 1;
   padding: 82px 20px 0 20px;
 `;
 
-export const Header = styled.View`
-  flex-direction: row;
+export const Header = styled(DatePicker)`
+  align-self: stretch;
   margin: 10px 0;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const HeaderAction = styled(TouchableOpacity)`
-  padding: 5px;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const HeaderActionIcon = styled(Icon).attrs({
-  size: 30,
-  color: `#fff`,
-})`
-  ${props =>
-    props.disabled &&
-    css`
-      opacity: 0.3;
-    `}
 `;
 
 export const HeaderTitle = styled.Text`
