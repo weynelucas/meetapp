@@ -13,7 +13,9 @@ export const Separator = styled.View`
   margin: 30px 0 10px 0;
 `;
 
-export const Form = styled.ScrollView``;
+export const Form = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})``;
 
 export const FormInput = styled(Input)`
   margin-top: 10px;
