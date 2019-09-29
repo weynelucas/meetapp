@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -19,7 +20,8 @@ import { updateProfileRequest } from '~/store/modules/user/actions';
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
-  const errors = useSelector(state => state.user.errors);
+  const loading = useSelector(state => state.user.isUpdatingProfile);
+  const errors = useSelector(state => state.user.updateProfileErrors);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -56,62 +58,66 @@ export default function Profile() {
 
   return (
     <Background>
-      <Container>
-        <Form>
-          <FormInput
-            name="name"
-            placeholder="Nome completo"
-            autoCapitalize="words"
-            value={name}
-            onChangeText={text => setName(text)}
-          />
-          {errors.name && <Feedback>{errors.name[0]}</Feedback>}
+      <ScrollView>
+        <Container>
+          <Form>
+            <FormInput
+              name="name"
+              placeholder="Nome completo"
+              autoCapitalize="words"
+              value={name}
+              onChangeText={text => setName(text)}
+            />
+            {errors.name && <Feedback>{errors.name[0]}</Feedback>}
 
-          <FormInput
-            name="email"
-            placeholder="E-mail"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={text => setEmail(text)}
-          />
-          {errors.email && <Feedback>{errors.email[0]}</Feedback>}
+            <FormInput
+              name="email"
+              placeholder="E-mail"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={text => setEmail(text)}
+            />
+            {errors.email && <Feedback>{errors.email[0]}</Feedback>}
 
-          <Separator />
+            <Separator />
 
-          <FormInput
-            name="oldPassword"
-            placeholder="Senha atual"
-            secureTextEntry
-            value={oldPassword}
-            onChangeText={text => setOldPassword(text)}
-          />
-          {errors.oldPassword && <Feedback>{errors.oldPassword[0]}</Feedback>}
+            <FormInput
+              name="oldPassword"
+              placeholder="Senha atual"
+              secureTextEntry
+              value={oldPassword}
+              onChangeText={text => setOldPassword(text)}
+            />
+            {errors.oldPassword && <Feedback>{errors.oldPassword[0]}</Feedback>}
 
-          <FormInput
-            name="password"
-            placeholder="Nova senha"
-            secureTextEntry
-            value={password}
-            onChangeText={text => setPassword(text)}
-          />
-          {errors.password && <Feedback>{errors.password[0]}</Feedback>}
+            <FormInput
+              name="password"
+              placeholder="Nova senha"
+              secureTextEntry
+              value={password}
+              onChangeText={text => setPassword(text)}
+            />
+            {errors.password && <Feedback>{errors.password[0]}</Feedback>}
 
-          <FormInput
-            name="confirmPassword"
-            placeholder="Confirmação de senha"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={text => setConfirmPassword(text)}
-            onSubmitEditing={handleSubmit}
-          />
-          {errors.confirmPassword && (
-            <Feedback>{errors.confirmPassword[0]}</Feedback>
-          )}
+            <FormInput
+              name="confirmPassword"
+              placeholder="Confirmação de senha"
+              secureTextEntry
+              value={confirmPassword}
+              onChangeText={text => setConfirmPassword(text)}
+              onSubmitEditing={handleSubmit}
+            />
+            {errors.confirmPassword && (
+              <Feedback>{errors.confirmPassword[0]}</Feedback>
+            )}
 
-          <SubmitButton onPress={handleSubmit}>Salvar perfil</SubmitButton>
-          <LogoutButton onPress={handleLogout}>Sair do Meetapp</LogoutButton>
-        </Form>
-      </Container>
+            <SubmitButton loading={loading} onPress={handleSubmit}>
+              Salvar perfil
+            </SubmitButton>
+            <LogoutButton onPress={handleLogout}>Sair do Meetapp</LogoutButton>
+          </Form>
+        </Container>
+      </ScrollView>
     </Background>
   );
 }
