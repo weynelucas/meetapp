@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   padding: 82px 20px 20px 20px;
 `;
 
@@ -13,7 +13,7 @@ export const Separator = styled.View`
   margin: 30px 0 10px 0;
 `;
 
-export const Form = styled.View``;
+export const Form = styled.ScrollView``;
 
 export const FormInput = styled(Input)`
   margin-top: 10px;
