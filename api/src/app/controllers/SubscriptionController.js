@@ -3,6 +3,7 @@ import Mailer from '../../lib/nodemailer';
 import Subscription from '../models/Subscription';
 import Meetup from '../models/Meetup';
 import User from '../models/User';
+import File from '../models/File';
 
 class SubscriptionController {
   async index(req, res) {
@@ -13,15 +14,22 @@ class SubscriptionController {
         {
           model: Meetup,
           as: 'meetup',
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['id', 'name', 'email'],
+            },
+            {
+              model: File,
+              as: 'banner',
+              attributes: ['id', 'name', 'path', 'url'],
+            },
+          ],
+          attributes: ['id', 'title', 'date', 'location'],
           where: {
             date: { [Op.gte]: new Date() },
           },
-          attributes: ['id', 'title', 'description', 'date'],
-        },
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'name', 'email'],
         },
       ],
       order: [['meetup', 'date']],
