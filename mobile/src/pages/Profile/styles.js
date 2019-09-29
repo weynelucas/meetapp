@@ -8,7 +8,8 @@ export const Container = styled.View`
 `;
 
 export const Separator = styled.View`
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
   margin: 30px 0 10px 0;
 `;
 
