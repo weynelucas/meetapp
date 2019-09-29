@@ -10,10 +10,9 @@ import {
   MeetupTitle,
   MeetupInfo,
   MeetupInfoText,
-  MeetupActionButton,
 } from './styles';
 
-export default function Meetup({ meetup }) {
+export default function Meetup({ meetup, children }) {
   return (
     <MeetupCard>
       <MeetupBannerContainer>
@@ -38,7 +37,7 @@ export default function Meetup({ meetup }) {
           <MeetupInfoText>{meetup.user.name}</MeetupInfoText>
         </MeetupInfo>
 
-        <MeetupActionButton>Realizar inscrição</MeetupActionButton>
+        {children}
       </MeetupContent>
     </MeetupCard>
   );
@@ -57,4 +56,9 @@ Meetup.propTypes = {
       name: PropTypes.string,
     }),
   }).isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+};
+
+Meetup.defaultProps = {
+  children: <></>,
 };

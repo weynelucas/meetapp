@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
-import Button from '../Button';
 
 export const MeetupCard = styled.View`
   background-color: #fff;
@@ -41,10 +40,4 @@ export const MeetupInfoText = styled.Text`
   color: #999;
   font-size: 13px;
   margin-left: 5px;
-`;
-
-export const MeetupActionButton = styled(Button).attrs({
-  size: 'small',
-})`
-  margin-top: 13px;
 `;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { format, addDays, parseISO } from 'date-fns';
@@ -9,11 +10,33 @@ import api from '~/services/api';
 import Meetup from '~/components/Meetup';
 import Background from '~/components/Background';
 
-import { Container, Header, HeaderAction, HeaderTitle, List } from './styles';
+import {
+  Container,
+  Header,
+  HeaderAction,
+  HeaderTitle,
+  List,
+  SubscribeButton,
+} from './styles';
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
   const [meetups, setMeetups] = useState([]);
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  async function handleSubscription(meetupId) {
+    try {
+      setIsSubscribing(true);
+
+      await api.post(`meetups/${meetupId}/subscriptions`);
+
+      setMeetups(meetups.filter(m => m.id !== meetupId));
+    } catch (err) {
+      Alert.alert('Falha ao se inscrever no Meetup', err.response.data.error);
+    } finally {
+      setIsSubscribing(false);
+    }
+  }
 
   useEffect(() => {
     async function loadMeetups() {
@@ -57,7 +80,15 @@ export default function Dashboard() {
         <List
           data={meetups}
           keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => <Meetup meetup={item} />}
+          renderItem={({ item }) => (
+            <Meetup meetup={item}>
+              <SubscribeButton
+                loading={isSubscribing}
+                onPress={() => handleSubscription(item.id)}>
+                Realizar inscrição
+              </SubscribeButton>
+            </Meetup>
+          )}
         />
       </Container>
     </Background>
