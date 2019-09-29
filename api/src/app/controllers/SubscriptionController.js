@@ -63,6 +63,12 @@ class SubscriptionController {
       meetup: req.meetup,
     });
   }
+
+  async delete(req, res) {
+    await req.subscription.destroy();
+
+    return res.status(204).json();
+  }
 }
 
 export default new SubscriptionController();

@@ -10,6 +10,8 @@ import MeetupPastDateDetector from './app/middlewares/MeetupPastDateDetector';
 import SubscriptionOwnerDetector from './app/middlewares/SubscriptionOwnerDetector';
 import SubscriptionDuplicatedDetector from './app/middlewares/SubscriptionDuplicatedDetector';
 import SubscriptionDateConflictDetector from './app/middlewares/SubscriptionDateConflictDetector';
+import SubscriptionPreloader from './app/middlewares/SubscriptionPreloader';
+import SubscriptionPastDateDetector from './app/middlewares/SubscriptionPastDateDetector';
 
 import StoreSession from './app/validators/StoreSession';
 import StoreUser from './app/validators/StoreUser';
@@ -58,7 +60,13 @@ router.delete(
 );
 
 // Subscriptions
+router.use('/subscriptions/:subscriptionId', SubscriptionPreloader);
 router.get('/subscriptions', SubscriptionController.index);
+router.delete(
+  '/subscriptions/:subscriptionId',
+  SubscriptionPastDateDetector,
+  SubscriptionController.delete
+);
 router.post(
   '/meetups/:meetupId/subscriptions',
   MeetupPastDateDetector,
