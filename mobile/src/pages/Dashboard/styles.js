@@ -14,6 +14,12 @@ export const Header = styled(DatePicker)`
   margin: 10px 0;
 `;
 
+export const ActivityContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const List = styled(FlatList).attrs({
   showScrollIndicator: false,
 })``;

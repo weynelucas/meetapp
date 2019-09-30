@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Alert, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { format, parseISO, isBefore } from 'date-fns';
@@ -11,11 +11,18 @@ import api from '~/services/api';
 import Meetup from '~/components/Meetup';
 import Background from '~/components/Background';
 
-import { Container, Header, List, SubscribeButton } from './styles';
+import {
+  Container,
+  Header,
+  ActivityContainer,
+  List,
+  SubscribeButton,
+} from './styles';
 
 export default function Dashboard() {
   const profile = useSelector(state => state.user.profile);
 
+  const [isFetchingMeetups, setIsFetchingMeetups] = useState(false);
   const [meetups, setMeetups] = useState([]);
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -34,6 +41,8 @@ export default function Dashboard() {
   }
 
   async function loadMeetups(date) {
+    setIsFetchingMeetups(true);
+
     const response = await api.get('/meetups', { params: { date } });
 
     setMeetups(
@@ -46,6 +55,8 @@ export default function Dashboard() {
         ),
       })),
     );
+
+    setIsFetchingMeetups(false);
   }
 
   function canSubscribe(meetup) {
@@ -60,23 +71,29 @@ export default function Dashboard() {
       <Container>
         <Header onChangeDate={date => loadMeetups(date)} />
 
-        <List
-          data={meetups}
-          keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => (
-            <Meetup meetup={item}>
-              {canSubscribe(item) ? (
-                <SubscribeButton
-                  loading={isSubscribing}
-                  onPress={() => handleSubscription(item.id)}>
-                  Realizar inscrição
-                </SubscribeButton>
-              ) : (
-                <></>
-              )}
-            </Meetup>
-          )}
-        />
+        {isFetchingMeetups ? (
+          <ActivityContainer>
+            <ActivityIndicator size="large" color="#fff" />
+          </ActivityContainer>
+        ) : (
+          <List
+            data={meetups}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) => (
+              <Meetup meetup={item}>
+                {canSubscribe(item) ? (
+                  <SubscribeButton
+                    loading={isSubscribing}
+                    onPress={() => handleSubscription(item.id)}>
+                    Realizar inscrição
+                  </SubscribeButton>
+                ) : (
+                  <></>
+                )}
+              </Meetup>
+            )}
+          />
+        )}
       </Container>
     </Background>
   );
