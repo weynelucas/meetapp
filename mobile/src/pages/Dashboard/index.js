@@ -11,23 +11,46 @@ import api from '~/services/api';
 import Meetup from '~/components/Meetup';
 import Background from '~/components/Background';
 
-import {
-  Container,
-  Header,
-  List,
-  SubscribeButton,
-  Loading,
-  LoadingMore,
-} from './styles';
+import { Container, Header, List, SubscribeButton, Loading } from './styles';
 
 export default function Dashboard() {
   const profile = useSelector(state => state.user.profile);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isFetchingMeetups, setIsFetchingMeetups] = useState(false);
   const [meetups, setMeetups] = useState([]);
   const [isSubscribing, setIsSubscribing] = useState(false);
+
+  async function loadMeetups(date, page = 1) {
+    setIsFetchingMeetups(true);
+
+    const response = await api.get('/meetups', {
+      params: { date, page },
+    });
+
+    const { results, nextPage } = response.data;
+
+    const data = results.map(meetup => ({
+      ...meetup,
+      dateFormatted: format(parseISO(meetup.date), "dd 'de' MMMM', às' HH'h'", {
+        locale,
+      }),
+    }));
+
+    setMeetups(page > 1 ? [...meetups, ...data] : data);
+    setCurrentDate(date);
+    setCurrentPage(page);
+    setHasNextPage(nextPage === null);
+    setIsFetchingMeetups(false);
+  }
+
+  function loadMore() {
+    if (isFetchingMeetups || hasNextPage) return;
+
+    loadMeetups(currentDate, currentPage + 1);
+  }
 
   async function handleSubscription(meetupId) {
     try {
@@ -41,26 +64,6 @@ export default function Dashboard() {
     } finally {
       setIsSubscribing(false);
     }
-  }
-
-  async function loadMeetups(date, page = 1) {
-    setIsFetchingMeetups(true);
-
-    const response = await api.get('/meetups', {
-      params: { date, page },
-    });
-
-    const data = response.data.map(meetup => ({
-      ...meetup,
-      dateFormatted: format(parseISO(meetup.date), "dd 'de' MMMM', às' HH'h'", {
-        locale,
-      }),
-    }));
-
-    setCurrentDate(date);
-    setCurrentPage(page);
-    setMeetups(page > 1 ? [...meetups, ...data] : data);
-    setIsFetchingMeetups(false);
   }
 
   function canSubscribe(meetup) {
@@ -78,7 +81,7 @@ export default function Dashboard() {
         <List
           data={meetups}
           keyExtractor={item => String(item.id)}
-          onEndReached={() => loadMeetups(currentDate, currentPage + 1)}
+          onEndReached={loadMore}
           onEndReachedThreshold={0.3}
           renderItem={({ item }) => (
             <Meetup meetup={item}>
@@ -93,7 +96,7 @@ export default function Dashboard() {
               )}
             </Meetup>
           )}
-          ListFooterComponent={isFetchingMeetups && <LoadingMore />}
+          ListFooterComponent={isFetchingMeetups && <Loading />}
         />
       </Container>
     </Background>
