@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Alert, ActivityIndicator } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -31,35 +31,50 @@ export default function Dashboard() {
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [isSubscribing, setIsSubscribing] = useState(false);
 
-  async function loadMeetups(date, page = 1) {
-    setIsFetchingMeetups(true);
-    setIsFetchingMore(page > 1);
+  const loadMeetups = useCallback(
+    async (date, page = 1) => {
+      setIsFetchingMeetups(true);
+      setIsFetchingMore(page > 1);
 
-    const response = await api.get('/meetups', {
-      params: { date, page },
-    });
+      const response = await api.get('/meetups', {
+        params: { date, page },
+      });
 
-    const { results, nextPage } = response.data;
+      const { results, nextPage } = response.data;
 
-    const data = results.map(meetup => ({
-      ...meetup,
-      dateFormatted: format(parseISO(meetup.date), "dd 'de' MMMM', às' HH'h'", {
-        locale,
-      }),
-    }));
+      const data = results.map(meetup => {
+        const dateFormatted = format(
+          parseISO(meetup.date),
+          "dd 'de' MMMM', às' HH'h'",
+          {
+            locale,
+          },
+        );
 
-    setMeetups(page > 1 ? [...meetups, ...data] : data);
-    setCurrentDate(date);
-    setCurrentPage(page);
-    setHasNextPage(nextPage === null);
-    setIsFetchingMeetups(false);
-    setIsFetchingMore(false);
-  }
+        return { ...meetup, dateFormatted };
+      });
 
-  function loadMore() {
-    if (isFetchingMeetups || hasNextPage) return;
+      setMeetups(page > 1 ? [...meetups, ...data] : data);
+      setCurrentDate(date);
+      setCurrentPage(page);
+      setHasNextPage(nextPage === null);
+      setIsFetchingMeetups(false);
+      setIsFetchingMore(false);
+    },
+    [meetups],
+  );
+
+  const loadMore = useCallback(() => {
+    if (isFetchingMore || hasNextPage) return;
 
     loadMeetups(currentDate, currentPage + 1);
+  }, [currentDate, currentPage, hasNextPage, isFetchingMore]); // eslint-disable-line
+
+  function canSubscribe(meetup) {
+    const isOwner = meetup.user.id === profile.id;
+    const isPast = isBefore(parseISO(meetup.date), new Date());
+
+    return !(isOwner || isPast);
   }
 
   async function handleSubscription(meetupId) {
@@ -74,13 +89,6 @@ export default function Dashboard() {
     } finally {
       setIsSubscribing(false);
     }
-  }
-
-  function canSubscribe(meetup) {
-    const isOwner = meetup.user.id === profile.id;
-    const isPast = isBefore(parseISO(meetup.date), new Date());
-
-    return !(isOwner || isPast);
   }
 
   return (
