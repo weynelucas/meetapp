@@ -11,7 +11,14 @@ import api from '~/services/api';
 import Meetup from '~/components/Meetup';
 import Background from '~/components/Background';
 
-import { Container, Header, List, SubscribeButton, Loading } from './styles';
+import {
+  Container,
+  Header,
+  List,
+  SubscribeButton,
+  Loading,
+  LoadingMore,
+} from './styles';
 
 export default function Dashboard() {
   const profile = useSelector(state => state.user.profile);
@@ -21,10 +28,12 @@ export default function Dashboard() {
   const [hasNextPage, setHasNextPage] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isFetchingMeetups, setIsFetchingMeetups] = useState(false);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [isSubscribing, setIsSubscribing] = useState(false);
 
   async function loadMeetups(date, page = 1) {
     setIsFetchingMeetups(true);
+    setIsFetchingMore(page > 1);
 
     const response = await api.get('/meetups', {
       params: { date, page },
@@ -44,6 +53,7 @@ export default function Dashboard() {
     setCurrentPage(page);
     setHasNextPage(nextPage === null);
     setIsFetchingMeetups(false);
+    setIsFetchingMore(false);
   }
 
   function loadMore() {
@@ -78,26 +88,30 @@ export default function Dashboard() {
       <Container>
         <Header value={currentDate} onChangeDate={loadMeetups} />
 
-        <List
-          data={meetups}
-          keyExtractor={item => String(item.id)}
-          onEndReached={loadMore}
-          onEndReachedThreshold={0.3}
-          renderItem={({ item }) => (
-            <Meetup meetup={item}>
-              {canSubscribe(item) ? (
-                <SubscribeButton
-                  loading={isSubscribing}
-                  onPress={() => handleSubscription(item.id)}>
-                  Realizar inscrição
-                </SubscribeButton>
-              ) : (
-                <></>
-              )}
-            </Meetup>
-          )}
-          ListFooterComponent={isFetchingMeetups && <Loading />}
-        />
+        {isFetchingMeetups && !isFetchingMore ? (
+          <Loading />
+        ) : (
+          <List
+            data={meetups}
+            keyExtractor={item => String(item.id)}
+            onEndReached={loadMore}
+            onEndReachedThreshold={0.3}
+            renderItem={({ item }) => (
+              <Meetup meetup={item}>
+                {canSubscribe(item) ? (
+                  <SubscribeButton
+                    loading={isSubscribing}
+                    onPress={() => handleSubscription(item.id)}>
+                    Realizar inscrição
+                  </SubscribeButton>
+                ) : (
+                  <></>
+                )}
+              </Meetup>
+            )}
+            ListFooterComponent={isFetchingMore && <LoadingMore />}
+          />
+        )}
       </Container>
     </Background>
   );
