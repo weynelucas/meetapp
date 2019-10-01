@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Alert, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -14,14 +14,17 @@ import Background from '~/components/Background';
 import {
   Container,
   Header,
-  ActivityContainer,
   List,
   SubscribeButton,
+  Loading,
+  LoadingMore,
 } from './styles';
 
 export default function Dashboard() {
   const profile = useSelector(state => state.user.profile);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [isFetchingMeetups, setIsFetchingMeetups] = useState(false);
   const [meetups, setMeetups] = useState([]);
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -40,22 +43,23 @@ export default function Dashboard() {
     }
   }
 
-  async function loadMeetups(date) {
+  async function loadMeetups(date, page = 1) {
     setIsFetchingMeetups(true);
 
-    const response = await api.get('/meetups', { params: { date } });
+    const response = await api.get('/meetups', {
+      params: { date, page },
+    });
 
-    setMeetups(
-      response.data.map(meetup => ({
-        ...meetup,
-        dateFormatted: format(
-          parseISO(meetup.date),
-          "dd 'de' MMMM', às' HH'h'",
-          { locale },
-        ),
-      })),
-    );
+    const data = response.data.map(meetup => ({
+      ...meetup,
+      dateFormatted: format(parseISO(meetup.date), "dd 'de' MMMM', às' HH'h'", {
+        locale,
+      }),
+    }));
 
+    setCurrentDate(date);
+    setCurrentPage(page);
+    setMeetups(page > 1 ? [...meetups, ...data] : data);
     setIsFetchingMeetups(false);
   }
 
@@ -69,31 +73,28 @@ export default function Dashboard() {
   return (
     <Background>
       <Container>
-        <Header onChangeDate={date => loadMeetups(date)} />
+        <Header value={currentDate} onChangeDate={loadMeetups} />
 
-        {isFetchingMeetups ? (
-          <ActivityContainer>
-            <ActivityIndicator size="large" color="#fff" />
-          </ActivityContainer>
-        ) : (
-          <List
-            data={meetups}
-            keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => (
-              <Meetup meetup={item}>
-                {canSubscribe(item) ? (
-                  <SubscribeButton
-                    loading={isSubscribing}
-                    onPress={() => handleSubscription(item.id)}>
-                    Realizar inscrição
-                  </SubscribeButton>
-                ) : (
-                  <></>
-                )}
-              </Meetup>
-            )}
-          />
-        )}
+        <List
+          data={meetups}
+          keyExtractor={item => String(item.id)}
+          onEndReached={() => loadMeetups(currentDate, currentPage + 1)}
+          onEndReachedThreshold={0.3}
+          renderItem={({ item }) => (
+            <Meetup meetup={item}>
+              {canSubscribe(item) ? (
+                <SubscribeButton
+                  loading={isSubscribing}
+                  onPress={() => handleSubscription(item.id)}>
+                  Realizar inscrição
+                </SubscribeButton>
+              ) : (
+                <></>
+              )}
+            </Meetup>
+          )}
+          ListFooterComponent={isFetchingMeetups && <LoadingMore />}
+        />
       </Container>
     </Background>
   );

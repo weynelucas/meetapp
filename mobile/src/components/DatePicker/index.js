@@ -1,28 +1,26 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
-import { format, addDays } from 'date-fns';
+import { format, addDays, startOfDay } from 'date-fns';
 import locale from 'date-fns/locale/pt-BR';
 
 import { Container, Title, Button, ButtonIcon } from './styles';
 
 export default function DatePicker({
-  style,
+  value,
   onChangeDate,
   hasNext,
   hasPrevious,
+  style,
 }) {
-  const today = new Date();
-
-  const [date, setDate] = useState(today);
-
+  const [date, setDate] = useState(value);
   useEffect(() => {
     onChangeDate(date);
   }, [date]); //eslint-disable-line
 
   const dateFormatted = useMemo(
-    () => format(date, "dd  'de' MMMM", { locale }),
-    [date],
+    () => format(startOfDay(value), "dd  'de' MMMM", { locale }),
+    [value],
   );
 
   function handleNext() {
@@ -49,6 +47,7 @@ export default function DatePicker({
 }
 
 DatePicker.propTypes = {
+  value: PropTypes.instanceOf(Date).isRequired,
   hasPrevious: PropTypes.bool,
   hasNext: PropTypes.bool,
   onChangeDate: PropTypes.func,
