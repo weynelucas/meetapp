@@ -16,11 +16,11 @@ import { Container, Header, List, SubscribeButton, Loading } from './styles';
 export default function Dashboard() {
   const profile = useSelector(state => state.user.profile);
 
+  const [meetups, setMeetups] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isFetchingMeetups, setIsFetchingMeetups] = useState(false);
-  const [meetups, setMeetups] = useState([]);
   const [isSubscribing, setIsSubscribing] = useState(false);
 
   async function loadMeetups(date, page = 1) {
