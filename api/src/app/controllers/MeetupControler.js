@@ -17,27 +17,38 @@ class MeetupController {
       };
     }
 
-    const meetups = await Meetup.findAll({
-      where,
-      attributes: ['id', 'title', 'description', 'date', 'location'],
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'name', 'email'],
-        },
-        {
-          model: File,
-          as: 'banner',
-          attributes: ['id', 'name', 'path', 'url'],
-        },
-      ],
-      limit,
-      offset: (page - 1) * limit,
-      order: ['date'],
-    });
+    const [count, results] = await Promise.all([
+      Meetup.count({ where }),
+      Meetup.findAll({
+        where,
+        attributes: ['id', 'title', 'description', 'date', 'location'],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'name', 'email'],
+          },
+          {
+            model: File,
+            as: 'banner',
+            attributes: ['id', 'name', 'path', 'url'],
+          },
+        ],
+        limit,
+        offset: (page - 1) * limit,
+        order: ['date'],
+      }),
+    ]);
 
-    return res.json(meetups);
+    const hasPreviousPage = page > 1;
+    const hasNextPage = page * limit <= count;
+
+    return res.json({
+      results,
+      count,
+      previousPage: hasPreviousPage ? Number(page) - 1 : null,
+      nextPage: hasNextPage ? Number(page) + 1 : null,
+    });
   }
 
   async store(req, res) {
