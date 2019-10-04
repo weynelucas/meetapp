@@ -3,6 +3,7 @@ import { Op } from 'sequelize';
 import Meetup from '../models/Meetup';
 import File from '../models/File';
 import User from '../models/User';
+import PaginationService from '../services/PaginationService';
 
 class MeetupController {
   async index(req, res) {
@@ -17,27 +18,39 @@ class MeetupController {
       };
     }
 
-    const meetups = await Meetup.findAll({
-      where,
-      attributes: ['id', 'title', 'description', 'date', 'location'],
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'name', 'email'],
-        },
-        {
-          model: File,
-          as: 'banner',
-          attributes: ['id', 'name', 'path', 'url'],
-        },
-      ],
-      limit,
-      offset: (page - 1) * limit,
-      order: ['date'],
-    });
+    const {
+      count,
+      previousPage,
+      nextPage,
+      results,
+    } = await PaginationService.run(
+      Meetup,
+      {
+        where,
+        attributes: ['id', 'title', 'description', 'date', 'location'],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'name', 'email'],
+          },
+          {
+            model: File,
+            as: 'banner',
+            attributes: ['id', 'name', 'path', 'url'],
+          },
+        ],
+        order: ['date'],
+      },
+      { page, pageSize: limit }
+    );
 
-    return res.json(meetups);
+    return res.json({
+      count,
+      previousPage,
+      nextPage,
+      results,
+    });
   }
 
   async store(req, res) {

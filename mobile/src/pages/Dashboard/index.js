@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { format, parseISO, isBefore } from 'date-fns';
@@ -11,13 +11,71 @@ import api from '~/services/api';
 import Meetup from '~/components/Meetup';
 import Background from '~/components/Background';
 
-import { Container, Header, List, SubscribeButton } from './styles';
+import {
+  Container,
+  Header,
+  List,
+  SubscribeButton,
+  Loading,
+  LoadingMore,
+} from './styles';
 
 export default function Dashboard() {
   const profile = useSelector(state => state.user.profile);
 
   const [meetups, setMeetups] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [isFetchingMeetups, setIsFetchingMeetups] = useState(false);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const loadMeetups = useCallback(
+    async (date, page = 1) => {
+      setIsFetchingMeetups(true);
+      setIsFetchingMore(page > 1);
+
+      const response = await api.get('/meetups', {
+        params: { date, page },
+      });
+
+      const { results, nextPage } = response.data;
+
+      const data = results.map(meetup => {
+        const dateFormatted = format(
+          parseISO(meetup.date),
+          "dd 'de' MMMM', às' HH'h'",
+          {
+            locale,
+          },
+        );
+
+        return { ...meetup, dateFormatted };
+      });
+
+      setMeetups(page > 1 ? [...meetups, ...data] : data);
+      setCurrentDate(date);
+      setCurrentPage(page);
+      setHasNextPage(nextPage === null);
+      setIsFetchingMeetups(false);
+      setIsFetchingMore(false);
+    },
+    [meetups],
+  );
+
+  const loadMore = useCallback(() => {
+    if (isFetchingMore || hasNextPage) return;
+
+    loadMeetups(currentDate, currentPage + 1);
+  }, [currentDate, currentPage, hasNextPage, isFetchingMore]); // eslint-disable-line
+
+  function canSubscribe(meetup) {
+    const isOwner = meetup.user.id === profile.id;
+    const isPast = isBefore(parseISO(meetup.date), new Date());
+
+    return !(isOwner || isPast);
+  }
 
   async function handleSubscription(meetupId) {
     try {
@@ -33,50 +91,35 @@ export default function Dashboard() {
     }
   }
 
-  async function loadMeetups(date) {
-    const response = await api.get('/meetups', { params: { date } });
-
-    setMeetups(
-      response.data.map(meetup => ({
-        ...meetup,
-        dateFormatted: format(
-          parseISO(meetup.date),
-          "dd 'de' MMMM', às' HH'h'",
-          { locale },
-        ),
-      })),
-    );
-  }
-
-  function canSubscribe(meetup) {
-    const isOwner = meetup.user.id === profile.id;
-    const isPast = isBefore(parseISO(meetup.date), new Date());
-
-    return !(isOwner || isPast);
-  }
-
   return (
     <Background>
       <Container>
-        <Header onChangeDate={date => loadMeetups(date)} />
+        <Header value={currentDate} onChangeDate={loadMeetups} />
 
-        <List
-          data={meetups}
-          keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => (
-            <Meetup meetup={item}>
-              {canSubscribe(item) ? (
-                <SubscribeButton
-                  loading={isSubscribing}
-                  onPress={() => handleSubscription(item.id)}>
-                  Realizar inscrição
-                </SubscribeButton>
-              ) : (
-                <></>
-              )}
-            </Meetup>
-          )}
-        />
+        {isFetchingMeetups && !isFetchingMore ? (
+          <Loading />
+        ) : (
+          <List
+            data={meetups}
+            keyExtractor={item => String(item.id)}
+            onEndReached={loadMore}
+            onEndReachedThreshold={0.3}
+            renderItem={({ item }) => (
+              <Meetup meetup={item}>
+                {canSubscribe(item) ? (
+                  <SubscribeButton
+                    loading={isSubscribing}
+                    onPress={() => handleSubscription(item.id)}>
+                    Realizar inscrição
+                  </SubscribeButton>
+                ) : (
+                  <></>
+                )}
+              </Meetup>
+            )}
+            ListFooterComponent={isFetchingMore && <LoadingMore />}
+          />
+        )}
       </Container>
     </Background>
   );

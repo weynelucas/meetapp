@@ -14,6 +14,25 @@ export const Header = styled(DatePicker)`
   margin: 10px 0;
 `;
 
+export const Loading = styled.ActivityIndicator.attrs({
+  color: '#fff',
+  size: 'large',
+})`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LoadingMore = styled.ActivityIndicator.attrs({
+  color: '#fff',
+  size: 'small',
+})`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
 export const List = styled(FlatList).attrs({
   showScrollIndicator: false,
 })``;
