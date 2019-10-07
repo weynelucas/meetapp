@@ -12,6 +12,8 @@ export const Header = styled.div`
 `;
 
 export const MeetupList = styled.ul`
+  margin-bottom: 50px;
+
   li {
     display: flex;
     justify-content: space-between;

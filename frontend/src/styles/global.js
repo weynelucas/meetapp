@@ -18,7 +18,9 @@ export default createGlobalStyle`
   }
 
   body {
-    background: linear-gradient(180deg, #22202C 0%, #402845 100%);
+    background-repeat: no-repeat;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#22202C), to(#402845)); 
+    background-attachment:fixed;
     -webkit-font-smoothing: antialiased !important;
   }
   
