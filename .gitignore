@@ -61,4 +61,4 @@ typings/
 .next
 
 # Uploads
-api/public/uploads/*
+*/public/uploads/*
