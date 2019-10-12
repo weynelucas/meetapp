@@ -70,7 +70,7 @@ export default function SignUp({ navigation }) {
             placeholder="Sua senha secreta"
             secureTextEntry
             autoCapitalize="none"
-            returnKeyType="send"
+            returnKeyType="next"
             onSubmitEditing={() => confirmPasswordRef.current.focus()}
             ref={passwordRef}
             value={password}
