@@ -23,18 +23,16 @@ export const Loading = styled.ActivityIndicator.attrs({
   justify-content: center;
 `;
 
-export const LoadingMore = styled.ActivityIndicator.attrs({
-  color: '#fff',
+export const LoadingMore = styled(Loading).attrs({
   size: 'small',
-})`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-`;
+})``;
 
 export const List = styled(FlatList).attrs({
-  showScrollIndicator: false,
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
 })``;
 
 export const SubscribeButton = styled(Button).attrs({

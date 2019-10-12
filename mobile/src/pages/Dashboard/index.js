@@ -117,7 +117,7 @@ export default function Dashboard() {
                 )}
               </Meetup>
             )}
-            ListFooterComponent={isFetchingMore && <LoadingMore />}
+            ListFooterComponent={<LoadingMore />}
           />
         )}
       </Container>
