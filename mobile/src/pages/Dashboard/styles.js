@@ -4,9 +4,9 @@ import { FlatList } from 'react-native-gesture-handler';
 import Button from '~/components/Button';
 import DatePicker from '~/components/DatePicker';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 82px 20px 0 20px;
+  padding: 0 20px 0 20px;
 `;
 
 export const Header = styled(DatePicker)`
