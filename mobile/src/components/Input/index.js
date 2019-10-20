@@ -1,11 +1,22 @@
-import styled from 'styled-components/native';
+import React, { forwardRef } from 'react';
+import { ViewPropTypes } from 'react-native';
 
-export default styled.TextInput.attrs({
-  placeholderTextColor: 'rgba(255,255,255,0.5)',
-})`
-  font-size: 18px;
-  color: #fff;
-  padding: 14px 20px 11px 20px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-`;
+import { Container, TInput } from './styles';
+
+function Input({ style, ...rest }, ref) {
+  return (
+    <Container style={style}>
+      <TInput {...rest} ref={ref} />
+    </Container>
+  );
+}
+
+Input.propTypes = {
+  style: ViewPropTypes.style,
+};
+
+Input.defaultProps = {
+  style: {},
+};
+
+export default forwardRef(Input);
