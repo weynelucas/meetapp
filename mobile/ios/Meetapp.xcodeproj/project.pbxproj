@@ -194,7 +194,6 @@
 				F22D58F16CA402FA0034B999 /* Pods-MeetappTests.debug.xcconfig */,
 				7338C83C2727F3D09A35C204 /* Pods-MeetappTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -306,7 +305,7 @@
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Meetapp" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
