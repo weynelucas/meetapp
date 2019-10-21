@@ -8,10 +8,9 @@ import { format, parseISO, isAfter } from 'date-fns';
 
 import api from '~/services/api';
 
-import Background from '~/components/Background';
 import Meetup from '~/components/Meetup';
 
-import { Container, List, UnsubscribeButton } from './styles';
+import { List, UnsubscribeButton } from './styles';
 
 function Subscriptions({ isFocused }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -59,27 +58,23 @@ function Subscriptions({ isFocused }) {
   }, [isFocused]);
 
   return (
-    <Background>
-      <Container>
-        <List
-          data={subscriptions}
-          keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => (
-            <Meetup meetup={item.meetup}>
-              {canUnsubscribe(item.meetup) ? (
-                <UnsubscribeButton
-                  loading={isUnsubscribing}
-                  onPress={() => handleUnsubscripe(item.id)}>
-                  Cancelar inscrição
-                </UnsubscribeButton>
-              ) : (
-                <></>
-              )}
-            </Meetup>
+    <List
+      data={subscriptions}
+      keyExtractor={item => String(item.id)}
+      renderItem={({ item }) => (
+        <Meetup meetup={item.meetup}>
+          {canUnsubscribe(item.meetup) ? (
+            <UnsubscribeButton
+              loading={isUnsubscribing}
+              onPress={() => handleUnsubscripe(item.id)}>
+              Cancelar inscrição
+            </UnsubscribeButton>
+          ) : (
+            <></>
           )}
-        />
-      </Container>
-    </Background>
+        </Meetup>
+      )}
+    />
   );
 }
 

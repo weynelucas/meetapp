@@ -3,11 +3,6 @@ import { FlatList } from 'react-native-gesture-handler';
 
 import Button from '~/components/Button';
 
-export const Container = styled.View`
-  flex: 1;
-  padding: 82px 20px 0 20px;
-`;
-
 export const List = styled(FlatList).attrs({
   showScrollIndicator: false,
 })``;
