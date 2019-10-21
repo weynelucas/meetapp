@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Image } from 'react-native';
 import PropTypes from 'prop-types';
-import Background from '~/components/Background';
 
 import { signUpRequest } from '~/store/modules/auth/actions';
 
@@ -11,7 +10,6 @@ import logo from '~/assets/logo.png';
 import Feedback from '~/components/Feedback';
 
 import {
-  Container,
   Form,
   FormInput,
   SubmitButton,
