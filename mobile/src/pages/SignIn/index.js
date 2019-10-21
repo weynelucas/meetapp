@@ -8,10 +8,8 @@ import logo from '~/assets/logo.png';
 import { signInRequest } from '~/store/modules/auth/actions';
 
 import Feedback from '~/components/Feedback';
-import Background from '~/components/Background';
 
 import {
-  Container,
   Form,
   FormInput,
   SubmitButton,
@@ -35,43 +33,41 @@ export default function SignIn({ navigation }) {
   }
 
   return (
-    <Background>
-      <Container>
-        <Image source={logo} />
-        <Form>
-          <FormInput
-            placeholder="Digite seu e-mail"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="next"
-            value={email}
-            onChangeText={text => setEmail(text)}
-            onSubmitEditing={() => passwordRef.current.focus()}
-          />
-          {errors.email && <Feedback>{errors.email[0]}</Feedback>}
+    <>
+      <Image source={logo} />
+      <Form>
+        <FormInput
+          placeholder="Digite seu e-mail"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="next"
+          value={email}
+          onChangeText={text => setEmail(text)}
+          onSubmitEditing={() => passwordRef.current.focus()}
+        />
+        {errors.email && <Feedback>{errors.email[0]}</Feedback>}
 
-          <FormInput
-            placeholder="Sua senha secreta"
-            secureTextEntry
-            returnKeyType="send"
-            autoCapitalize="none"
-            onChangeText={text => setPassword(text)}
-            onSubmitEditing={handleSubmit}
-            ref={passwordRef}
-          />
-          {errors.password && <Feedback>{errors.password[0]}</Feedback>}
+        <FormInput
+          placeholder="Sua senha secreta"
+          secureTextEntry
+          returnKeyType="send"
+          autoCapitalize="none"
+          onChangeText={text => setPassword(text)}
+          onSubmitEditing={handleSubmit}
+          ref={passwordRef}
+        />
+        {errors.password && <Feedback>{errors.password[0]}</Feedback>}
 
-          <SubmitButton loading={loading} onPress={handleSubmit}>
-            Entrar
-          </SubmitButton>
-        </Form>
+        <SubmitButton loading={loading} onPress={handleSubmit}>
+          Entrar
+        </SubmitButton>
+      </Form>
 
-        <SignLink onPress={() => navigation.navigate('SignUp')}>
-          <SignLinkText>Criar conta gratuita</SignLinkText>
-        </SignLink>
-      </Container>
-    </Background>
+      <SignLink onPress={() => navigation.navigate('SignUp')}>
+        <SignLinkText>Criar conta gratuita</SignLinkText>
+      </SignLink>
+    </>
   );
 }
 

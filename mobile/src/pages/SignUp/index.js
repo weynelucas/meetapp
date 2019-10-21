@@ -38,70 +38,68 @@ export default function SignUp({ navigation }) {
   }
 
   return (
-    <Background>
-      <Container>
-        <Image source={logo} />
-        <Form>
-          <FormInput
-            placeholder="Nome completo"
-            autoCapitalize="words"
-            autoCorrect={false}
-            returnKeyType="next"
-            onSubmitEditing={() => emailRef.current.focus()}
-            value={name}
-            onChangeText={text => setName(text)}
-          />
-          {errors.name && <Feedback>{errors.name}</Feedback>}
+    <>
+      <Image source={logo} />
+      <Form>
+        <FormInput
+          placeholder="Nome completo"
+          autoCapitalize="words"
+          autoCorrect={false}
+          returnKeyType="next"
+          onSubmitEditing={() => emailRef.current.focus()}
+          value={name}
+          onChangeText={text => setName(text)}
+        />
+        {errors.name && <Feedback>{errors.name}</Feedback>}
 
-          <FormInput
-            placeholder="Digite seu e-mail"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="next"
-            onSubmitEditing={() => passwordRef.current.focus()}
-            ref={emailRef}
-            value={email}
-            onChangeText={text => setEmail(text)}
-          />
-          {errors.email && <Feedback>{errors.email}</Feedback>}
+        <FormInput
+          placeholder="Digite seu e-mail"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="next"
+          onSubmitEditing={() => passwordRef.current.focus()}
+          ref={emailRef}
+          value={email}
+          onChangeText={text => setEmail(text)}
+        />
+        {errors.email && <Feedback>{errors.email}</Feedback>}
 
-          <FormInput
-            placeholder="Sua senha secreta"
-            secureTextEntry
-            autoCapitalize="none"
-            returnKeyType="next"
-            onSubmitEditing={() => confirmPasswordRef.current.focus()}
-            ref={passwordRef}
-            value={password}
-            onChangeText={text => setPassword(text)}
-          />
-          {errors.password && <Feedback>{errors.password}</Feedback>}
+        <FormInput
+          placeholder="Sua senha secreta"
+          secureTextEntry
+          autoCapitalize="none"
+          returnKeyType="next"
+          onSubmitEditing={() => confirmPasswordRef.current.focus()}
+          ref={passwordRef}
+          value={password}
+          onChangeText={text => setPassword(text)}
+        />
+        {errors.password && <Feedback>{errors.password}</Feedback>}
 
-          <FormInput
-            placeholder="Confirmação de senha"
-            secureTextEntry
-            autoCapitalize="none"
-            returnKeyType="send"
-            onSubmitEditing={handleSubmit}
-            ref={confirmPasswordRef}
-            value={confirmPassword}
-            onChangeText={text => setConfirmPassword(text)}
-          />
-          {errors.confirmPassword && (
-            <Feedback>{errors.confirmPassword}</Feedback>
-          )}
+        <FormInput
+          placeholder="Confirmação de senha"
+          secureTextEntry
+          autoCapitalize="none"
+          returnKeyType="send"
+          onSubmitEditing={handleSubmit}
+          ref={confirmPasswordRef}
+          value={confirmPassword}
+          onChangeText={text => setConfirmPassword(text)}
+        />
+        {errors.confirmPassword && (
+          <Feedback>{errors.confirmPassword}</Feedback>
+        )}
 
-          <SubmitButton loading={loading} onPress={handleSubmit}>
-            Criar conta
-          </SubmitButton>
-        </Form>
+        <SubmitButton loading={loading} onPress={handleSubmit}>
+          Criar conta
+        </SubmitButton>
+      </Form>
 
-        <SignLink onPress={() => navigation.navigate('SignIn')}>
-          <SignLinkText>Já tenho login</SignLinkText>
-        </SignLink>
-      </Container>
-    </Background>
+      <SignLink onPress={() => navigation.navigate('SignIn')}>
+        <SignLinkText>Já tenho login</SignLinkText>
+      </SignLink>
+    </>
   );
 }
 
