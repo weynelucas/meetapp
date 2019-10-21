@@ -2,14 +2,13 @@ import styled from 'styled-components/native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import Button from '~/components/Button';
-import DatePicker from '~/components/DatePicker';
+import DPicker from '~/components/DatePicker';
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
-  padding: 0 20px 0 20px;
 `;
 
-export const Header = styled(DatePicker)`
+export const DatePicker = styled(DPicker)`
   align-self: stretch;
   margin: 10px 0;
 `;

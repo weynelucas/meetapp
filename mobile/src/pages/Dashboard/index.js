@@ -13,7 +13,7 @@ import Background from '~/components/Background';
 
 import {
   Container,
-  Header,
+  DatePicker,
   List,
   SubscribeButton,
   Loading,
@@ -94,7 +94,7 @@ export default function Dashboard() {
   return (
     <Background>
       <Container>
-        <Header value={currentDate} onChangeDate={loadMeetups} />
+        <DatePicker value={currentDate} onChangeDate={loadMeetups} />
 
         {isFetchingMeetups && !isFetchingMore ? (
           <Loading />
