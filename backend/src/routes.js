@@ -13,11 +13,11 @@ import SubscriptionDateConflictDetector from './app/middlewares/SubscriptionDate
 import SubscriptionPreloader from './app/middlewares/SubscriptionPreloader';
 import SubscriptionPastDateDetector from './app/middlewares/SubscriptionPastDateDetector';
 
-import StoreSession from './app/validators/StoreSession';
-import StoreUser from './app/validators/StoreUser';
-import UpdateUser from './app/validators/UpdateUser';
-import StoreMeetup from './app/validators/StoreMeetup';
-import UpdateMeetup from './app/validators/UpdateMeetup';
+import SessionStore from './app/validators/SessionStore';
+import UserStore from './app/validators/UserStore';
+import UserUpdate from './app/validators/UserUpdate';
+import MeetupStore from './app/validators/MeetupStore';
+import MeetupUpdate from './app/validators/MeetupUpdate';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
@@ -30,10 +30,10 @@ const router = Router();
 const upload = multer(multerConfig);
 
 // Auth
-router.post('/login', Validate(StoreSession), SessionController.store);
-router.post('/users', Validate(StoreUser), UserController.store);
+router.post('/login', Validate(SessionStore), SessionController.store);
+router.post('/users', Validate(UserStore), UserController.store);
 router.use(Auth);
-router.put('/users', Validate(UpdateUser), UserController.update);
+router.put('/users', Validate(UserUpdate), UserController.update);
 
 // Files
 router.post('/files', upload.single('file'), FileController.store);
@@ -44,12 +44,12 @@ router.get('/organizing', OrganizingController.index);
 // Meetups
 router.use('/meetups/:meetupId', MeetupPreloader);
 router.get('/meetups', MeetupControler.index);
-router.post('/meetups', Validate(StoreMeetup), MeetupControler.store);
+router.post('/meetups', Validate(MeetupStore), MeetupControler.store);
 router.put(
   '/meetups/:meetupId',
   MeetupOwnerDetector,
   MeetupPastDateDetector,
-  Validate(UpdateMeetup),
+  Validate(MeetupUpdate),
   MeetupControler.update
 );
 router.delete(

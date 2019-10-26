@@ -38,16 +38,16 @@ export default function MeetupForm({ meetup, onSubmit }) {
     <Container>
       <Form initialData={meetup} schema={schema} onSubmit={handleSubmit}>
         <BannerInput name="banner" />
-        <Input name="title" placeholder="Título do meetup" maxLength={60} />
+        <Input name="title" placeholder="Título do meetup" maxLength={75} />
         <Input
           name="description"
           placeholder="Descrição completa"
           multiline
           rows={5}
-          maxLength={625}
+          maxLength={63206}
         />
         <DatePickerInput name="date" placeholder="Data do meetup" />
-        <Input name="location" placeholder="Localização" />
+        <Input name="location" placeholder="Localização" maxLength={255} />
 
         <Button type="submit">
           <MdAddCircleOutline size={20} />

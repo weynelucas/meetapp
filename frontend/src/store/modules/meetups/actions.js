@@ -48,7 +48,7 @@ export function addMeetupSuccess(meetup) {
 
 export function addMeetupFailure(errors) {
   return {
-    type: '@meetups/ADD_REQUEST',
+    type: '@meetups/ADD_FAILURE',
     errors,
   };
 }

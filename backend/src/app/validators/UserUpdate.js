@@ -2,7 +2,7 @@
 import * as Yup from 'yup';
 import User from '../models/User';
 
-export default class UpdateUser {
+export default class UserUpdate {
   static getRules(req) {
     return Yup.object().shape({
       name: Yup.string(),

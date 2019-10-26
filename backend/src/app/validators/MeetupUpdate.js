@@ -5,8 +5,8 @@ import File from '../models/File';
 export default class UpdateMeetup {
   static getRules() {
     return Yup.object().shape({
-      title: Yup.string().max(60),
-      description: Yup.string().max(1000),
+      title: Yup.string().max(75),
+      description: Yup.string().max(63206),
       date: Yup.date()
         .min(new Date(), 'Não é possível registrar meetups que já aconteceram.')
         .transform(value => startOfHour(value)),

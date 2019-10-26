@@ -2,7 +2,7 @@
 import * as Yup from 'yup';
 import User from '../models/User';
 
-export default class StoreUser {
+export default class UserStore {
   static getRules() {
     return Yup.object().shape({
       name: Yup.string().required(),

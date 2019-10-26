@@ -8,15 +8,19 @@ module.exports = {
         autoIncrement: true,
       },
       title: {
-        type: Sequelize.STRING(55),
+        type: Sequelize.STRING(75),
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING(1000),
+        type: Sequelize.STRING(63206),
         allowNull: false,
       },
       date: {
         type: Sequelize.DATE,
+        allowNull: false,
+      },
+      location: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       user_id: {
