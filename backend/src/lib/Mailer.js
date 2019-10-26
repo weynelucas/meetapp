@@ -4,7 +4,7 @@ import hbs from 'nodemailer-express-handlebars';
 import exphbs from 'express-handlebars';
 import emailConfig from '../config/email';
 
-class Mailer {
+class Mail {
   constructor() {
     const { host, port, auth } = emailConfig;
 
@@ -43,4 +43,4 @@ class Mailer {
   }
 }
 
-export default new Mailer();
+export default new Mail();

@@ -1,9 +1,9 @@
 import { Op } from 'sequelize';
-import Mailer from '../../lib/nodemailer';
 import Subscription from '../models/Subscription';
 import Meetup from '../models/Meetup';
 import User from '../models/User';
 import File from '../models/File';
+import CreateSubscriptionService from '../services/CreateSubscriptionService';
 
 class SubscriptionController {
   async index(req, res) {
@@ -39,29 +39,13 @@ class SubscriptionController {
   }
 
   async store(req, res) {
-    const { id } = await Subscription.create({
-      userId: req.user.id,
-      meetupId: req.meetup.id,
+    const { user, meetup } = req;
+    const subscription = await CreateSubscriptionService.run({
+      user,
+      meetup,
     });
 
-    /**
-     * Send subscription email to organizer
-     */
-    Mailer.sendMail({
-      to: `${req.meetup.user.name} <${req.meetup.user.email}>`,
-      subject: 'Você tem uma nova inscrição',
-      template: 'subscription',
-      context: {
-        organizer: req.meetup.user.name,
-        meetup: req.meetup.title,
-        subscriber: req.user.name,
-      },
-    });
-
-    return res.json({
-      id,
-      meetup: req.meetup,
-    });
+    return res.json(subscription);
   }
 
   async delete(req, res) {
