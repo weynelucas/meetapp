@@ -10,7 +10,7 @@ export default class MeetupStore {
         .max(75),
       description: Yup.string()
         .required()
-        .max(63206),
+        .max(2200),
       date: Yup.date()
         .min(new Date(), 'Não é possível registrar meetups que já aconteceram.')
         .required()

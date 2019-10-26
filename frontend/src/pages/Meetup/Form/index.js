@@ -14,7 +14,6 @@ import { Container } from './styles';
 const schema = Yup.object().shape({
   banner: Yup.number()
     .integer()
-    .min(0)
     .required('Este campo é obrigatório.'),
   title: Yup.string()
     .trim()
@@ -44,7 +43,7 @@ export default function MeetupForm({ meetup, onSubmit }) {
           placeholder="Descrição completa"
           multiline
           rows={5}
-          maxLength={63206}
+          maxLength={2200}
         />
         <DatePickerInput name="date" placeholder="Data do meetup" />
         <Input name="location" placeholder="Localização" maxLength={255} />
