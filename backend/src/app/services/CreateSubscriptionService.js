@@ -1,5 +1,5 @@
 import Subscription from '../models/Subscription';
-import Mailer from '../../lib/Mailer';
+import Mail from '../../lib/Mail';
 
 class CreateSubscriptionService {
   async run({ user, meetup }) {
@@ -11,7 +11,7 @@ class CreateSubscriptionService {
     /**
      * Send subscription email to organizer
      */
-    Mailer.sendMail({
+    Mail.sendMail({
       to: `${meetup.user.name} <${meetup.user.email}>`,
       subject: 'Você tem uma nova inscrição',
       template: 'subscription',
