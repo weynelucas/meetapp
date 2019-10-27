@@ -63,7 +63,8 @@ module.exports = {
     return queryInterface.bulkInsert('meetups', meetups, {});
   },
 
-  down: queryInterface => {
+  down: async queryInterface => {
+    await queryInterface.bulkDelete('subscriptions', null, {});
     return queryInterface.bulkDelete('meetups', null, {});
   },
 };
