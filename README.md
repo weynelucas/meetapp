@@ -4,14 +4,14 @@ App agregador de eventos para desenvolvedores
 # Ambiente 
 A aplicação foi construída e testada com o seguinte ambiente
 
-- Versão do Node JS: 10.16.3
-- Banco de dados: PostgreSQL
-- Plataforma mobile: iOS
+- [Node.js](https://nodejs.org/en/) (10.16.3)
+- [PostgreSQL](https://www.postgresql.org)
+- [iOS](https://www.apple.com/br/ios/ios-13/) (13)
 
 # Instalação
 É altamente recomendado utilizar o [Yarn](https://yarnpkg.com/lang/en/) para a instalação das dependências de cada projeto (backend, frontend e mobile).
 
-Antes de qualquer configuração é necessário clonar este repositório em sua máquina local
+Antes de qualquer configuração é necessário clonar este repositório em sua máquina local:
 
 ```
 git clone https://github.com/weynelucas/meetapp.git
@@ -21,11 +21,11 @@ git clone https://github.com/weynelucas/meetapp.git
 ## Backend
 Para que o backend do Meetapp funcione devidamente, será necessário:
 
-- Um banco de dados [PostgreSQL](https://www.postgresql.org) (seja ele uma instância local, remota ou dentro de um container Docker)
+- Um banco de dados PostgreSQL (seja ele uma instância local, remota ou dentro de um container Docker)
 - Um sevidor SMTP (AWS, GoDaddy, Mailtrap, etc.)
 
 ### Instalando dependências
-Dentro do repositório, vá para o diretório `backend/` e instale as dependências do projeto
+Dentro do repositório, vá para o diretório `backend/` e instale as dependências do projeto:
 
 ```bash
 yarn
@@ -70,11 +70,11 @@ Com o banco de dados configurado e as dependências devidamente instaladas rode 
 yarn sequelize db:migrate
 ```
 
-Ao término do comando, todas as tabelas que serão utilizadas pela aplicação serão automaticamente criadas
+Ao término do comando, todas as tabelas que serão utilizadas pela aplicação serão automaticamente criadas.
 
 ### Seeder (opcional)
 
-Caso deseje que a aplicação suba já com um volume de dados significativo para testes, execute as seeders configuradas para o projeto com o comando
+Caso deseje que a aplicação suba já com um volume de dados significativo para testes, execute as seeders configuradas para o projeto com o comando:
 
 ```
 yarn sequelize db:seed:all
@@ -101,7 +101,7 @@ yarn dev
 
 ## Frontend
 ### Instalando dependências
-Dentro do repositório, vá para o diretório `frontend/` e instale as dependências do projeto
+Dentro do repositório, vá para o diretório `frontend/` e instale as dependências do projeto:
 
 ```bash
 yarn
@@ -111,12 +111,13 @@ yarn
 
 Para alterar a URL onde está rodando o backend, altere o valor da variável `REACT_APP_API_URL` dentro do arquivo `.env.development`
 
+#### Exemplo
+
 ```
 REACT_APP_API_URL=http://localhost:3333
 ```
 
 ### Iniciando servidor de desenvolvimento
-
 
 ```
 yarn start
