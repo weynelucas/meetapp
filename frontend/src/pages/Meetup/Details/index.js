@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdEdit, MdDeleteForever, MdEventNote, MdPlace } from 'react-icons/md';
 
+import { isAfter } from 'date-fns';
+import { parseISO } from 'date-fns/esm';
 import history from '~/services/history';
 import { deleteMeetupRequest } from '~/store/modules/meetups/actions';
 
@@ -28,15 +30,19 @@ export default function MeetupDetails() {
       <MeetupHeader>
         {meetup.title}
         <div>
-          <Button theme="info" onClick={handleEdit}>
-            <MdEdit size={20} />
-            Editar
-          </Button>
+          {isAfter(parseISO(meetup.date), new Date()) && (
+            <>
+              <Button theme="info" onClick={handleEdit}>
+                <MdEdit size={20} />
+                Editar
+              </Button>
 
-          <Button onClick={handleDelete}>
-            <MdDeleteForever size={20} />
-            Cancelar
-          </Button>
+              <Button onClick={handleDelete}>
+                <MdDeleteForever size={20} />
+                Cancelar
+              </Button>
+            </>
+          )}
         </div>
       </MeetupHeader>
 
