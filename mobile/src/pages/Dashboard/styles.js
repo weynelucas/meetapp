@@ -4,10 +4,6 @@ import { FlatList } from 'react-native-gesture-handler';
 import Button from '~/components/Button';
 import DPicker from '~/components/DatePicker';
 
-export const Container = styled.View`
-  flex: 1;
-`;
-
 export const DatePicker = styled(DPicker)`
   align-self: stretch;
   margin: 10px 0;

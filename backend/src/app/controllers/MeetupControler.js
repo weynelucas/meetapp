@@ -40,7 +40,7 @@ class MeetupController {
             attributes: ['id', 'name', 'path', 'url'],
           },
         ],
-        order: ['date'],
+        order: ['date', 'id'],
       },
       { page, pageSize: limit }
     );

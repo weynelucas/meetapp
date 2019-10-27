@@ -15,7 +15,7 @@ export default class File extends Model {
       },
       {
         sequelize,
-        tableName: 'file',
+        tableName: 'files',
       }
     );
 

@@ -1,20 +1,18 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('subscription', {
+    return queryInterface.createTable('files', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
       },
-      user_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'user', key: 'id' },
+      name: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      meetup_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'meetup', key: 'id' },
+      path: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {
@@ -29,6 +27,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('subscription');
+    return queryInterface.dropTable('files');
   },
 };

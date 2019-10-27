@@ -4,7 +4,11 @@ import { FlatList } from 'react-native-gesture-handler';
 import Button from '~/components/Button';
 
 export const List = styled(FlatList).attrs({
-  showScrollIndicator: false,
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
 })``;
 
 export const UnsubscribeButton = styled(Button).attrs({

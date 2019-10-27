@@ -9,10 +9,8 @@ import locale from 'date-fns/locale/pt-BR';
 import api from '~/services/api';
 
 import Meetup from '~/components/Meetup';
-import Background from '~/components/Background';
 
 import {
-  Container,
   DatePicker,
   List,
   SubscribeButton,
@@ -92,36 +90,33 @@ export default function Dashboard() {
   }
 
   return (
-    <Background>
-      <Container>
-        <DatePicker value={currentDate} onChangeDate={loadMeetups} />
-
-        {isFetchingMeetups && !isFetchingMore ? (
-          <Loading />
-        ) : (
-          <List
-            data={meetups}
-            keyExtractor={item => String(item.id)}
-            onEndReached={loadMore}
-            onEndReachedThreshold={0.3}
-            renderItem={({ item }) => (
-              <Meetup meetup={item}>
-                {canSubscribe(item) ? (
-                  <SubscribeButton
-                    loading={isSubscribing}
-                    onPress={() => handleSubscription(item.id)}>
-                    Realizar inscrição
-                  </SubscribeButton>
-                ) : (
-                  <></>
-                )}
-              </Meetup>
-            )}
-            ListFooterComponent={isFetchingMore && <LoadingMore />}
-          />
-        )}
-      </Container>
-    </Background>
+    <>
+      <DatePicker value={currentDate} onChangeDate={loadMeetups} />
+      {isFetchingMeetups && !isFetchingMore ? (
+        <Loading />
+      ) : (
+        <List
+          data={meetups}
+          keyExtractor={item => String(item.id)}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.3}
+          renderItem={({ item }) => (
+            <Meetup meetup={item}>
+              {canSubscribe(item) ? (
+                <SubscribeButton
+                  loading={isSubscribing}
+                  onPress={() => handleSubscription(item.id)}>
+                  Realizar inscrição
+                </SubscribeButton>
+              ) : (
+                <></>
+              )}
+            </Meetup>
+          )}
+          ListFooterComponent={isFetchingMore && <LoadingMore />}
+        />
+      )}
+    </>
   );
 }
 

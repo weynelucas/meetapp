@@ -6,7 +6,7 @@ export default class Subscription extends Model {
       {},
       {
         sequelize,
-        tableName: 'subscription',
+        tableName: 'subscriptions',
       }
     );
 

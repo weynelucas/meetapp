@@ -18,7 +18,7 @@ export default class Meetup extends Model {
       },
       {
         sequelize,
-        tableName: 'meetup',
+        tableName: 'meetups',
       }
     );
 
