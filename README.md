@@ -136,7 +136,7 @@ Dentro do repositório, vá para o diretório `frontend/` e instale as dependên
 yarn
 ```
 
-### Inicie a aplicação
+### Instalando o app e iniciando o Metro Bundler
 
 Com o Xcode e as dependências do projeto instaladas, basta executar o seguinte comando no diretório `mobile/` rodar o React Native no simulador de iOS:
 
